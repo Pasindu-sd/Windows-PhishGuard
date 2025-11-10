@@ -2,7 +2,8 @@
 that help to detect email phishing and url phishing
 
 ### Structure:
-phishguard/
+```
+  phishguard/
 ├─ detectors/
 │  ├─ __init__.py
 │  ├─ email_detector.py    
@@ -16,3 +17,4 @@ phishguard/
 ├─ main.py                # CLI & glue
 ├─ requirements.txt
 └─ README.md
+```
