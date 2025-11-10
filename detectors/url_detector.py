@@ -1,182 +1,115 @@
-# detectors/url_detector.py
-"""
-Simple URL phishing heuristics module.
-Provides:
- - analyze_url(url: str) -> dict
- - simple_check_cli() : small CLI to test quickly
-"""
 import re
 import socket
 import ssl
-from datetime import datetime, timezone
+import datetime
 import requests
-from typing import List, Dict, Optional
+import argparse
+from datetime import datetime, timezone
 
-URL_REGEX = re.compile(r'https?://[^\s\'"<>]+', re.IGNORECASE)
-FAKE_BRANDS = ['paypal', 'facebook', 'google', 'microsoft', 'bank', 'apple', 'amazon']
-SUSPICIOUS_TLDS = ['.tk', '.ml', '.ga', '.cf', '.gq']  # example list
-
-def get_domain(url: str) -> str:
-    if not url:
-        return ""
-    u = url.lower().strip()
-    u = re.sub(r"^https?://", "", u)
-    domain = u.split('/')[0].split(':')[0]
+def get_domain(url):
+    url = url.lower().strip()
+    url = re.sub(r"^https?://", "", url)
+    domain = url.split('/')[0].split(':')[0]
     return domain
 
-def has_ssl_cert(domain: str, timeout: int = 5) -> Optional[str]:
-    """Return certificate notAfter string if available, else None"""
-    if not domain:
-        return None
+def has_ssl_cert(domain, timeout=5):
+    """Try to fetch SSL certificate from port 443.
+       Returns certificate 'notAfter' string if found, else None."""
     try:
         ctx = ssl.create_default_context()
         with ctx.wrap_socket(socket.socket(), server_hostname=domain) as s:
             s.settimeout(timeout)
             s.connect((domain, 443))
             cert = s.getpeercert()
-        return cert.get("notAfter")
+        not_after = cert.get("notAfter")
+        if not_after:
+            return not_after
     except Exception:
         return None
 
-def extract_urls(text: str) -> List[str]:
-    if not text:
-        return []
-    return URL_REGEX.findall(text)
+def simple_check(url):
+    print(f"Analyzing: {url}")
+    issues = []
 
-def analyze_url(url: str) -> Dict:
-    """
-    Analyze a single URL and return structured dict:
-    {
-      "url": str,
-      "domain": str,
-      "score": 0.0-1.0,
-      "flags": [...],
-      "explain": "human readable",
-      "evidence": {...}
-    }
-    """
-    flags: List[str] = []
-    evidence: Dict = {"resolved_ip": None, "cert_notAfter": None}
-    score = 0.0
-
-    if not url:
-        return {"url": url, "domain": "", "score": 0.0, "flags": ["invalid_url"], "explain": "Empty URL", "evidence": evidence}
-
-    # basic heuristics
+    # basic pattern checks
     if len(url) > 75:
-        flags.append("url_too_long")
-        score += 0.1
+        issues.append("URL too long")
     if url.count('-') > 3:
-        flags.append("many_hyphens")
-        score += 0.05
+        issues.append("Many hyphens")
     if re.search(r"\d+\.\d+\.\d+\.\d+", url):
-        flags.append("contains_ip")
-        score += 0.1
-    # fake brand + hyphen pattern
-    for b in FAKE_BRANDS:
+        issues.append("Contains raw IP address")
+    fake_brands = ['paypal', 'facebook', 'google', 'microsoft', 'bank', 'apple', 'amazon']
+    for b in fake_brands:
         if b in url.lower() and '-' in url:
-            flags.append(f"suspicious_brand_pattern:{b}")
-            score += 0.1
+            issues.append(f"Suspicious brand pattern: {b}")
 
-    # suspicious tld in url
-    for tld in SUSPICIOUS_TLDS:
-        if tld in url.lower():
-            flags.append(f"suspicious_tld:{tld}")
-            score += 0.08
-
+    # domain + DNS
     domain = get_domain(url)
-    # DNS resolution
+    print(f"Extracted Domain: {domain}")
+    
     try:
-        ip = socket.gethostbyname(domain) if domain else None
-        evidence["resolved_ip"] = ip
-        if ip and (ip.startswith("10.") or ip.startswith("172.") or ip.startswith("192.168.")):
-            flags.append("resolves_to_private_ip")
-            score += 0.2
+        ip = socket.gethostbyname(domain)
+        print("Resolved IP:", ip)
+        if ip.startswith(("10.","172.","192.168.")):
+            issues.append("Resolves to private IP")
     except socket.gaierror:
-        flags.append("dns_resolution_failed")
-        score += 0.2
+        issues.append("DNS resolution failed (invalid or dead domain)")
     except Exception as e:
-        flags.append(f"dns_error:{str(e)}")
+        issues.append(f"DNS error: {e}")
 
-    # SSL certificate
-    cert_expiry = None
+    # SSL check
+    cert_expiry = has_ssl_cert(domain)
+    if cert_expiry:
+        print("SSL certificate found")
+        print("   Expires on:", cert_expiry)
+        try:
+            expiry_dt = datetime.strptime(cert_expiry, "%b %d %H:%M:%S %Y %Z").replace(tzinfo=timezone.utc)
+            days_left = (expiry_dt - datetime.now(timezone.utc)).days
+            if days_left < 0:
+                issues.append("SSL certificate expired")
+            elif days_left < 30:
+                issues.append("SSL certificate expires soon (<30 days)")
+        except Exception:
+            pass
+    else:
+        issues.append("No SSL certificate or failed to fetch it")
+    
+    #HTTP response check
     try:
-        cert_expiry = has_ssl_cert(domain)
-        evidence["cert_notAfter"] = cert_expiry
-        if cert_expiry:
-            # try parse e.g. "Jun  1 12:00:00 2025 GMT"
-            try:
-                expiry_dt = datetime.strptime(cert_expiry, "%b %d %H:%M:%S %Y %Z").replace(tzinfo=timezone.utc)
-                days_left = (expiry_dt - datetime.now(timezone.utc)).days
-                if days_left < 0:
-                    flags.append("ssl_expired")
-                    score += 0.2
-                elif days_left < 30:
-                    flags.append("ssl_expires_soon")
-                    score += 0.1
-            except Exception:
-                # if parse fails, do not crash; keep cert string for evidence
-                pass
-        else:
-            flags.append("no_ssl_or_fetch_failed")
-            score += 0.15
-    except Exception:
-        flags.append("ssl_check_error")
-
-    # HTTP HEAD check (status + redirect)
-    try:
-        r = requests.head(url, timeout=6, allow_redirects=True)
+        r = requests.head(url, timeout=5, allow_redirects=True)
         if r.status_code >= 400:
-            flags.append(f"http_error_status:{r.status_code}")
-            score += 0.1
-        # suspicious redirect URL detection
-        final_url = r.url.lower() if r.url else ""
-        if 'login' in final_url or 'verify' in final_url:
-            flags.append("redirects_to_login_or_verify")
-            score += 0.15
-        evidence["final_url"] = final_url
-        evidence["http_status"] = r.status_code
+            issues.append(f"HTTP returned error status: {r.status_code}")
+        elif 'login' in r.url or 'verify' in r.url:
+            issues.append("Redirects to suspicious login/verify page")
     except requests.exceptions.SSLError:
-        flags.append("requests_ssl_error")
-        score += 0.1
+        issues.append("SSL/TLS error while connecting")
     except requests.exceptions.RequestException:
-        flags.append("http_request_failed")
-        score += 0.1
+        issues.append("Could not connect to website")
+        
+    # Final report
+    if issues:
+        print("\nPossible Problems Found:")
+        for it in issues:
+            print(" -", it)
+    else:
+        print("\nNo suspicious signs detected (basic checks only)")
 
-    # cap score
-    score = min(1.0, score)
+    return issues
 
-    explain = " | ".join(flags) if flags else "No obvious heuristic flags found."
 
-    return {
-        "url": url,
-        "domain": domain,
-        "score": score,
-        "flags": flags,
-        "explain": explain,
-        "evidence": evidence
-    }
+def main():
+    parser = argparse.ArgumentParser(description="Simple URL Phishing Detector by Pasindu")
+    parser.add_argument("url", nargs="?", help="Enter a URL to analyze (e.g., https://example.com)")
+    args = parser.parse_args()
 
-# small CLI for manual testing
-def simple_check_cli():
-    try:
-        import argparse
-        parser = argparse.ArgumentParser(description="Simple URL Phishing Detector (CLI)")
-        parser.add_argument("url", nargs="?", help="URL to analyze")
-        args = parser.parse_args()
-        if args.url:
-            u = args.url
-        else:
-            u = input("Enter URL: ").strip()
-        res = analyze_url(u)
-        print("\n=== Analysis ===")
-        print("URL:", res["url"])
-        print("Domain:", res["domain"])
-        print("Score:", res["score"])
-        print("Flags:", res["flags"])
-        print("Evidence:", res["evidence"])
-    except KeyboardInterrupt:
-        print("\nStopped by user.")
+    # Allow both input() and CLI argument
+    if not args.url:
+        url = input("Enter URL: ").strip()
+    else:
+        url = args.url.strip()
+
+    simple_check(url)
+
 
 if __name__ == "__main__":
-    simple_check_cli()
+    main()
