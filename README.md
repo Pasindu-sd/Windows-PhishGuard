@@ -1,5 +1,5 @@
 # Windows-PhishGuard
-that help to detect email phishing and url phishing
+that help to detect email phishing and URL phishing
 
 ### Structure:
 ```
@@ -20,3 +20,4 @@ that help to detect email phishing and url phishing
 ```
 
 ---
+
