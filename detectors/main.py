@@ -46,3 +46,5 @@ class SecurityApp:
       
       self.result_label = tk.Label(parent, text="", fg="blue")
       self.result_label.pack(pady=10)
+      
+   def 
