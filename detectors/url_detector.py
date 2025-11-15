@@ -30,11 +30,11 @@ def check_url(url):
         score += 2
     
     if score == 0:
-        return "safe email"
+        return "safe URL"
     elif score <= 2:
-        return "A suspicious email"
+        return "A suspicious URL"
     else:
-        return "A dangerous email!"
+        return "A dangerous URL!"
 
 def get_domain(url):
     url = url.lower().strip()
