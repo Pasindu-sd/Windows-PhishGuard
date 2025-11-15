@@ -24,7 +24,7 @@ class SecurityApp:
       notebook.add(tab2, text="Check URL")
       notebook.pack(expad=True, fill='both')
       
-   def create_url_tab(self, parent):
+   def create_email_tab(self, parent):
       label = tk.Label(parent, text="Enter email description")
       label.pack(pady=10)
       
@@ -33,3 +33,5 @@ class SecurityApp:
       
       check_btn = tk.Button(parent, text="Do Check", command=self.check_email)
       check_btn.pack(pady=10)
+      
+   def create_url_tab(self, parent):
