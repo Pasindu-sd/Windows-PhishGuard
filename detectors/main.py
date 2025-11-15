@@ -35,3 +35,14 @@ class SecurityApp:
       check_btn.pack(pady=10)
       
    def create_url_tab(self, parent):
+      label = tk.Label(parent, text="Enter URL description")
+      label.pack(pady=10)
+      
+      self.url_entry = tk.Entry(parent, width=50)
+      self.url_entry.pack(pady=10)
+      
+      check_btn = tk.Button(parent, text="Check URl", command=self.check_url)
+      check_btn.pack(pack=10)
+      
+      self.result_label = tk.Label(parent, text="", fg="blue")
+      self.result_label.pack(pady=10)
