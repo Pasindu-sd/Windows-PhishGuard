@@ -51,9 +51,17 @@ class SecurityApp:
       email_content = self.email_text.get("1.0", tk.END)
       if email_content.strip():
          result = email_detector.check_phishing(email_content)
-         messagebox.showarinfo("Result", result)
+         messagebox.showwarinfo("Result", result)
       else:
-         messagebox.showarning("Warning", "Please enter the email description")
+         messagebox.showwarning("Warning", "Please enter the email description")
          
+   def check_url(self):
+      url = self.url.entry.get()
+      if url:
+         result = url_detector.check_url(url)
+         self.result_lebel.config(text=result)
+      else:
+         messagebox.showwarning("Warning", "Please enter the URL")
+   
    
          
