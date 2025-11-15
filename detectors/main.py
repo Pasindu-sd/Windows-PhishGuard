@@ -47,4 +47,13 @@ class SecurityApp:
       self.result_label = tk.Label(parent, text="", fg="blue")
       self.result_label.pack(pady=10)
       
-   def 
+   def check_email(self):
+      email_content = self.email_text.get("1.0", tk.END)
+      if email_content.strip():
+         result = email_detector.check_phishing(email_content)
+         messagebox.showarinfo("Result", result)
+      else:
+         messagebox.showarning("Warning", "Please enter the email description")
+         
+   
+         
