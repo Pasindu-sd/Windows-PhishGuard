@@ -1,5 +1,30 @@
 import re
 
+def check_phishing(email_content):
+    suspicious_keywords = ['urgent', 'verify your account', 'password', 'bank', 'paypal', 'click here', 'limited time', 'winner', 'prize', 'account suspended']
+    
+    # Suspicious links check කිරීම
+    suspicious_links = re.findall(r'http[s]?://[^\s]+', email_content)
+    
+    score = 0
+    
+    # Keywords check කිරීම
+    for keyword in suspicious_keywords:
+        if keyword.lower() in email_content.lower():
+            score += 1
+    
+    # Links check කිරීම
+    if suspicious_links:
+        score += len(suspicious_links)
+    
+    # Result එක return කිරීම
+    if score == 0:
+        return "safe email"
+    elif score <= 2:
+        return "A suspicious email"
+    else:
+        return "A dangerous email!"
+
 def check_email(subject, message):
     try:
         print(f"\n Subject: {subject}")

@@ -6,6 +6,36 @@ import requests
 import argparse
 from datetime import datetime, timezone
 
+def check_url(url):
+    
+    # Suspicious patterns
+    suspicious_patterns = [
+        r'bit\.ly', r'tinyurl\.com', r'goo\.gl',  # Short URLs
+        r'login', r'verify', r'account',          # Suspicious words
+        r'\d+\.\d+\.\d+\.\d+',                    # IP addresses
+    ]
+    
+    score = 0
+    
+    for pattern in suspicious_patterns:
+        if re.search(pattern, url, re.IGNORECASE):
+            score += 1
+    
+    # URL length check (very long URLs are suspicious)
+    if len(url) > 75:
+        score += 1
+    
+    # @ symbol in URL (suspicious)
+    if '@' in url:
+        score += 2
+    
+    if score == 0:
+        return "safe email"
+    elif score <= 2:
+        return "A suspicious email"
+    else:
+        return "A dangerous email!"
+
 def get_domain(url):
     url = url.lower().strip()
     url = re.sub(r"^https?://", "", url)
