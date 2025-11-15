@@ -63,5 +63,9 @@ class SecurityApp:
       else:
          messagebox.showwarning("Warning", "Please enter the URL")
    
+   def run(self):
+      self.window.mainloop()
    
-         
+if __name__ == "__main__":
+   app = securityApp()
+   app.run()
