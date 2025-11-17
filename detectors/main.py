@@ -16,19 +16,21 @@ class SecurityApp:
         self.window.geometry("700x600")
         self.window.configure(bg='#f0f0f0')
         
-        
         self.tray_icon = None
         self.is_minimized_to_tray = False
         
         self.create_tabs()
         self.create_system_tray()
         
-        
         self.window.protocol('WM_DELETE_WINDOW', self.minimize_to_tray)
         self.window.after(2000, self.show_protection_message)
     
+    
+    
     def show_protection_message(self):
         messagebox.showinfo("Protection Active", "Your computer is now protected!")
+     
+     
      
     def create_system_tray(self):
         """System Tray Icon එක create කිරීම"""
@@ -48,6 +50,8 @@ class SecurityApp:
         except Exception as e:
             print(f"System tray creation error: {e}")
     
+    
+    
     def minimize_to_tray(self):
         
         if self.tray_icon:
@@ -60,10 +64,14 @@ class SecurityApp:
         else:
             self.window.destroy()
     
+    
+    
     def restore_from_tray(self, icon=None, item=None):
         
         if self.is_minimized_to_tray:
             self.window.after(0, self.show_window)
+    
+    
     
     def show_window(self):
         
@@ -76,9 +84,13 @@ class SecurityApp:
         if self.tray_icon:
             self.tray_icon.stop()
     
+    
+    
     def show_status(self, icon=None, item=None):
         
         messagebox.showinfo("Status", "Windows PhishGuard is active!\nStay safe!")
+    
+    
     
     def quit_application(self, icon=None, item=None):
         
@@ -86,6 +98,8 @@ class SecurityApp:
             self.tray_icon.stop()
         self.window.destroy()
         os._exit(0)
+    
+    
     
     def create_tabs(self):
         style = ttk.Style()
@@ -106,6 +120,8 @@ class SecurityApp:
         notebook.add(tab2, text="URL checking")
         notebook.add(tab3, text="Status")
         notebook.pack(expand=True, fill='both', padx=10, pady=10)
+    
+    
     
     def create_email_tab(self, parent):
         
@@ -129,6 +145,8 @@ class SecurityApp:
         
         self.email_result = tk.Label(parent, text="", font=("Arial", 12, "bold"), bg='#f0f0f0', wraplength=500)
         self.email_result.pack(pady=10)
+    
+    
     
     def create_url_tab(self, parent):
         title_label = tk.Label(parent, text="Check the URL", font=("Arial", 14, "bold"), fg="blue", bg='#f0f0f0')
@@ -155,6 +173,8 @@ class SecurityApp:
         
         self.url_result = tk.Label(parent, text="", font=("Arial", 12, "bold"), bg='#f0f0f0', wraplength=500)
         self.url_result.pack(pady=10)
+    
+    
     
     def create_status_tab(self, parent):
         """Status tab එක create කිරීම"""
@@ -211,16 +231,24 @@ class SecurityApp:
         stop_btn = tk.Button(btn_frame, text="Stop Protection",command=self.stop_protection,bg="red", fg="white", font=("Arial", 10),padx=15, pady=5)
         stop_btn.pack(side=tk.LEFT, padx=5)
     
+    
+    
     def quick_scan(self):
         messagebox.showinfo("Quick Scan", "Quick scan Started!\nNo threats found.")
+    
+    
     
     def clear_email(self):
         self.email_text.delete("1.0", tk.END)
         self.email_result.config(text="")
     
+    
+    
     def clear_url(self):
         self.url_entry.delete(0, tk.END)
         self.url_result.config(text="")
+    
+    
     
     def check_email(self):
         email_content = self.email_text.get("1.0", tk.END).strip()
@@ -241,6 +269,8 @@ class SecurityApp:
         else:
             messagebox.showwarning("Warning", "Please enter email content")
     
+    
+    
     def check_url(self):
         url = self.url_entry.get().strip()
         if url:
@@ -260,19 +290,27 @@ class SecurityApp:
         else:
             messagebox.showwarning("Warning", "Please enter the URL")
     
+    
+    
     def run(self):
         print("Windows PhishGuard started!")
         print("App minimized to system tray. Click the tray icon to restore.")
         
         self.window.mainloop()
+     
+     
         
     def start_protection(self):
         self.status_label.config(text="PROTECTION: ACTIVE", fg="green")
         messagebox.showinfo("Protection", "Protection started!")
 
+
+
     def stop_protection(self):
         self.status_label.config(text="PROTECTION: STOPPED", fg="red")
         messagebox.showwarning("Protection", "Protection stopped!")
+
+
 
 if __name__ == "__main__":
     app = SecurityApp()
