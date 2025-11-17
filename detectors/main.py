@@ -142,8 +142,7 @@ class SecurityApp:
         self.email_result.pack(pady=10)
     
     def create_url_tab(self, parent):
-        title_label = tk.Label(parent, text="Check the URL", 
-                              font=("Arial", 14, "bold"), fg="blue", bg='#f0f0f0')
+        title_label = tk.Label(parent, text="Check the URL", font=("Arial", 14, "bold"), fg="blue", bg='#f0f0f0')
         title_label.pack(pady=15)
         
         instr_label = tk.Label(parent, text="Enter the URL to check:",font=("Arial", 10), bg='#f0f0f0')
