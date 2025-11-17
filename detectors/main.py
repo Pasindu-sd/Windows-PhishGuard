@@ -180,23 +180,23 @@ class SecurityApp:
         title_label.pack(pady=15)
         
         status_text = """
-Windows PhishGuard Active
+                        Windows PhishGuard Active
 
-Features Available:
-• Email phishing detection
-• URL phishing detection  
-• Real-time protection
-• System tray integration
+                        Features Available:
+                        • Email phishing detection
+                        • URL phishing detection  
+                        • Real-time protection
+                        • System tray integration
 
-Security Status: ACTIVE
-Last Scan: Never
-Threats Blocked: 0
+                        Security Status: ACTIVE
+                        Last Scan: Never
+                        Threats Blocked: 0
 
-Tips:
-• If you receive a suspicious email, check here.
-• Check before opening an unknown URL.
-• Click the icon in the system tray for quick access.
-        """
+                        Tips:
+                        • If you receive a suspicious email, check here.
+                        • Check before opening an unknown URL.
+                        • Click the icon in the system tray for quick access.
+                     """
         
         status_label = tk.Label(parent, text=status_text, font=("Arial", 10), 
                                bg='#f0f0f0', justify=tk.LEFT)
@@ -216,6 +216,12 @@ Tips:
                             bg="red", fg="white", font=("Arial", 10),
                             padx=15, pady=5)
         quit_btn.pack(side=tk.LEFT, padx=5)
+        
+        quick_scan_btn = tk.Button(parent, text="Quick Scan", 
+                              command=self.quick_scan,
+                              bg="blue", fg="white", font=("Arial", 12),
+                              padx=20, pady=10)
+        quick_scan_btn.pack(pady=10)
     
     def clear_email(self):
         self.email_text.delete("1.0", tk.END)
