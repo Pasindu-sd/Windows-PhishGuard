@@ -195,9 +195,14 @@ class SecurityApp:
                         • Click the icon in the system tray for quick access.
                      """
         
-        status_label = tk.Label(parent, text=status_text, font=("Arial", 10), 
-                               bg='#f0f0f0', justify=tk.LEFT)
+        status_label = tk.Label(parent, text=status_text, font=("Arial", 10), bg='#f0f0f0', justify=tk.LEFT)
         status_label.pack(pady=10)
+        
+        status_frame = tk.Frame(parent, bg='#f0f0f0')
+        status_frame.pack(pady=10)
+        
+        self.status_label = tk.Label(status_frame, text="PROTECTION: ACTIVE", font=("Arial", 14, "bold"), fg="green", bg='#f0f0f0')
+        self.status_label.pack()
         
         tray_frame = tk.Frame(parent, bg='#f0f0f0')
         tray_frame.pack(pady=20)
@@ -211,7 +216,14 @@ class SecurityApp:
         quick_scan_btn = tk.Button(parent, text="Quick Scan", command=self.quick_scan, bg="blue", fg="white", font=("Arial", 12), padx=20, pady=10)
         quick_scan_btn.pack(pady=10)
         
+        btn_frame = tk.Frame(parent, bg='#f0f0f0')
+        btn_frame.pack(pady=10)
         
+        start_btn = tk.Button(btn_frame, text="Start Protection", command=self.start_protection,bg="green", fg="white", font=("Arial", 10),padx=15, pady=5)
+        start_btn.pack(side=tk.LEFT, padx=5)
+        
+        stop_btn = tk.Button(btn_frame, text="Stop Protection",command=self.stop_protection,bg="red", fg="white", font=("Arial", 10),padx=15, pady=5)
+        stop_btn.pack(side=tk.LEFT, padx=5)
     
     def quick_scan(self):
         messagebox.showinfo("Quick Scan", "Quick scan Started!\nNo threats found.")
@@ -267,7 +279,8 @@ class SecurityApp:
         print("App minimized to system tray. Click the tray icon to restore.")
         
         self.window.mainloop()
-
+        
+   
 if __name__ == "__main__":
     app = SecurityApp()
     app.run()
