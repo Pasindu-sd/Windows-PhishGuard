@@ -137,8 +137,7 @@ class SecurityApp:
                              padx=20, pady=5)
         clear_btn.pack(side=tk.LEFT, padx=5)
         
-        self.email_result = tk.Label(parent, text="", font=("Arial", 12, "bold"), 
-                                    bg='#f0f0f0', wraplength=500)
+        self.email_result = tk.Label(parent, text="", font=("Arial", 12, "bold"), bg='#f0f0f0', wraplength=500)
         self.email_result.pack(pady=10)
     
     def create_url_tab(self, parent):
