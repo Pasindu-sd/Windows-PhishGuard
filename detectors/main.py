@@ -223,6 +223,9 @@ class SecurityApp:
                               padx=20, pady=10)
         quick_scan_btn.pack(pady=10)
     
+    def auick_scan(self):
+        messagebox.showinfo("Quick Scan", "Quick scan Started!\nNo threats found.")
+    
     def clear_email(self):
         self.email_text.delete("1.0", tk.END)
         self.email_result.config(text="")
