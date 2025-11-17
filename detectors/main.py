@@ -161,20 +161,13 @@ class SecurityApp:
         button_frame = tk.Frame(parent, bg='#f0f0f0')
         button_frame.pack(pady=10)
         
-        check_btn = tk.Button(button_frame, text="Check the URL", 
-                             command=self.check_url,
-                             bg="green", fg="white", font=("Arial", 12, "bold"),
-                             padx=20, pady=5)
+        check_btn = tk.Button(button_frame, text="Check the URL", command=self.check_url,bg="green", fg="white", font=("Arial", 12, "bold"),padx=20, pady=5)
         check_btn.pack(side=tk.LEFT, padx=5)
         
-        clear_btn = tk.Button(button_frame, text="🧹 Clear", 
-                             command=self.clear_url,
-                             bg="orange", fg="white", font=("Arial", 12),
-                             padx=20, pady=5)
+        clear_btn = tk.Button(button_frame, text="Clear", command=self.clear_url,bg="orange", fg="white", font=("Arial", 12),padx=20, pady=5)
         clear_btn.pack(side=tk.LEFT, padx=5)
         
-        self.url_result = tk.Label(parent, text="", font=("Arial", 12, "bold"), 
-                                  bg='#f0f0f0', wraplength=500)
+        self.url_result = tk.Label(parent, text="", font=("Arial", 12, "bold"), bg='#f0f0f0', wraplength=500)
         self.url_result.pack(pady=10)
     
     def create_status_tab(self, parent):
@@ -209,23 +202,16 @@ class SecurityApp:
         tray_frame = tk.Frame(parent, bg='#f0f0f0')
         tray_frame.pack(pady=20)
         
-        minimize_btn = tk.Button(tray_frame, text="Minimize to tray", 
-                                command=self.minimize_to_tray,
-                                bg="blue", fg="white", font=("Arial", 10),
-                                padx=15, pady=5)
+        minimize_btn = tk.Button(tray_frame, text="Minimize to tray", command=self.minimize_to_tray, bg="blue", fg="white", font=("Arial", 10), padx=15, pady=5)
         minimize_btn.pack(side=tk.LEFT, padx=5)
         
-        quit_btn = tk.Button(tray_frame, text="get out", 
-                            command=self.quit_application,
-                            bg="red", fg="white", font=("Arial", 10),
-                            padx=15, pady=5)
+        quit_btn = tk.Button(tray_frame, text="get out", command=self.quit_application, bg="red", fg="white", font=("Arial", 10), padx=15, pady=5)
         quit_btn.pack(side=tk.LEFT, padx=5)
         
-        quick_scan_btn = tk.Button(parent, text="Quick Scan", 
-                              command=self.quick_scan,
-                              bg="blue", fg="white", font=("Arial", 12),
-                              padx=20, pady=10)
+        quick_scan_btn = tk.Button(parent, text="Quick Scan", command=self.quick_scan, bg="blue", fg="white", font=("Arial", 12), padx=20, pady=10)
         quick_scan_btn.pack(pady=10)
+        
+        
     
     def quick_scan(self):
         messagebox.showinfo("Quick Scan", "Quick scan Started!\nNo threats found.")
