@@ -125,10 +125,7 @@ class SecurityApp:
         button_frame = tk.Frame(parent, bg='#f0f0f0')
         button_frame.pack(pady=10)
         
-        check_btn = tk.Button(button_frame, text="check", 
-                             command=self.check_email,
-                             bg="green", fg="white", font=("Arial", 12, "bold"),
-                             padx=20, pady=5)
+        check_btn = tk.Button(button_frame, text="check", command=self.check_email,bg="green", fg="white", font=("Arial", 12, "bold"),padx=20, pady=5)
         check_btn.pack(side=tk.LEFT, padx=5)
         
         clear_btn = tk.Button(button_frame, text="Clear", command=self.clear_email,bg="orange", fg="white", font=("Arial", 12),padx=20, pady=5)
