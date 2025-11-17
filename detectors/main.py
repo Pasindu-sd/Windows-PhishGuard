@@ -25,7 +25,11 @@ class SecurityApp:
         
         
         self.window.protocol('WM_DELETE_WINDOW', self.minimize_to_tray)
-        
+        self.window.after(2000, self.show_protection_message)
+    
+    def show_protection_message(self):
+        messagebox.showinfo("Protection Active", "Your computer is now protected!")
+     
     def create_system_tray(self):
         """System Tray Icon එක create කිරීම"""
         try:
