@@ -113,9 +113,7 @@ class SecurityApp:
                               font=("Arial", 14, "bold"), fg="blue", bg='#f0f0f0')
         title_label.pack(pady=15)
         
-        instr_label = tk.Label(parent, 
-                              text="Copy the contents of the suspicious email and paste it into the box below:",
-                              font=("Arial", 10), bg='#f0f0f0', wraplength=500)
+        instr_label = tk.Label(parent, text="Copy the contents of the suspicious email and paste it into the box below:",font=("Arial", 10), bg='#f0f0f0', wraplength=500)
         instr_label.pack(pady=10)
         
         self.email_text = scrolledtext.ScrolledText(parent, height=15, width=80, font=("Arial", 10), bg='white')
