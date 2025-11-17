@@ -280,7 +280,14 @@ class SecurityApp:
         
         self.window.mainloop()
         
-   
+    def start_protection(self):
+        self.status_label.config(text="PROTECTION: ACTIVE", fg="green")
+        messagebox.showinfo("Protection", "Protection started!")
+
+    def stop_protection(self):
+        self.status_label.config(text="PROTECTION: STOPPED", fg="red")
+        messagebox.showwarning("Protection", "Protection stopped!")
+
 if __name__ == "__main__":
     app = SecurityApp()
     app.run()
