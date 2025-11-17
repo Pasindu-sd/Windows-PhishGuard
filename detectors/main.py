@@ -146,9 +146,7 @@ class SecurityApp:
                               font=("Arial", 14, "bold"), fg="blue", bg='#f0f0f0')
         title_label.pack(pady=15)
         
-        instr_label = tk.Label(parent, 
-                              text="Enter the URL to check:",
-                              font=("Arial", 10), bg='#f0f0f0')
+        instr_label = tk.Label(parent, text="Enter the URL to check:",font=("Arial", 10), bg='#f0f0f0')
         instr_label.pack(pady=10)
         
         entry_frame = tk.Frame(parent, bg='#f0f0f0')
