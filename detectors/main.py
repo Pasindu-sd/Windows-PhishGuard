@@ -109,8 +109,7 @@ class SecurityApp:
     
     def create_email_tab(self, parent):
         
-        title_label = tk.Label(parent, text="Check the email content", 
-                              font=("Arial", 14, "bold"), fg="blue", bg='#f0f0f0')
+        title_label = tk.Label(parent, text="Check the email content", font=("Arial", 14, "bold"), fg="blue", bg='#f0f0f0')
         title_label.pack(pady=15)
         
         instr_label = tk.Label(parent, text="Copy the contents of the suspicious email and paste it into the box below:",font=("Arial", 10), bg='#f0f0f0', wraplength=500)
