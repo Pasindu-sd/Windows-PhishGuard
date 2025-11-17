@@ -118,8 +118,7 @@ class SecurityApp:
                               font=("Arial", 10), bg='#f0f0f0', wraplength=500)
         instr_label.pack(pady=10)
         
-        self.email_text = scrolledtext.ScrolledText(parent, height=15, width=80, 
-                                                   font=("Arial", 10), bg='white')
+        self.email_text = scrolledtext.ScrolledText(parent, height=15, width=80, font=("Arial", 10), bg='white')
         self.email_text.pack(pady=10, padx=20, fill='both')
         
         button_frame = tk.Frame(parent, bg='#f0f0f0')
