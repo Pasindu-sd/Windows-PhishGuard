@@ -55,7 +55,19 @@ class SecurityApp:
         self.window.after(24 * 60 * 60 * 1000, self.check_for_updates)
     
     
-     
+    def show_update_notification(self, new_vesion):
+        if not self.is_minimized_to_tray:
+            response = messagebox-askyesno("New Update Available", f"New Version {new_version} available!\nDo you want to update now?")
+            if response:
+                self.download_update()
+                
+        else:
+            if self.tray_icon:
+                self.tray_icon.notify(f"New version {new_version} available!", "Click to update")
+    
+    
+    def download_update(self):
+         
     
     
     def show_protection_message(self):
