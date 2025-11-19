@@ -46,6 +46,11 @@ class SecurityApp:
                     self.show_update_notification(latest_version)
                 else:
                     print("Tool are up-to-date")
+            
+            self.last_update_check = datetime.now()
+        
+        except requests.RequestException:
+            print("Unable to check for updates due to lack of internet connection.")    
     
     
     def show_protection_message(self):
