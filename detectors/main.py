@@ -33,7 +33,6 @@ class SecurityApp:
      
      
     def create_system_tray(self):
-        """System Tray Icon එක create කිරීම"""
         try:
             
             image = PIL.Image.new('RGB', (64, 64), color='green')
