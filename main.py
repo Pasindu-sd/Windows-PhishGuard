@@ -203,8 +203,7 @@ class SecurityApp:
         notebook.add(tab2, text="URL checking")
         notebook.add(tab3, text="Status")
         notebook.add(tab4, text="Settings")
-        notebook.pack(expand=True, fill='both', padx=10, pady=10)
-    
+        notebook.pack(expand=True, fill='both')
     
     
     def create_email_tab(self, parent):
@@ -322,17 +321,17 @@ class SecurityApp:
         quit_btn = tk.Button(tray_frame, text="get out", command=self.quit_application, bg="red", fg="white", font=("Arial", 10), padx=10, pady=5)
         quit_btn.pack(side=tk.LEFT, padx=5)
         
-        quick_scan_btn = tk.Button(parent, text="Quick Scan", command=self.quick_scan, bg="blue", fg="white", font=("Arial", 12), width=15, height=2)
-        quick_scan_btn.pack(padx=10)
+        quick_scan_btn = tk.Button(parent, text="Quick Scan", command=self.quick_scan, bg="blue", fg="white", font=("Arial", 12),padx=10, pady=10)
+        quick_scan_btn.pack(padx=20)
         
         btn_frame = tk.Frame(parent, bg='#f0f0f0')
         btn_frame.pack(pady=10)
         
         start_btn = tk.Button(btn_frame, text="Start Protection", command=self.start_protection,bg="green", fg="white", font=("Arial", 10),padx=15, pady=5)
-        start_btn.pack(side=tk.LEFT, padx=5)
+        start_btn.pack(side=tk.LEFT, padx=5, fill='x', expand=True)
         
         stop_btn = tk.Button(btn_frame, text="Stop Protection",command=self.stop_protection,bg="red", fg="white", font=("Arial", 10),padx=15, pady=5)
-        stop_btn.pack(side=tk.LEFT, padx=5)
+        stop_btn.pack(side=tk.LEFT, padx=5, fill='x', expand=True)
     
     
     def quick_scan(self):
