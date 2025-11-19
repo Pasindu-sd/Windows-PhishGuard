@@ -256,7 +256,10 @@ class SecurityApp:
                               font=("Arial", 14, "bold"), fg="green", bg='#f0f0f0')
         title_label.pack(pady=15)
         
-        status_text = """
+        update_status = "Available" if self.update_available else "Up to date"
+        update_color = "orange" if self.update_available else "green"
+        
+        status_text = f"""
                         Windows PhishGuard Active
 
                         Features Available:
@@ -266,13 +269,15 @@ class SecurityApp:
                         • System tray integration
 
                         Security Status: ACTIVE
-                        Last Scan: Never
+                        Update Status: {update_status}
+                        Last Update Check: {self.last_update_check or "Never"}
                         Threats Blocked: 0
 
                         Tips:
                         • If you receive a suspicious email, check here.
                         • Check before opening an unknown URL.
                         • Click the icon in the system tray for quick access.
+                        • Keep automatic updates enabled for best protection.
                      """
         
         status_label = tk.Label(parent, text=status_text, font=("Arial", 10), bg='#f0f0f0', justify=tk.LEFT)
@@ -283,6 +288,33 @@ class SecurityApp:
         
         self.status_label = tk.Label(status_frame, text="PROTECTION: ACTIVE", font=("Arial", 14, "bold"), fg="green", bg='#f0f0f0')
         self.status_label.pack()
+        
+        # ✅ NEW - Update status label
+        self.update_status_label = tk.Label(status_frame, text=f"UPDATES: {update_status}", 
+                                          font=("Arial", 12, "bold"), fg=update_color, bg='#f0f0f0')
+        self.update_status_label.pack(pady=5)
+        
+        tray_frame = tk.Frame(parent, bg='#f0f0f0')
+        tray_frame.pack(pady=20)
+        
+        # ✅ NEW - Check updates button
+        update_btn = tk.Button(tray_frame, text="Check Updates", 
+                              command=self.manual_update_check,
+                              bg="purple", fg="white", font=("Arial", 10), 
+                              padx=15, pady=5)
+        update_btn.pack(side=tk.LEFT, padx=5)
+        
+        minimize_btn = tk.Button(tray_frame, text="Minimize to tray", 
+                                command=self.minimize_to_tray, 
+                                bg="blue", fg="white", font=("Arial", 10), 
+                                padx=15, pady=5)
+        minimize_btn.pack(side=tk.LEFT, padx=5)
+        
+        quit_btn = tk.Button(tray_frame, text="get out", 
+                            command=self.quit_application, 
+                            bg="red", fg="white", font=("Arial", 10), 
+                            padx=15, pady=5)
+        quit_btn.pack(side=tk.LEFT, padx=5)
         
         tray_frame = tk.Frame(parent, bg='#f0f0f0')
         tray_frame.pack(pady=20)
