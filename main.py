@@ -89,7 +89,7 @@ class SecurityApp:
     
     def update_phishing_rules(self):
         try:
-            rules_url = "https://raw.githubusercontent.com/Pasindu-sd/PhishGuard/main/phishing_rules.json"
+            rules_url = "https://github.com/Pasindu-sd/Windows-PhishGuard/blob/main/phishing_rules.json"
             response = requests.get(rules_url, timeout=10)
 
             if response.status_code == 200:

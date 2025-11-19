@@ -1,22 +1,17 @@
 {
-  "email_keywords": [
-    "urgent",
-    "verify your account",
-    "password expired",
-    "suspended",
-    "security alert",
-    "click here",
-    "login now"
-  ],
-  "url_patterns": [
-    "bit.ly",
-    "tinyurl",
-    "login.",
-    "verify.",
-    "account.",
-    "paypal",
-    "bank",
-    "secure.",
-    "update."
-  ]
+    "email_keywords": [
+        "urgent", "verify your account", "password expired", 
+        "suspended", "security alert", "click here", "login now",
+        "immediately", "account verification", "unauthorized login",
+        "confirm your identity", "action required", "verify now",
+        "account suspended", "limited time", "exclusive offer",
+        "free gift", "winner", "prize", "lottery"
+    ],
+    "url_patterns": [
+        "bit.ly", "tinyurl.com", "goo.gl", "t.co", "ow.ly",
+        "login.", "verify.", "account.", "secure.", "update.",
+        "password-reset", "confirm-identity", "urgent-alert",
+        "paypal", "bank", "amazon", "microsoft", "apple",
+        "facebook", "instagram", "whatsapp", "netflix"
+    ]
 }
