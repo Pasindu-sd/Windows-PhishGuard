@@ -86,6 +86,25 @@ class SecurityApp:
             messagebox.showerror("Error", f"Update failed {str(e)}")
     
     
+    def update_phishing_rules(self):
+        try:
+            rules_url = "https://raw.githubusercontent.com/Pasindu-sd/PhishGuard/main/phishing_rules.json"
+            response = requests.get(rules_url, timeout=10)
+
+            if response.status_code == 200:
+                new_rules = response.json()
+                
+                if 'email_keywords' in new_rules:
+                    email_detector.suspicious_keywords = new_rules['email_keywords']
+                 
+                if 'url_patterns' in new_rules:
+                    url_detector.suspicious_patterns = new_rules['url_patterns']
+                
+                print("Phishing rules successfully updated")
+                
+        except Exception as e:
+            print(f"Rules update failed: {e}")
+    
     def show_protection_message(self):
         messagebox.showinfo("Protection Active", "Your computer is now protected!")
      
