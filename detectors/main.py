@@ -386,6 +386,16 @@ class SecurityApp:
             messagebox.showwarning("Warning", "Please enter the URL")
     
     
+    def manual_update_check(self):
+        messagebox.showinfo("Update Check", "Checking for updates...")
+        self.check_for_updates()
+        
+        if self.update_available:
+            self.update_status_label.config(text="UPDATES: Available", fg="orange")
+        else:
+            self.update_status_label.config(text="UPDATES: Up to date", fg="green")
+            messagebox.showinfo("Update", "Your tool is up to date!")
+    
     
     def run(self):
         print("Windows PhishGuard started!")
