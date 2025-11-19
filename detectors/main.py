@@ -8,6 +8,10 @@ import PIL.Image
 import threading
 import os
 import sys
+import requests 
+import json     
+import time     
+from datetime import datetime 
 
 class SecurityApp:
     def __init__(self):
@@ -18,12 +22,15 @@ class SecurityApp:
         
         self.tray_icon = None
         self.is_minimized_to_tray = False
+        self.last_update_check = None
+        self.update_available = False
         
         self.create_tabs()
         self.create_system_tray()
         
         self.window.protocol('WM_DELETE_WINDOW', self.minimize_to_tray)
         self.window.after(2000, self.show_protection_message)
+        self.window.after(5000, self.check_for_updates)
     
     
     
