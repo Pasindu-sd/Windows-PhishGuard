@@ -207,7 +207,7 @@ class SecurityApp:
         instr_label.pack(pady=10)
         
         self.email_text = scrolledtext.ScrolledText(parent, height=15, width=80, font=("Arial", 10), bg='white')
-        self.email_text.pack(pady=10, padx=20, fill='both')
+        self.email_text.pack(pady=10, padx=20, fill='both', expand=True)
         
         button_frame = tk.Frame(parent, bg='#f0f0f0')
         button_frame.pack(pady=10)
@@ -228,14 +228,14 @@ class SecurityApp:
         title_label.pack(pady=15)
         
         instr_label = tk.Label(parent, text="Enter the URL to check:",font=("Arial", 10), bg='#f0f0f0')
-        instr_label.pack(pady=10)
+        instr_label.pack(pady=10, fill='x', padx=20)
         
         entry_frame = tk.Frame(parent, bg='#f0f0f0')
         entry_frame.pack(pady=10)
         
         tk.Label(entry_frame, text="URL:", font=("Arial", 10), bg='#f0f0f0').pack(side=tk.LEFT)
         self.url_entry = tk.Entry(entry_frame, width=60, font=("Arial", 12), bg='white')
-        self.url_entry.pack(side=tk.LEFT, padx=10)
+        self.url_entry.pack(side=tk.LEFT, padx=10, fill='x', expand=True)
         
         button_frame = tk.Frame(parent, bg='#f0f0f0')
         button_frame.pack(pady=10)
@@ -281,7 +281,7 @@ class SecurityApp:
                      """
         
         status_label = tk.Label(parent, text=status_text, font=("Arial", 10), bg='#f0f0f0', justify=tk.LEFT)
-        status_label.pack(pady=5)
+        status_label.pack(pady=5, fill='both', expand=True, padx=20)
         
         status_frame = tk.Frame(parent, bg='#f0f0f0')
         status_frame.pack(pady=5)
