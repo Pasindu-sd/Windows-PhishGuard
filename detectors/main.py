@@ -19,6 +19,7 @@ class SecurityApp:
         self.window.title("Windows PhishGuard")
         self.window.geometry("700x600")
         self.window.configure(bg='#f0f0f0')
+        self.window.minsize(500, 400)
         
         self.tray_icon = None
         self.is_minimized_to_tray = False
@@ -35,14 +36,14 @@ class SecurityApp:
     
     def check_for_updates(self):
         try:
-            response = requests.get("https://api.github.com/repos/Pasindu-sd/PhishGuard/releases/latest", timeoout=10)
+            response = requests.get("https://api.github.com/repos/Pasindu-sd/PhishGuard/releases/latest", timeout=10)
             
             if response.status_code == 200:
                 latest_version = response.json().get('tag_name', '1.0.0')
                 current_version = "1.0.0"
                 
                 if latest_version != current_version:
-                    slef.update_available = True
+                    self.update_available = True
                     self.show_update_notification(latest_version)
                 else:
                     print("Tool are up-to-date")
@@ -183,17 +184,25 @@ class SecurityApp:
         notebook = ttk.Notebook(self.window)
         
         tab1 = ttk.Frame(notebook, padding="10")
+        tab1.pack(fill='both', expand=True)
         self.create_email_tab(tab1)
         
         tab2 = ttk.Frame(notebook, padding="10")
+        tab2.pack(fill='both', expand=True)
         self.create_url_tab(tab2)
         
         tab3 = ttk.Frame(notebook, padding="10")
+        tab3.pack(fill='both', expand=True)
         self.create_status_tab(tab3)
+        
+        tab4 = ttk.Frame(notebook, padding="10")
+        tab4.pack(fill='both', expand=True)
+        self.create_settings_tab(tab4)
         
         notebook.add(tab1, text="Email check")
         notebook.add(tab2, text="URL checking")
         notebook.add(tab3, text="Status")
+        notebook.add(tab4, text="Settings")
         notebook.pack(expand=True, fill='both', padx=10, pady=10)
     
     
@@ -231,14 +240,14 @@ class SecurityApp:
         instr_label.pack(pady=10, fill='x', padx=20)
         
         entry_frame = tk.Frame(parent, bg='#f0f0f0')
-        entry_frame.pack(pady=10)
+        entry_frame.pack(pady=10, fill='x', padx=20)
         
         tk.Label(entry_frame, text="URL:", font=("Arial", 10), bg='#f0f0f0').pack(side=tk.LEFT)
         self.url_entry = tk.Entry(entry_frame, width=60, font=("Arial", 12), bg='white')
         self.url_entry.pack(side=tk.LEFT, padx=10, fill='x', expand=True)
         
         button_frame = tk.Frame(parent, bg='#f0f0f0')
-        button_frame.pack(pady=10)
+        button_frame.pack(pady=10, fill='x')
         
         check_btn = tk.Button(button_frame, text="Check the URL", command=self.check_url,bg="green", fg="white", font=("Arial", 12, "bold"),padx=20, pady=5)
         check_btn.pack(side=tk.LEFT, padx=5)
@@ -289,6 +298,20 @@ class SecurityApp:
         
         tray_frame = tk.Frame(parent, bg='#f0f0f0')
         tray_frame.pack(pady=20)
+    
+    
+    def create_settings_tab(self, parent):
+        title_label = tk.Label(parent, text="Settings", font=("Arial", 14, "bold"), fg="blue", bg='#f0f0f0')
+        title_label.pack(pady=15)
+        
+        instr_label = tk.Label(parent, text="Configure your application settings below:",font=("Arial", 10), bg='#f0f0f0')
+        instr_label.pack(pady=10)
+        
+        tray_frame = tk.Frame(parent, bg='#f0f0f0')
+        tray_frame.pack(pady=10)
+        
+        update_rules_btn = tk.Button(parent, text="Update Phishing Rules", command=self.update_phishing_rules,bg="purple", fg="white", font=("Arial", 12),padx=20, pady=5)
+        update_rules_btn.pack(pady=20)
         
         update_btn = tk.Button(tray_frame, text="Check Updates", command=self.manual_update_check,bg="purple", fg="white", font=("Arial", 10), padx=10, pady=5)
         update_btn.pack(side=tk.LEFT, padx=5)
@@ -298,9 +321,6 @@ class SecurityApp:
         
         quit_btn = tk.Button(tray_frame, text="get out", command=self.quit_application, bg="red", fg="white", font=("Arial", 10), padx=10, pady=5)
         quit_btn.pack(side=tk.LEFT, padx=5)
-        
-        tray_frame = tk.Frame(parent, bg='#f0f0f0')
-        tray_frame.pack(pady=10)
         
         quick_scan_btn = tk.Button(parent, text="Quick Scan", command=self.quick_scan, bg="blue", fg="white", font=("Arial", 12), width=15, height=2)
         quick_scan_btn.pack(padx=10)
@@ -313,7 +333,6 @@ class SecurityApp:
         
         stop_btn = tk.Button(btn_frame, text="Stop Protection",command=self.stop_protection,bg="red", fg="white", font=("Arial", 10),padx=15, pady=5)
         stop_btn.pack(side=tk.LEFT, padx=5)
-    
     
     
     def quick_scan(self):
