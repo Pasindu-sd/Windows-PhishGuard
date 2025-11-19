@@ -67,7 +67,23 @@ class SecurityApp:
     
     
     def download_update(self):
-         
+        try:
+            messagebox.showinfo("Update", "Downloading update ...")
+            update_url = "https://github.com/Pasindu-sd/PhishGuard/releases/latest/download/update.zip"
+            
+            response = requests.get(update_url, stream=True)
+            
+            if response.status_code == 200:
+                with open("update.zip", "wb") as f:
+                    for chunk in response.iter_content(chunk_size=8192):
+                        f.write(chunk)
+                
+                messagebox.showinfo("Success", "Update downloaded succesfully!\nPlease restart the application.")
+            else:
+                messagebox.showerror("Error", f"Update download failed!")
+        
+        except Exception as e:
+            messagebox.showerror("Error", f"Update failed {str(e)}")
     
     
     def show_protection_message(self):
