@@ -33,10 +33,8 @@ class SecurityApp:
      
      
     def create_system_tray(self):
-        try:
-            
+        try:    
             image = PIL.Image.new('RGB', (64, 64), color='green')
-            
             
             menu = (
                 item('open up', self.restore_from_tray),
@@ -176,7 +174,6 @@ class SecurityApp:
     
     
     def create_status_tab(self, parent):
-        """Status tab එක create කිරීම"""
         title_label = tk.Label(parent, text="System Status", 
                               font=("Arial", 14, "bold"), fg="green", bg='#f0f0f0')
         title_label.pack(pady=15)
