@@ -8,7 +8,6 @@ from datetime import datetime, timezone
 
 def check_url(url):
     
-    # Suspicious patterns
     suspicious_patterns = [
         r'bit\.ly', r'tinyurl\.com', r'goo\.gl',  # Short URLs
         r'login', r'verify', r'account',          # Suspicious words
@@ -21,11 +20,9 @@ def check_url(url):
         if re.search(pattern, url, re.IGNORECASE):
             score += 1
     
-    # URL length check (very long URLs are suspicious)
     if len(url) > 75:
         score += 1
     
-    # @ symbol in URL (suspicious)
     if '@' in url:
         score += 2
     
@@ -61,7 +58,6 @@ def simple_check(url):
     print(f"Analyzing: {url}")
     issues = []
 
-    # basic pattern checks
     if len(url) > 75:
         issues.append("URL too long")
     if url.count('-') > 3:
@@ -73,7 +69,6 @@ def simple_check(url):
         if b in url.lower() and '-' in url:
             issues.append(f"Suspicious brand pattern: {b}")
 
-    # domain + DNS
     domain = get_domain(url)
     print(f"Extracted Domain: {domain}")
     
@@ -87,7 +82,6 @@ def simple_check(url):
     except Exception as e:
         issues.append(f"DNS error: {e}")
 
-    # SSL check
     cert_expiry = has_ssl_cert(domain)
     if cert_expiry:
         print("SSL certificate found")
@@ -104,7 +98,6 @@ def simple_check(url):
     else:
         issues.append("No SSL certificate or failed to fetch it")
     
-    #HTTP response check
     try:
         r = requests.head(url, timeout=5, allow_redirects=True)
         if r.status_code >= 400:
@@ -116,7 +109,6 @@ def simple_check(url):
     except requests.exceptions.RequestException:
         issues.append("Could not connect to website")
         
-    # Final report
     if issues:
         print("\nPossible Problems Found:")
         for it in issues:
@@ -132,7 +124,6 @@ def main():
     parser.add_argument("url", nargs="?", help="Enter a URL to analyze (e.g., https://example.com)")
     args = parser.parse_args()
 
-    # Allow both input() and CLI argument
     if not args.url:
         url = input("Enter URL: ").strip()
     else:

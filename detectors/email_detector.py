@@ -3,21 +3,17 @@ import re
 def check_phishing(email_content):
     suspicious_keywords = ['urgent', 'verify your account', 'password', 'bank', 'paypal', 'click here', 'limited time', 'winner', 'prize', 'account suspended']
     
-    # Suspicious links check කිරීම
     suspicious_links = re.findall(r'http[s]?://[^\s]+', email_content)
     
     score = 0
     
-    # Keywords check කිරීම
     for keyword in suspicious_keywords:
         if keyword.lower() in email_content.lower():
             score += 1
     
-    # Links check කිරීම
     if suspicious_links:
         score += len(suspicious_links)
     
-    # Result එක return කිරීම
     if score == 0:
         return "safe email"
     elif score <= 2:
@@ -31,29 +27,23 @@ def check_email(subject, message):
         print(f"Message: {message} \n")
         problem = []
         
-        # Convert to lowercase safely
         subject_lower = subject.lower() if subject else ""
         message_lower = message.lower() if message else ""
 
-        # Check for urgent words
         urgent_words = ["urgent", "immediately", "alert", "verify now"]
         for word in urgent_words:
             if word in subject_lower:
                 problem.append(f"Urgent Word: {word}")
 
-        # Check for password requests
         if "password" in message_lower:
             problem.append("Asking for password")
 
-        # Check for suspicious domain extensions
         if ".tk" in message_lower or ".ml" in message_lower:
             problem.append("Suspicious website link")
 
-        # Common prize scam words
         if "won" in message_lower and "prize" in message_lower:
             problem.append("'You won a prize' - common scam")
 
-        # Extract all URLs from the message safely
         try:
             urls = re.findall(r'https?://[^\s]+', message)
             if urls:
@@ -64,7 +54,6 @@ def check_email(subject, message):
         except re.error:
             print("Regex error while searching URLs")
 
-        # Final report
         if problem:
             print("\nPotential Issues Found:")
             for prob in problem:
