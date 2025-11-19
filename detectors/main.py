@@ -299,10 +299,7 @@ class SecurityApp:
         update_btn = tk.Button(tray_frame, text="Check Updates", command=self.manual_update_check,bg="purple", fg="white", font=("Arial", 10), padx=15, pady=5)
         update_btn.pack(side=tk.LEFT, padx=5)
         
-        minimize_btn = tk.Button(tray_frame, text="Minimize to tray", 
-                                command=self.minimize_to_tray, 
-                                bg="blue", fg="white", font=("Arial", 10), 
-                                padx=15, pady=5)
+        minimize_btn = tk.Button(tray_frame, text="Minimize to tray", command=self.minimize_to_tray, bg="blue", fg="white", font=("Arial", 10), padx=15, pady=5)
         minimize_btn.pack(side=tk.LEFT, padx=5)
         
         quit_btn = tk.Button(tray_frame, text="get out", 
