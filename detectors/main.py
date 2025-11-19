@@ -272,12 +272,6 @@ class SecurityApp:
                         Update Status: {update_status}
                         Last Update Check: {self.last_update_check or "Never"}
                         Threats Blocked: 0
-
-                        Tips:
-                        • If you receive a suspicious email, check here.
-                        • Check before opening an unknown URL.
-                        • Click the icon in the system tray for quick access.
-                        • Keep automatic updates enabled for best protection.
                      """
         
         status_label = tk.Label(parent, text=status_text, font=("Arial", 10), bg='#f0f0f0', justify=tk.LEFT)
@@ -308,7 +302,7 @@ class SecurityApp:
         tray_frame = tk.Frame(parent, bg='#f0f0f0')
         tray_frame.pack(pady=10)
         
-        quick_scan_btn = tk.Button(parent, text="Quick Scan", command=self.quick_scan, bg="blue", fg="white", font=("Arial", 12), padx=40, pady=20, width=15)
+        quick_scan_btn = tk.Button(parent, text="Quick Scan", command=self.quick_scan, bg="blue", fg="white", font=("Arial", 12), width=15, height=2)
         quick_scan_btn.pack(padx=10)
         
         btn_frame = tk.Frame(parent, bg='#f0f0f0')
