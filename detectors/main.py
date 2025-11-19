@@ -33,6 +33,20 @@ class SecurityApp:
         self.window.after(5000, self.check_for_updates)
     
     
+    def check_for_updates(self):
+        try:
+            response = requests.get("https://api.github.com/repos/Pasindu-sd/PhishGuard/releases/latest", timeoout=10)
+            
+            if response.status_code == 200:
+                latest_version = response.json().get('tag_name', '1.0.0')
+                current_version = "1.0.0"
+                
+                if latest_version != current_version:
+                    slef.update_available = True
+                    self.show_update_notification(latest_version)
+                else:
+                    print("Tool are up-to-date")
+    
     
     def show_protection_message(self):
         messagebox.showinfo("Protection Active", "Your computer is now protected!")
