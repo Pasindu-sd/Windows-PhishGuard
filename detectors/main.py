@@ -50,7 +50,12 @@ class SecurityApp:
             self.last_update_check = datetime.now()
         
         except requests.RequestException:
-            print("Unable to check for updates due to lack of internet connection.")    
+            print("Unable to check for updates due to lack of internet connection.")
+            
+        self.window.after(24 * 60 * 60 * 1000, self.check_for_updates)
+    
+    
+     
     
     
     def show_protection_message(self):
