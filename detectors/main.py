@@ -12,7 +12,7 @@ import sys
 class SecurityApp:
     def __init__(self):
         self.window = tk.Tk()
-        self.window.title("Windows PhishGuard - ආරක්ෂක ටුල් එක")
+        self.window.title("Windows PhishGuard")
         self.window.geometry("700x600")
         self.window.configure(bg='#f0f0f0')
         
