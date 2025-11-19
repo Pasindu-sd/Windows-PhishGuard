@@ -1,0 +1,22 @@
+{
+  "email_keywords": [
+    "urgent",
+    "verify your account",
+    "password expired",
+    "suspended",
+    "security alert",
+    "click here",
+    "login now"
+  ],
+  "url_patterns": [
+    "bit.ly",
+    "tinyurl",
+    "login.",
+    "verify.",
+    "account.",
+    "paypal",
+    "bank",
+    "secure.",
+    "update."
+  ]
+}
