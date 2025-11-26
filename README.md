@@ -94,4 +94,4 @@ Once installed and running, Windows PhishGuard will sit quietly in your system t
 
 ---
 
-## 🏗️ Project Structure
+## Project Structure
