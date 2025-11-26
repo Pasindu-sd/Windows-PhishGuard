@@ -76,3 +76,18 @@ If you want to build the application yourself:
 
 4.  **Build & Run:**
     Press `F5` or select "Build Solution" from the Build menu.
+
+---
+
+
+## 🖥️ Usage
+
+Once installed and running, Windows PhishGuard will sit quietly in your system tray (notification area).
+
+- It will automatically monitor your web traffic.
+- If a potential phishing site is detected, a warning notification will appear.
+- You can right-click the system tray icon to:
+    - **Pause/Resume** protection.
+    - **View** the detection log.
+    - **Open** the settings window.
+    - **Exit** the application.
