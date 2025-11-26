@@ -55,3 +55,24 @@ Phishing is one of the most common cyber threats, and this tool aims to provide 
 4.  Launch **Windows PhishGuard** from your Start Menu.
 
 *(Note: As the project is under development, the release might not be available yet. Check back soon!)*
+
+---
+
+### Building from Source
+
+If you want to build the application yourself:
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/Pasindu-sd/Windows-PhishGuard.git
+    cd Windows-PhishGuard
+    ```
+
+2.  **Open the Solution:**
+    Open the `.sln` file in Visual Studio 2022 or later.
+
+3.  **Restore NuGet Packages:**
+    The package restore should happen automatically. If not, right-click the solution in Solution Explorer and select "Restore NuGet Packages."
+
+4.  **Build & Run:**
+    Press `F5` or select "Build Solution" from the Build menu.
