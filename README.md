@@ -21,8 +21,6 @@ A powerful and intuitive Windows application designed to proactively detect and 
 
 ---
 
-```
 ## Overview
-```
 
 ---
