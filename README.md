@@ -80,7 +80,7 @@ If you want to build the application yourself:
 ---
 
 
-## 🖥️ Usage
+## Usage
 
 Once installed and running, Windows PhishGuard will sit quietly in your system tray (notification area).
 
