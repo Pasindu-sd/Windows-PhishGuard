@@ -46,3 +46,12 @@ Phishing is one of the most common cyber threats, and this tool aims to provide 
 
 - **Operating System**: Windows 10 or Windows 11.
 - **.NET Framework**: Ensure you have the latest .NET Desktop Runtime (or the version specified in the build) installed. [Download here if needed](https://dotnet.microsoft.com/download/dotnet).
+
+### Installation
+
+1.  Go to the [Releases](https://github.com/Pasindu-sd/Windows-PhishGuard/releases) page of this repository.
+2.  Download the latest `Windows-PhishGuard-Setup.exe` file.
+3.  Run the installer and follow the on-screen instructions.
+4.  Launch **Windows PhishGuard** from your Start Menu.
+
+*(Note: As the project is under development, the release might not be available yet. Check back soon!)*
