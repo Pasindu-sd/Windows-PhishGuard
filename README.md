@@ -40,4 +40,9 @@ Phishing is one of the most common cyber threats, and this tool aims to provide 
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
+
+### Prerequisites
+
+- **Operating System**: Windows 10 or Windows 11.
+- **.NET Framework**: Ensure you have the latest .NET Desktop Runtime (or the version specified in the build) installed. [Download here if needed](https://dotnet.microsoft.com/download/dotnet).
