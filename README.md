@@ -40,3 +40,4 @@ Phishing is one of the most common cyber threats, and this tool aims to provide 
 
 ---
 
+## 🚀 Getting Started
