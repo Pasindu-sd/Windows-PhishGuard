@@ -1,5 +1,5 @@
 # Windows-PhishGuard
-that help to detect email phishing and URL phishing
+A powerful and intuitive Windows application designed to proactively detect and alert users about potential phishing websites, helping to safeguard your personal information and credentials from online threats.
 
 ### Structure:
 ```
