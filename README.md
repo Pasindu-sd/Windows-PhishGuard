@@ -37,3 +37,6 @@ Phishing is one of the most common cyber threats, and this tool aims to provide 
 - Community Blocklists**: Integrates with and updates from reputable, crowdsourced phishing and malware domain lists.
 - Low System Impact**: Designed to be lightweight and run efficiently in the background.
 - User-Friendly Interface**: Simple settings panel to configure sensitivity and view detection history.
+
+---
+
