@@ -434,6 +434,9 @@ class SecurityApp:
                 display_result = "Dangerous URL!"
                 color = "red"
                 result_type = "Dangerous"
+                
+            self.add_to_history("URL", url, result_type)
+
             
             self.url_result.config(text=display_result, fg=color)
         else:
