@@ -435,16 +435,13 @@ class SecurityApp:
             # Color coding
             if result == "Secure":
                 color_tag = "green"
-                result_symbol = "✅"
             elif result == "Suspicious":
                 color_tag = "orange"
-                result_symbol = "⚠️"
             else:
                 color_tag = "red"
-                result_symbol = "❌"
             
             entry = f"{i}. {timestamp} - {scan_type}\n"
-            entry += f"   Result: {result_symbol} {result}\n"
+            entry += f"   Result: {result}\n"
             entry += f"   Content: {content}\n"
             entry += "-" * 50 + "\n"
             
