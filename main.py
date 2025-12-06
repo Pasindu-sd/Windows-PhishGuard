@@ -33,6 +33,10 @@ class SecurityApp:
         self.window.protocol('WM_DELETE_WINDOW', self.minimize_to_tray)
         self.window.after(2000, self.show_protection_message)
         self.window.after(5000, self.check_for_updates)
+        
+        self.history_file = "scan_history.json"
+        self.scan_history = []
+        self.load_history()
     
     
     def check_for_updates(self):
