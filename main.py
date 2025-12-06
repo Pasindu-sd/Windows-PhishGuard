@@ -399,12 +399,15 @@ class SecurityApp:
             if "safe email" in result:
                 display_result = "A secure email"
                 color = "green"
+                result_type = "Secure"
             elif "suspicious" in result:
                 display_result = "A suspicious email"
                 color = "orange"
+                result_type = "Suspicious"
             else:
                 display_result = "A dangerous email!"
                 color = "red"
+                result_type = "Dangerous"
             
             self.email_result.config(text=display_result, fg=color)
         else:
