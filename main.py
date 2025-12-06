@@ -381,8 +381,7 @@ class SecurityApp:
     
     
     def create_history_tab(self, parent):
-        title_label = tk.Label(parent, text="Scan History", 
-                            font=("Arial", 14, "bold"), fg="purple", bg='#f0f0f0')
+        title_label = tk.Label(parent, text="Scan History", font=("Arial", 14, "bold"), fg="purple", bg='#f0f0f0')
         title_label.pack(pady=10)
         
         history_frame = tk.Frame(parent, bg='white', relief=tk.SUNKEN, bd=1)
@@ -391,9 +390,7 @@ class SecurityApp:
         scrollbar = tk.Scrollbar(history_frame)
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         
-        self.history_text = tk.Text(history_frame, height=15, width=80, 
-                                font=("Arial", 10), bg='white',
-                                yscrollcommand=scrollbar.set)
+        self.history_text = tk.Text(history_frame, height=15, width=80, font=("Arial", 10), bg='white',yscrollcommand=scrollbar.set)
         self.history_text.pack(side=tk.LEFT, fill='both', expand=True)
         scrollbar.config(command=self.history_text.yview)
         
@@ -460,12 +457,14 @@ class SecurityApp:
         stats_text = f"Total scans: {total} | Secure: {secure} | Suspicious: {suspicious} | Dangerous: {dangerous}"
         self.history_stats.config(text=stats_text)
 
+
     def clear_history(self):
         if messagebox.askyesno("Clear History", "Are you sure you want to clear all scan history?"):
             self.scan_history = []
             self.save_history()
             self.refresh_history()
             messagebox.showinfo("Success", "Scan history cleared!")
+
 
     def export_history(self):
         try:
