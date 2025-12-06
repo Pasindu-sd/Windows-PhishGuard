@@ -479,7 +479,6 @@ class SecurityApp:
             messagebox.showinfo("Success", "Scan history cleared!")
 
     def export_history(self):
-        """History එක file එකකට export කරන්න"""
         try:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             filename = f"phishguard_history_{timestamp}.txt"
