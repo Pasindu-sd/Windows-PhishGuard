@@ -116,6 +116,21 @@ class SecurityApp:
      
      
      
+    def load_history(self):
+        try:
+            if os.path.exists(self.history_file):
+                with open(self.history_file, 'r') as f:
+                    self.scan_history = json.load(f)
+            else:
+                self.scan_history = []
+        except Exception as e:
+            print(f"History load error: {e}")
+            self.scan_history = []
+    
+    
+    
+    
+    
     def create_system_tray(self):
         try:    
             image = PIL.Image.new('RGB', (64, 64), color='green')
