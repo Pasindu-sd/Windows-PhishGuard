@@ -239,10 +239,15 @@ class SecurityApp:
         tab4.pack(fill='both', expand=True)
         self.create_settings_tab(tab4)
         
+        tab5 = ttk.Frame(notebook, padding="10")
+        tab5.pack(fill='both', expand=True)
+        self.create_history_tab(tab5)
+        
         notebook.add(tab1, text="Email check")
         notebook.add(tab2, text="URL checking")
         notebook.add(tab3, text="Status")
         notebook.add(tab4, text="Settings")
+        notebook.add(tab5, text="Scan History")
         notebook.pack(expand=True, fill='both')
     
     
@@ -372,6 +377,61 @@ class SecurityApp:
         
         stop_btn = tk.Button(btn_frame, text="Stop Protection",command=self.stop_protection,bg="red", fg="white", font=("Arial", 10),padx=15, pady=5)
         stop_btn.pack(side=tk.LEFT, padx=5, fill='x', expand=True)
+    
+    
+    
+    def create_history_tab(self, parent):
+        """Scan history tab එක create කරන්න"""
+        title_label = tk.Label(parent, text="Scan History", 
+                            font=("Arial", 14, "bold"), fg="purple", bg='#f0f0f0')
+        title_label.pack(pady=10)
+        
+        # History display කරන frame එක
+        history_frame = tk.Frame(parent, bg='white', relief=tk.SUNKEN, bd=1)
+        history_frame.pack(pady=10, padx=10, fill='both', expand=True)
+        
+        # Scrollbar සහිත text widget එක
+        scrollbar = tk.Scrollbar(history_frame)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        
+        self.history_text = tk.Text(history_frame, height=15, width=80, 
+                                font=("Arial", 10), bg='white',
+                                yscrollcommand=scrollbar.set)
+        self.history_text.pack(side=tk.LEFT, fill='both', expand=True)
+        scrollbar.config(command=self.history_text.yview)
+        
+        # Button frame එක
+        button_frame = tk.Frame(parent, bg='#f0f0f0')
+        button_frame.pack(pady=10)
+        
+        # Refresh button
+        refresh_btn = tk.Button(button_frame, text="Refresh History", 
+                            command=self.refresh_history,
+                            bg="blue", fg="white", font=("Arial", 10),
+                            padx=10, pady=5)
+        refresh_btn.pack(side=tk.LEFT, padx=5)
+        
+        # Clear history button
+        clear_btn = tk.Button(button_frame, text="Clear History", 
+                            command=self.clear_history,
+                            bg="red", fg="white", font=("Arial", 10),
+                            padx=10, pady=5)
+        clear_btn.pack(side=tk.LEFT, padx=5)
+        
+        # Export button
+        export_btn = tk.Button(button_frame, text="Export to File", 
+                            command=self.export_history,
+                            bg="green", fg="white", font=("Arial", 10),
+                            padx=10, pady=5)
+        export_btn.pack(side=tk.LEFT, padx=5)
+        
+        # Stats label
+        self.history_stats = tk.Label(parent, text="", font=("Arial", 10), 
+                                    bg='#f0f0f0', fg="blue")
+        self.history_stats.pack(pady=5)
+        
+        # පළමු වතාවට history load කරන්න
+        self.refresh_history()
     
     
     def quick_scan(self):
