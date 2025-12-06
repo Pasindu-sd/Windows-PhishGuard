@@ -403,10 +403,7 @@ class SecurityApp:
         refresh_btn = tk.Button(button_frame, text="Refresh History", command=self.refresh_history,bg="blue", fg="white", font=("Arial", 10),padx=10, pady=5)
         refresh_btn.pack(side=tk.LEFT, padx=5)
         
-        clear_btn = tk.Button(button_frame, text="Clear History", 
-                            command=self.clear_history,
-                            bg="red", fg="white", font=("Arial", 10),
-                            padx=10, pady=5)
+        clear_btn = tk.Button(button_frame, text="Clear History", command=self.clear_history,bg="red", fg="white", font=("Arial", 10),padx=10, pady=5)
         clear_btn.pack(side=tk.LEFT, padx=5)
         
         export_btn = tk.Button(button_frame, text="Export to File", 
