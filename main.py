@@ -147,7 +147,6 @@ class SecurityApp:
         self.scan_history.append(record)
         self.save_history()
         
-        # Keep only last 100 records
         if len(self.scan_history) > 100:
             self.scan_history = self.scan_history[-100:]
     
