@@ -134,6 +134,23 @@ class SecurityApp:
                 json.dump(self.scan_history[-100], f, indent=2)
         except Exception as e:
             print(f"History save error: {e}")
+
+    
+    def add_to_history(self, scan_type, content, result):
+        """History එකට record එකක් add කරන්න"""
+        record = {
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "type": scan_type,
+            "content": content[:100] + "..." if len(content) > 100 else content,
+            "result": result
+        }
+        
+        self.scan_history.append(record)
+        self.save_history()
+        
+        # Keep only last 100 records
+        if len(self.scan_history) > 100:
+            self.scan_history = self.scan_history[-100:]
     
     
     def create_system_tray(self):
