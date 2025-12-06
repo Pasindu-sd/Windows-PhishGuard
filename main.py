@@ -471,7 +471,6 @@ class SecurityApp:
         self.history_stats.config(text=stats_text)
 
     def clear_history(self):
-        """History clear කරන්න"""
         if messagebox.askyesno("Clear History", "Are you sure you want to clear all scan history?"):
             self.scan_history = []
             self.save_history()
