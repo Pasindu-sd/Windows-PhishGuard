@@ -409,6 +409,8 @@ class SecurityApp:
                 color = "red"
                 result_type = "Dangerous"
             
+            self.add_to_history("Email", email_content[:50], result_type)
+            
             self.email_result.config(text=display_result, fg=color)
         else:
             messagebox.showwarning("Warning", "Please enter email content")
