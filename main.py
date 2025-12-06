@@ -417,7 +417,6 @@ class SecurityApp:
     
     
     def refresh_history(self):
-        """History display refresh කරන්න"""
         self.history_text.delete(1.0, tk.END)
         
         if not self.scan_history:
@@ -425,14 +424,12 @@ class SecurityApp:
             self.history_stats.config(text="Total scans: 0")
             return
         
-        # Reverse order (newest first)
         for i, record in enumerate(reversed(self.scan_history), 1):
             timestamp = record.get('timestamp', 'Unknown')
             scan_type = record.get('type', 'Unknown')
             result = record.get('result', 'Unknown')
             content = record.get('content', '')
             
-            # Color coding
             if result == "Secure":
                 color_tag = "green"
             elif result == "Suspicious":
