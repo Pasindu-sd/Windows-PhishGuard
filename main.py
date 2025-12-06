@@ -11,7 +11,8 @@ import sys
 import requests 
 import json     
 import time     
-from datetime import datetime 
+from datetime import datetime
+
 
 class SecurityApp:
     def __init__(self):
