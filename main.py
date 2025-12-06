@@ -415,6 +415,97 @@ class SecurityApp:
         self.refresh_history()
     
     
+    
+    def refresh_history(self):
+        """History display refresh කරන්න"""
+        self.history_text.delete(1.0, tk.END)
+        
+        if not self.scan_history:
+            self.history_text.insert(tk.END, "No scan history found.\n")
+            self.history_stats.config(text="Total scans: 0")
+            return
+        
+        # Reverse order (newest first)
+        for i, record in enumerate(reversed(self.scan_history), 1):
+            timestamp = record.get('timestamp', 'Unknown')
+            scan_type = record.get('type', 'Unknown')
+            result = record.get('result', 'Unknown')
+            content = record.get('content', '')
+            
+            # Color coding
+            if result == "Secure":
+                color_tag = "green"
+                result_symbol = "✅"
+            elif result == "Suspicious":
+                color_tag = "orange"
+                result_symbol = "⚠️"
+            else:
+                color_tag = "red"
+                result_symbol = "❌"
+            
+            # Format the entry
+            entry = f"{i}. {timestamp} - {scan_type}\n"
+            entry += f"   Result: {result_symbol} {result}\n"
+            entry += f"   Content: {content}\n"
+            entry += "-" * 50 + "\n"
+            
+            self.history_text.insert(tk.END, entry)
+            
+            # Tag කරගන්න colors වලට
+            start_index = f"{i}.0"
+            end_index = f"{i+1}.0"
+            self.history_text.tag_add(color_tag, start_index, end_index)
+        
+        # Tags configure කරන්න
+        self.history_text.tag_config("green", foreground="green")
+        self.history_text.tag_config("orange", foreground="orange")
+        self.history_text.tag_config("red", foreground="red")
+        
+        # Stats update කරන්න
+        total = len(self.scan_history)
+        secure = sum(1 for r in self.scan_history if r.get('result') == 'Secure')
+        suspicious = sum(1 for r in self.scan_history if r.get('result') == 'Suspicious')
+        dangerous = sum(1 for r in self.scan_history if r.get('result') == 'Dangerous')
+        
+        stats_text = f"Total scans: {total} | Secure: {secure} | Suspicious: {suspicious} | Dangerous: {dangerous}"
+        self.history_stats.config(text=stats_text)
+
+    def clear_history(self):
+        """History clear කරන්න"""
+        if messagebox.askyesno("Clear History", "Are you sure you want to clear all scan history?"):
+            self.scan_history = []
+            self.save_history()
+            self.refresh_history()
+            messagebox.showinfo("Success", "Scan history cleared!")
+
+    def export_history(self):
+        """History එක file එකකට export කරන්න"""
+        try:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"phishguard_history_{timestamp}.txt"
+            
+            with open(filename, 'w', encoding='utf-8') as f:
+                f.write("PhishGuard Scan History Report\n")
+                f.write("=" * 50 + "\n")
+                f.write(f"Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
+                f.write("=" * 50 + "\n\n")
+                
+                for record in self.scan_history:
+                    f.write(f"Time: {record['timestamp']}\n")
+                    f.write(f"Type: {record['type']}\n")
+                    f.write(f"Result: {record['result']}\n")
+                    f.write(f"Content: {record['content']}\n")
+                    f.write("-" * 40 + "\n")
+                
+                f.write(f"\nTotal scans: {len(self.scan_history)}\n")
+            
+            messagebox.showinfo("Export Successful", 
+                            f"History exported to:\n{filename}")
+        except Exception as e:
+            messagebox.showerror("Export Error", f"Failed to export: {str(e)}")
+    
+    
+    
     def quick_scan(self):
         messagebox.showinfo("Quick Scan", "Quick scan Started!\nNo threats found.")
     
