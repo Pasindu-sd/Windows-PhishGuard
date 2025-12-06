@@ -443,7 +443,6 @@ class SecurityApp:
                 color_tag = "red"
                 result_symbol = "❌"
             
-            # Format the entry
             entry = f"{i}. {timestamp} - {scan_type}\n"
             entry += f"   Result: {result_symbol} {result}\n"
             entry += f"   Content: {content}\n"
@@ -451,17 +450,14 @@ class SecurityApp:
             
             self.history_text.insert(tk.END, entry)
             
-            # Tag කරගන්න colors වලට
             start_index = f"{i}.0"
             end_index = f"{i+1}.0"
             self.history_text.tag_add(color_tag, start_index, end_index)
         
-        # Tags configure කරන්න
         self.history_text.tag_config("green", foreground="green")
         self.history_text.tag_config("orange", foreground="orange")
         self.history_text.tag_config("red", foreground="red")
         
-        # Stats update කරන්න
         total = len(self.scan_history)
         secure = sum(1 for r in self.scan_history if r.get('result') == 'Secure')
         suspicious = sum(1 for r in self.scan_history if r.get('result') == 'Suspicious')
