@@ -137,7 +137,6 @@ class SecurityApp:
 
     
     def add_to_history(self, scan_type, content, result):
-        """History එකට record එකක් add කරන්න"""
         record = {
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "type": scan_type,
