@@ -128,7 +128,12 @@ class SecurityApp:
             self.scan_history = []
     
     
-    
+    def save_history(self):
+        try:
+            with open(self.history_file, 'w') as f:
+                json.dump(self.scan_history[-100], f, indent=2)
+        except Exception as e:
+            print(f"History save error: {e}")
     
     
     def create_system_tray(self):
