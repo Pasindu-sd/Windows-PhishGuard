@@ -400,10 +400,7 @@ class SecurityApp:
         button_frame = tk.Frame(parent, bg='#f0f0f0')
         button_frame.pack(pady=10)
         
-        refresh_btn = tk.Button(button_frame, text="Refresh History", 
-                            command=self.refresh_history,
-                            bg="blue", fg="white", font=("Arial", 10),
-                            padx=10, pady=5)
+        refresh_btn = tk.Button(button_frame, text="Refresh History", command=self.refresh_history,bg="blue", fg="white", font=("Arial", 10),padx=10, pady=5)
         refresh_btn.pack(side=tk.LEFT, padx=5)
         
         clear_btn = tk.Button(button_frame, text="Clear History", 
