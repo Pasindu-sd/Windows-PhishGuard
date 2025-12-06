@@ -425,12 +425,15 @@ class SecurityApp:
             if "safe URL" in result:
                 display_result = "A secure URL"
                 color = "green"
+                result_type = "Secure"
             elif "suspicious" in result:
                 display_result = "A custom URL"
                 color = "orange"
+                result_type = "Suspicious"
             else:
                 display_result = "Dangerous URL!"
                 color = "red"
+                result_type = "Dangerous"
             
             self.url_result.config(text=display_result, fg=color)
         else:
