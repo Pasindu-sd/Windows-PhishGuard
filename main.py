@@ -483,6 +483,8 @@ class SecurityApp:
             self.scan_history = []
             self.save_history()
             self.refresh_history()
+            self.show_notification("History Cleared", 
+                                  "All scan history has been deleted")
             messagebox.showinfo("Success", "Scan history cleared!")
 
 
