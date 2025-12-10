@@ -549,6 +549,8 @@ class SecurityApp:
                 display_result = "A dangerous email!"
                 color = "red"
                 result_type = "Dangerous"
+                 self.show_notification("DANGEROUS EMAIL DETECTED!", 
+                                      "🔴 Phishing email detected! Be careful!")
             
             self.add_to_history("Email", email_content[:50], result_type)
             
