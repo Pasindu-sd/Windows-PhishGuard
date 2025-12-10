@@ -569,7 +569,7 @@ class SecurityApp:
                 color = "green"
                 result_type = "Secure"
                 self.show_notification("URL Scan Complete", 
-                                      f"✅ {url[:30]}... is safe!")
+                                      f"{url[:30]}... is safe!")
             elif "suspicious" in result:
                 display_result = "A custom URL"
                 color = "orange"
