@@ -12,6 +12,7 @@ import requests
 import json     
 import time     
 from datetime import datetime
+from win10toast import ToastNotifier
 
 
 class SecurityApp:
@@ -25,6 +26,12 @@ class SecurityApp:
         self.history_file = "scan_history.json"
         self.scan_history = []
         self.load_history()
+        
+        try:
+            self.toaster = ToastNotifier()
+        except:
+            self.toaster = None
+            print("Toast notifications not available")
         
         self.tray_icon = None
         self.is_minimized_to_tray = False
@@ -70,6 +77,20 @@ class SecurityApp:
         else:
             if self.tray_icon:
                 self.tray_icon.notify(f"New version {new_version} available!", "Click to update")
+    
+    
+    def show_notification(self, title, message, duration=5):
+        """Windows notification පෙන්වන්න"""
+        if self.toaster:
+            try:
+                self.toaster.show_toast(
+                    title,
+                    message,
+                    duration=duration,
+                    threaded=True
+                )
+            except:
+                pass
     
     
     def download_update(self):
