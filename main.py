@@ -255,19 +255,20 @@ class SecurityApp:
         tab3.pack(fill='both', expand=True)
         self.create_status_tab(tab3)
         
+        tab4 = ttk.Frame(notebook, padding="10")
+        tab4.pack(fill='both', expand=True)
+        self.create_history_tab(tab4)
+        
         tab5 = ttk.Frame(notebook, padding="10")
         tab5.pack(fill='both', expand=True)
         self.create_settings_tab(tab5)
         
-        tab5 = ttk.Frame(notebook, padding="10")
-        tab5.pack(fill='both', expand=True)
-        self.create_history_tab(tab4)
         
         notebook.add(tab1, text="Email check")
         notebook.add(tab2, text="URL checking")
         notebook.add(tab3, text="Status")
-        notebook.add(tab5, text="Settings")
         notebook.add(tab4, text="Scan History")
+        notebook.add(tab5, text="Settings")
         notebook.pack(expand=True, fill='both')
     
     
