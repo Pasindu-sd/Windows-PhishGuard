@@ -545,7 +545,7 @@ class SecurityApp:
                 color = "orange"
                 result_type = "Suspicious"
                 self.show_notification("Suspicious Email Found!", 
-                                      "⚠️ This email might be phishing!")
+                                      "This email might be phishing!")
             else:
                 display_result = "A dangerous email!"
                 color = "red"
