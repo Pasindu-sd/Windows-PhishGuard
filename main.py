@@ -614,6 +614,7 @@ class SecurityApp:
         
     def start_protection(self):
         self.status_label.config(text="PROTECTION: ACTIVE", fg="green")
+        self.show_notification("Protection Started", "Windows PhishGuard is now active!")
         messagebox.showinfo("Protection", "Protection started!")
 
 
