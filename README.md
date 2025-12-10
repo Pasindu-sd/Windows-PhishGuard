@@ -2,7 +2,7 @@
 A powerful and intuitive Windows application designed to proactively detect and alert users about potential phishing websites, helping to safeguard your personal information and credentials from online threats.
 ---
 ```
-                                   []     Under Development Project      []
+                                   [o]     Under Development Project      [o]
 ```
 ---
 
