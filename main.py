@@ -621,6 +621,7 @@ class SecurityApp:
 
     def stop_protection(self):
         self.status_label.config(text="PROTECTION: STOPPED", fg="red")
+        self.show_notification("Protection Stopped", "Security protection has been stopped!")
         messagebox.showwarning("Protection", "Protection stopped!")
 
 
