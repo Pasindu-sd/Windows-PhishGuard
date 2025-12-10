@@ -510,6 +510,8 @@ class SecurityApp:
             self.show_notification("History Exported", f"Saved to {filename}")
             messagebox.showinfo("Export Successful", f"History exported to:\n{filename}")
         except Exception as e:
+            self.show_notification("Export Failed", 
+                                  "❌ Could not export history")
             messagebox.showerror("Export Error", f"Failed to export: {str(e)}")
     
     
