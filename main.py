@@ -515,7 +515,7 @@ class SecurityApp:
     
     def quick_scan(self):
         self.show_notification("Quick Scan Started", "Scanning for threats...")
-        
+        time.sleep(1)
         messagebox.showinfo("Quick Scan", "Quick scan Started!\nNo threats found.")
     
     
