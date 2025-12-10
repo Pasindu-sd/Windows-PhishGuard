@@ -578,6 +578,8 @@ class SecurityApp:
                 display_result = "Dangerous URL!"
                 color = "red"
                 result_type = "Dangerous"
+                self.show_notification("DANGEROUS URL DETECTED!", 
+                                      f"🔴 {url[:30]}... is dangerous!")
                 
             self.add_to_history("URL", url, result_type)
 
