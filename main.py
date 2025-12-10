@@ -573,6 +573,8 @@ class SecurityApp:
                 display_result = "A custom URL"
                 color = "orange"
                 result_type = "Suspicious"
+                self.show_notification("Suspicious URL Found!", 
+                                      f"⚠️ {url[:30]}... might be phishing!")
             else:
                 display_result = "Dangerous URL!"
                 color = "red"
