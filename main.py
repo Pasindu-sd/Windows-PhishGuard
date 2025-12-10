@@ -80,7 +80,6 @@ class SecurityApp:
     
     
     def show_notification(self, title, message, duration=5):
-        """Windows notification පෙන්වන්න"""
         if self.toaster:
             try:
                 self.toaster.show_toast(
