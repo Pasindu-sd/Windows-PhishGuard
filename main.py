@@ -539,8 +539,7 @@ class SecurityApp:
                 display_result = "A secure email"
                 color = "green"
                 result_type = "Secure"
-                self.show_notification("Email Scan Complete", 
-                                      "✅ This email is safe!")
+                self.show_notification("Email Scan Complete", "✅ This email is safe!")
             elif "suspicious" in result:
                 display_result = "A suspicious email"
                 color = "orange"
