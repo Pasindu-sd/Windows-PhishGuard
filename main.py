@@ -508,8 +508,7 @@ class SecurityApp:
                 
                 f.write(f"\nTotal scans: {len(self.scan_history)}\n")
             self.show_notification("History Exported", f"Saved to {filename}")
-            messagebox.showinfo("Export Successful", 
-                            f"History exported to:\n{filename}")
+            messagebox.showinfo("Export Successful", f"History exported to:\n{filename}")
         except Exception as e:
             messagebox.showerror("Export Error", f"Failed to export: {str(e)}")
     
