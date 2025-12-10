@@ -602,14 +602,6 @@ class SecurityApp:
         else:
             self.update_status_label.config(text="UPDATES: Up to date", fg="green")
             messagebox.showinfo("Update", "Your tool is up to date!")
-    
-    
-    def run(self):
-        print("Windows PhishGuard started!")
-        print("App minimized to system tray. Click the tray icon to restore.")
-        
-        self.window.mainloop()
-     
      
         
     def start_protection(self):
@@ -624,6 +616,12 @@ class SecurityApp:
         self.show_notification("Protection Stopped", "Security protection has been stopped!")
         messagebox.showwarning("Protection", "Protection stopped!")
 
+
+    def run(self):
+        print("Windows PhishGuard started!")
+        print("App minimized to system tray. Click the tray icon to restore.")
+        
+        self.window.mainloop()
 
 
 if __name__ == "__main__":
