@@ -1,4 +1,3 @@
-import email
 import tkinter as tk
 from tkinter import messagebox, scrolledtext, ttk
 import email_detector
@@ -536,54 +535,55 @@ class SecurityApp:
     
     
     def check_email(self):
-        email = self.email_entry.get().strip()
+        email_content = self.email_text.get("1.0", tk.END).strip()
 
-        if not email:
-            messagebox.showwarning("Warning", "Please enter an email")
+        if not email_content:
+            messagebox.showwarning("Warning", "Please enter email content")
             return
 
-        try:
-            result = email_detector.scan(email)
+        result = email_detector.check_phishing(email_content)
 
-            if "valid" in result.lower():
-                color = "green"
-                result_type = "Valid"
-            elif "suspicious" in result.lower():
-                color = "orange"
-                result_type = "Suspicious"
-            else:
-                color = "red"
-                result_type = "Invalid"
+        if "safe email" in result:
+            display_result = "A secure email"
+            color = "green"
+            result_type = "Secure"
+            self.show_notification("Email Scan Complete", "This email is safe!")
+        elif "suspicious" in result:
+            display_result = "A suspicious email"
+            color = "orange"
+            result_type = "Suspicious"
+            self.show_notification("Suspicious Email Found!", "This email might be phishing!")
+        else:
+            display_result = "A dangerous email!"
+            color = "red"
+            result_type = "Dangerous"
+            self.show_notification("DANGEROUS EMAIL DETECTED!", "Phishing email detected! Be careful!")
 
-            self.email_result.config(text=result, fg=color)
-            self.add_to_history("Email", email, result_type)
+        self.add_to_history("Email", email_content[:50], result_type)
+        self.email_result.config(text=display_result, fg=color)
 
-        except Exception as e:
-            messagebox.showerror("Error", f"Email scanning failed:\n{str(e)}")
-            self.email_result.config(text="Error scanning email", fg="red")
-    
     
     
     def check_url(self):
         url = self.url_entry.get().strip()
-        
+
         if not url:
             messagebox.showwarning("Warning", "Please enter the URL")
             return
-    
+
         if not url.startswith(("http://", "https://")):
             messagebox.showerror("Invalid URL", "Please enter a valid URL")
             return
-        
+
         result = url_detector.check_url(url)
-        
+
         if "safe URL" in result:
             display_result = "A secure URL"
             color = "green"
             result_type = "Secure"
             self.show_notification("URL Scan Complete", f"{url[:30]}... is safe!")
         elif "suspicious" in result:
-            display_result = "A custom URL"
+            display_result = "A suspicious URL"
             color = "orange"
             result_type = "Suspicious"
             self.show_notification("Suspicious URL Found!", f"{url[:30]}... might be phishing!")
@@ -592,10 +592,10 @@ class SecurityApp:
             color = "red"
             result_type = "Dangerous"
             self.show_notification("DANGEROUS URL DETECTED!", f"{url[:30]}... is dangerous!")
-                
-        self.add_to_history("URL", url, result_type)
 
+        self.add_to_history("URL", url, result_type)
         self.url_result.config(text=display_result, fg=color)
+
     
     
     def manual_update_check(self):
