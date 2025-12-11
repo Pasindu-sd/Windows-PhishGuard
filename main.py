@@ -109,7 +109,7 @@ class SecurityApp:
     
     def update_phishing_rules(self):
         try:
-            rules_url = "https://github.com/Pasindu-sd/Windows-PhishGuard/blob/main/phishing_rules.json"
+            rules_url = "https://raw.githubusercontent.com/Pasindu-sd/Windows-PhishGuard/main/phishing_rules.json"
             response = requests.get(rules_url, timeout=10)
 
             if response.status_code == 200:
@@ -146,7 +146,7 @@ class SecurityApp:
     def save_history(self):
         try:
             with open(self.history_file, 'w') as f:
-                json.dump(self.scan_history[-100], f, indent=2)
+                json.dump(self.scan_history[-100:], f, indent=2)
         except Exception as e:
             print(f"History save error: {e}")
 
