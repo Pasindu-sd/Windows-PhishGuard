@@ -565,6 +565,9 @@ class SecurityApp:
     
     def check_url(self):
         url = self.url_entry.get().strip()
+        if not url.startswith(("http://", "https://")):
+            messagebox.showerror("Invalid URL", "Please enter a valid URL")
+            return
         if url:
             result = url_detector.check_url(url)
             
