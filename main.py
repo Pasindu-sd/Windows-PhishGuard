@@ -212,7 +212,7 @@ class SecurityApp:
         self.is_minimized_to_tray = False
         
         
-        if self.tray_icon:
+        if self.tray_icon and self.tray_icon.visible:
             self.tray_icon.stop()
     
     
