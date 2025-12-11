@@ -459,6 +459,9 @@ class SecurityApp:
             
             start_index = f"{i}.0"
             end_index = f"{i+1}.0"
+            self.history_text.tag_config("green", foreground="green")
+            self.history_text.tag_config("orange", foreground="orange")
+            self.history_text.tag_config("red", foreground="red")   
             self.history_text.tag_add(color_tag, start_index, end_index)
         
         self.history_text.tag_config("green", foreground="green")
