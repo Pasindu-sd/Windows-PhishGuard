@@ -82,12 +82,7 @@ class SecurityApp:
     def show_notification(self, title, message, duration=5):
         if self.toaster:
             try:
-                self.toaster.show_toast(
-                    title,
-                    message,
-                    duration=duration,
-                    threaded=True
-                )
+                self.toaster.show_toast(title,message,duration=duration,threaded=True)
             except:
                 pass
     
