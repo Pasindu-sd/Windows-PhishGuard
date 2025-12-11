@@ -1,3 +1,4 @@
+import email
 import tkinter as tk
 from tkinter import messagebox, scrolledtext, ttk
 import email_detector
@@ -535,31 +536,31 @@ class SecurityApp:
     
     
     def check_email(self):
-        email_content = self.email_text.get("1.0", tk.END).strip()
-        if email_content:
-            result = email_detector.check_phishing(email_content)
-            
-            if "safe email" in result:
-                display_result = "A secure email"
+        email = self.email_entry.get().strip()
+
+        if not email:
+            messagebox.showwarning("Warning", "Please enter an email")
+            return
+
+        try:
+            result = email_detector.scan(email)
+
+            if "valid" in result.lower():
                 color = "green"
-                result_type = "Secure"
-                self.show_notification("Email Scan Complete", "This email is safe!")
-            elif "suspicious" in result:
-                display_result = "A suspicious email"
+                result_type = "Valid"
+            elif "suspicious" in result.lower():
                 color = "orange"
                 result_type = "Suspicious"
-                self.show_notification("Suspicious Email Found!", "This email might be phishing!")
             else:
-                display_result = "A dangerous email!"
                 color = "red"
-                result_type = "Dangerous"
-                self.show_notification("DANGEROUS EMAIL DETECTED!", "Phishing email detected! Be careful!")
-            
-            self.add_to_history("Email", email_content[:50], result_type)
-            
-            self.email_result.config(text=display_result, fg=color)
-        else:
-            messagebox.showwarning("Warning", "Please enter email content")
+                result_type = "Invalid"
+
+            self.email_result.config(text=result, fg=color)
+            self.add_to_history("Email", email, result_type)
+
+        except Exception as e:
+            messagebox.showerror("Error", f"Email scanning failed:\n{str(e)}")
+            self.email_result.config(text="Error scanning email", fg="red")
     
     
     
