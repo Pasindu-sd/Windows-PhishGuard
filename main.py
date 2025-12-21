@@ -34,10 +34,8 @@ class SecurityApp:
             self.toaster = None
             print("Toast notifications not available")
         
-        # ---------------- REAL-TIME EMAIL MONITOR START ----------------
         self.email_monitor_thread = None
         self.email_monitor_stop_event = threading.Event()
-        # ---------------- REAL-TIME EMAIL MONITOR END ------------------
 
         
         self.tray_icon = None
@@ -402,10 +400,10 @@ class SecurityApp:
         stop_btn = tk.Button(btn_frame, text="Stop Protection",command=self.stop_protection,bg="red", fg="white", font=("Arial", 10),padx=15, pady=5)
         stop_btn.pack(side=tk.LEFT, padx=5, fill='x', expand=True)
         
-        start_email_btn = tk.Button(parent, text="Auto Email Check ආරම්භ කරන්න", command=self.start_email_monitor, bg="green", fg="white", font=("Arial", 12), padx=15, pady=5)
+        start_email_btn = tk.Button(parent, text="Start Auto Email Check", command=self.start_email_monitor, bg="green", fg="white", font=("Arial", 12), padx=15, pady=5)
         start_email_btn.pack(pady=5)
 
-        stop_email_btn = tk.Button(parent, text="Auto Email Check නවතා දමන්න", command=self.stop_email_monitor, bg="red", fg="white", font=("Arial", 12), padx=15, pady=5)
+        stop_email_btn = tk.Button(parent, text="Stop Auto Email Check", command=self.stop_email_monitor, bg="red", fg="white", font=("Arial", 12), padx=15, pady=5)
         stop_email_btn.pack(pady=5)
 
     
@@ -581,21 +579,21 @@ class SecurityApp:
     
     def start_email_monitor(self):
         if self.email_monitor_thread and self.email_monitor_thread.is_alive():
-            messagebox.showinfo("ඇඟවීම", "Email monitoring දැනටමත් ක්‍රියාත්මකයි!")
+            messagebox.showinfo("Warning", "Email monitoring Active!")
             return
 
         self.email_monitor_stop_event.clear()
         self.email_monitor_thread = threading.Thread(target=self.monitor_emails, daemon=True)
         self.email_monitor_thread.start()
-        self.show_notification("Email Monitor", "Automatic email monitoring ආරම්භ වුණා!")
-        messagebox.showinfo("Email Monitor", "Automatic email monitoring ආරම්භ වුණා!")
+        self.show_notification("Email Monitor", "Automatic email monitoring started!")
+        messagebox.showinfo("Email Monitor", "Automatic email monitoring started!")
 
     def stop_email_monitor(self):
         if self.email_monitor_thread:
             self.email_monitor_stop_event.set()
             self.email_monitor_thread = None
-            self.show_notification("Email Monitor", "Automatic email monitoring නවතා දැමුණා!")
-            messagebox.showinfo("Email Monitor", "Automatic email monitoring නවතා දැමුණා!")
+            self.show_notification("Email Monitor", "Automatic email monitoring stopped!")
+            messagebox.showinfo("Email Monitor", "Automatic email monitoring stopped!")
 
     
     def check_url(self):
@@ -671,8 +669,8 @@ class SecurityApp:
         toaster = self.toaster if self.toaster else ToastNotifier()
 
         # Configure your email here
-        EMAIL = "your_email@gmail.com"
-        PASSWORD = "your_app_password"
+        EMAIL = "dilharawijesinghe86@gmail.com"
+        PASSWORD = "haajxngubwvfzpxv"
         IMAP_SERVER = "imap.gmail.com"
 
         try:
