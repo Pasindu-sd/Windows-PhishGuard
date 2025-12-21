@@ -4,5 +4,47 @@
     "type": "Email",
     "content": "Conversation opened. 1 unread message.\n\nSkip to co",
     "result": "Suspicious"
+  },
+  {
+    "timestamp": "2025-12-22 01:04:58",
+    "type": "Email",
+    "content": "[image: Google]\r\nSign-in attempt was blocked\r\n\r\n\r\n",
+    "result": "Suspicious"
+  },
+  {
+    "timestamp": "2025-12-22 01:05:04",
+    "type": "Email",
+    "content": "\r\nCO 1122 (2022/2023) -> Assignment -> Practice 2\r",
+    "result": "Suspicious"
+  },
+  {
+    "timestamp": "2025-12-22 01:05:10",
+    "type": "Email",
+    "content": "\r\nCO 1122 (2022/2023) -> Assignment -> Practice 3\r",
+    "result": "Suspicious"
+  },
+  {
+    "timestamp": "2025-12-22 01:05:15",
+    "type": "Email",
+    "content": "\r\nCO 1122 (2022/2023) -> Forums -> Announcements -",
+    "result": "Suspicious"
+  },
+  {
+    "timestamp": "2025-12-22 01:05:21",
+    "type": "Email",
+    "content": "\r\nCO 1122 (2022/2023) -> Assignment -> Group Activ",
+    "result": "Suspicious"
+  },
+  {
+    "timestamp": "2025-12-22 01:05:27",
+    "type": "Email",
+    "content": "\r\nCO 1122 (2022/2023) -> Forums -> Announcements -",
+    "result": "Suspicious"
+  },
+  {
+    "timestamp": "2025-12-22 01:05:32",
+    "type": "Email",
+    "content": "\r\nCO 1126 (2022/2023) -> Assignment -> class work\r",
+    "result": "Suspicious"
   }
 ]
