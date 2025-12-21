@@ -669,8 +669,8 @@ class SecurityApp:
         toaster = self.toaster if self.toaster else ToastNotifier()
 
         # Configure your email here
-        EMAIL = "dilharawijesinghe86@gmail.com"
-        PASSWORD = "haajxngubwvfzpxv"
+        EMAIL = "xxxxxxxxxxxxxxxxxxxxxxx@gmail.com"
+        PASSWORD = "xxxx xxxx xxxx xxxx"
         IMAP_SERVER = "imap.gmail.com"
 
         try:
