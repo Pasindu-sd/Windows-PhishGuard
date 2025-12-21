@@ -632,3 +632,7 @@ class SecurityApp:
 if __name__ == "__main__":
     app = SecurityApp()
     app.run()
+    
+    # Start email monitoring in background
+    self.email_monitor_thread = threading.Thread(target=self.monitor_emails, daemon=True)
+    self.email_monitor_thread.start()
