@@ -1,8 +1,11 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import email_detector
 import url_detector
 
 app = Flask(__name__)
+CORS(app)
+
 
 @app.route("/check_email", methods=["POST"])
 def check_email():
