@@ -33,6 +33,12 @@ class SecurityApp:
             self.toaster = None
             print("Toast notifications not available")
         
+        # ---------------- REAL-TIME EMAIL MONITOR START ----------------
+        self.email_monitor_thread = threading.Thread(target=self.monitor_emails, daemon=True)
+        self.email_monitor_thread.start()
+        # ---------------- REAL-TIME EMAIL MONITOR END ------------------
+
+        
         self.tray_icon = None
         self.is_minimized_to_tray = False
         self.last_update_check = None
@@ -44,6 +50,7 @@ class SecurityApp:
         self.window.protocol('WM_DELETE_WINDOW', self.minimize_to_tray)
         self.window.after(2000, self.show_protection_message)
         self.window.after(5000, self.check_for_updates)
+        
     
     
     def check_for_updates(self):
@@ -628,11 +635,50 @@ class SecurityApp:
         
         self.window.mainloop()
 
+    
+    
+    def monitor_emails(self):
+        import imaplib, email
+        from win10toast import ToastNotifier
+
+        toaster = self.toaster if self.toaster else ToastNotifier()
+
+        # Configure your email here
+        EMAIL = "your_email@gmail.com"
+        PASSWORD = "your_app_password"
+        IMAP_SERVER = "imap.gmail.com"
+
+        try:
+            imap = imaplib.IMAP4_SSL(IMAP_SERVER)
+            imap.login(EMAIL, PASSWORD)
+            imap.select("inbox")
+
+            while True:
+                status, messages = imap.search(None, 'UNSEEN')  # fetch unread emails
+                for num in messages[0].split():
+                    status, msg_data = imap.fetch(num, "(RFC822)")
+                    msg = email.message_from_bytes(msg_data[0][1])
+                    subject = msg["subject"]
+                    body = ""
+                    if msg.is_multipart():
+                        for part in msg.walk():
+                            if part.get_content_type() == "text/plain":
+                                body = part.get_payload(decode=True).decode()
+                    else:
+                        body = msg.get_payload(decode=True).decode()
+
+                    result = email_detector.check_phishing(body)
+                    if result != "safe email":
+                        toaster.show_toast("Suspicious Email Detected!", f"{subject}", duration=5)
+                        self.add_to_history("Email", body[:50], "Suspicious")
+
+                time.sleep(30)  # check every 30 seconds
+        except Exception as e:
+            print("Email monitoring error:", e)
+
+        
+    
 
 if __name__ == "__main__":
     app = SecurityApp()
     app.run()
-    
-    # Start email monitoring in background
-    self.email_monitor_thread = threading.Thread(target=self.monitor_emails, daemon=True)
-    self.email_monitor_thread.start()
