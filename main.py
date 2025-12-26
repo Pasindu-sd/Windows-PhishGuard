@@ -689,9 +689,13 @@ class SecurityApp:
 
                         result = email_detector.check_phishing(f"{subject}\n{body}")
 
-                        if result != "safe email":
+                        if "suspicious" in result or "dangerous" in result:
                             notification.notify(title="PhishGuard Alert!",message=f"Suspicious email detected: {subject[:50]}",app_name="Windows PhishGuard",timeout=5)
-                            self.add_to_history("Email", body[:100], "Suspicious")
+                            if "suspicious" in result:
+                                self.add_to_history("Email", body[:100], "Suspicious")
+                            elif "dangerous" in result:
+                                self.add_to_history("Email", body[:100], "Dangerous")
+
 
                         imap.store(num, '+FLAGS', '\\Seen')
 
