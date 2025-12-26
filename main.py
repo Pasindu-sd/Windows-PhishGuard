@@ -1,3 +1,4 @@
+from plyer import notification
 import tkinter as tk
 from tkinter import messagebox, scrolledtext, ttk
 import email_detector
@@ -13,7 +14,7 @@ import requests
 import json     
 import time     
 from datetime import datetime
-from win10toast import ToastNotifier
+import client_email_config
 
 
 class SecurityApp:
@@ -28,15 +29,9 @@ class SecurityApp:
         self.scan_history = []
         self.load_history()
         
-        try:
-            self.toaster = ToastNotifier()
-        except:
-            self.toaster = None
-            print("Toast notifications not available")
-        
         self.email_monitor_thread = None
         self.email_monitor_stop_event = threading.Event()
-
+        self.email_monitor_running = False
         
         self.tray_icon = None
         self.is_minimized_to_tray = False
@@ -86,11 +81,11 @@ class SecurityApp:
     
     
     def show_notification(self, title, message, duration=5):
-        if self.toaster:
-            try:
-                self.toaster.show_toast(title,message,duration=duration,threaded=True)
-            except:
-                pass
+        try:
+            notification.notify(title=title, message=message, app_name="Windows PhishGuard", timeout=duration)
+        except Exception as e:
+            print(f"Notification error: {e}")
+            self.window.after(0, lambda: messagebox.showinfo(title, message))
     
     
     def download_update(self):
@@ -589,11 +584,12 @@ class SecurityApp:
         messagebox.showinfo("Email Monitor", "Automatic email monitoring started!")
 
     def stop_email_monitor(self):
-        if self.email_monitor_thread:
+        if self.email_monitor_thread and self.email_monitor_thread.is_alive():
             self.email_monitor_stop_event.set()
-            self.email_monitor_thread = None
-            self.show_notification("Email Monitor", "Automatic email monitoring stopped!")
-            messagebox.showinfo("Email Monitor", "Automatic email monitoring stopped!")
+            self.show_notification("Email Monitor", "Stopping email monitoring...")
+            messagebox.showinfo("Email Monitor", "Stopping email monitoring...")
+        else:
+            messagebox.showinfo("Email Monitor", "Email monitoring is not running.")
 
     
     def check_url(self):
@@ -663,14 +659,11 @@ class SecurityApp:
     
     def monitor_emails(self):
         import imaplib, email
-        from win10toast import ToastNotifier
 
-        toaster = self.toaster if self.toaster else ToastNotifier()
-
-        # Configure your email here
-        EMAIL = "xxxxxxxxxxxxxxxxxxxxxxx@gmail.com"
-        PASSWORD = "xxxx xxxx xxxx xxxx"
-        IMAP_SERVER = "imap.gmail.com"
+        config = client_email_config.get_config()
+        EMAIL = config['email']
+        PASSWORD = config['password']
+        IMAP_SERVER = config['imap_server']
 
         try:
             imap = imaplib.IMAP4_SSL(IMAP_SERVER)
@@ -678,29 +671,55 @@ class SecurityApp:
             imap.select("inbox")
 
             while not self.email_monitor_stop_event.is_set():
-                status, messages = imap.search(None, 'UNSEEN')  # fetch unread emails
-                for num in messages[0].split():
-                    status, msg_data = imap.fetch(num, "(RFC822)")
-                    msg = email.message_from_bytes(msg_data[0][1])
-                    subject = msg["subject"]
-                    body = ""
-                    if msg.is_multipart():
-                        for part in msg.walk():
-                            if part.get_content_type() == "text/plain":
-                                body = part.get_payload(decode=True).decode()
-                    else:
-                        body = msg.get_payload(decode=True).decode()
+                status, messages = imap.search(None, 'UNSEEN')
 
-                    result = email_detector.check_phishing(body)
-                    if result != "safe email":
-                        toaster.show_toast("Suspicious Email Detected!", f"{subject}", duration=5)
-                        self.add_to_history("Email", body[:50], "Suspicious")
+                if messages[0]:
+                    for num in messages[0].split():
+                        if self.email_monitor_stop_event.is_set():
+                            break
 
-                time.sleep(30)  # check every 30 seconds
+                        status, msg_data = imap.fetch(num, "(RFC822)")
+                        msg = email.message_from_bytes(msg_data[0][1])
+
+                        subject = msg["subject"] or "No Subject"
+
+                        body = ""
+                        if msg.is_multipart():
+                            for part in msg.walk():
+                                if part.get_content_type() == "text/plain":
+                                    body = part.get_payload(decode=True).decode(errors='ignore')
+                                    break
+                        else:
+                            body = msg.get_payload(decode=True).decode(errors='ignore')
+
+                        result = email_detector.check_phishing(f"{subject}\n{body}")
+
+                        if result != "safe email":
+                            notification.notify(
+                                title="PhishGuard Alert!",
+                                message=f"Suspicious email detected: {subject[:50]}",
+                                app_name="Windows PhishGuard",
+                                timeout=5
+                            )
+                            self.add_to_history("Email", body[:100], "Suspicious")
+
+                        imap.store(num, '+FLAGS', '\\Seen')
+
+                if self.email_monitor_stop_event.wait(30):
+                    break
+
+               
         except Exception as e:
-            print("Email monitoring error:", e)
+            print(f"Email monitoring error: {e}")
 
-        
+        finally:
+            try:
+                imap.logout()
+            except:
+                pass
+            
+            self.email_monitor_thread = None
+            print("Email monitoring stopped")
     
 
 if __name__ == "__main__":
