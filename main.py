@@ -653,7 +653,6 @@ class SecurityApp:
         self.show_notification("Protection Stopped", "Security protection has been stopped!")
         messagebox.showwarning("Protection", "Protection stopped!")
 
-
     def run(self):
         print("Windows PhishGuard started!")
         print("App minimized to system tray. Click the tray icon to restore.")
