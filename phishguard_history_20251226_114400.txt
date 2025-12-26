@@ -1,0 +1,526 @@
+PhishGuard Scan History Report
+==================================================
+Generated on: 2025-12-26 11:44:00
+==================================================
+
+Time: 2025-12-26 11:35:21
+Type: Email
+Result: Suspicious
+Content: <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Trans
+----------------------------------------
+Time: 2025-12-26 11:35:26
+Type: Email
+Result: Suspicious
+Content: Hey PASINDU,
+
+Thanks for taking the time to chec
+----------------------------------------
+Time: 2025-12-26 11:35:32
+Type: Email
+Result: Suspicious
+Content: 
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C/
+----------------------------------------
+Time: 2025-12-26 11:35:39
+Type: Email
+Result: Suspicious
+Content: New device signed in to
+
+
+dilharawijesinghe86@g
+----------------------------------------
+Time: 2025-12-26 11:35:45
+Type: Email
+Result: Suspicious
+Content: You are receiving this email because you joined So
+----------------------------------------
+Time: 2025-12-26 11:35:51
+Type: Email
+Result: Suspicious
+Content: You have received the alternative text version of 
+----------------------------------------
+Time: 2025-12-26 11:35:57
+Type: Email
+Result: Suspicious
+Content: 
+
+Unsubscribe From This List http://link.e.softo
+----------------------------------------
+Time: 2025-12-26 11:36:05
+Type: Email
+Result: Suspicious
+Content: New device signed in to
+
+
+dilharawijesinghe86@g
+----------------------------------------
+Time: 2025-12-26 11:36:10
+Type: Email
+Result: Suspicious
+Content: Sharer.pw Drive File Sharer was granted access to 
+----------------------------------------
+Time: 2025-12-26 11:36:17
+Type: Email
+Result: Suspicious
+Content: Windows was granted access to your Google account
+----------------------------------------
+Time: 2025-12-26 11:36:23
+Type: Email
+Result: Suspicious
+Content: Thank you for signing up for ProtonVPN. With Proto
+----------------------------------------
+Time: 2025-12-26 11:36:28
+Type: Email
+Result: Suspicious
+Content: New device signed in to
+
+
+dilharawijesinghe86@g
+----------------------------------------
+Time: 2025-12-26 11:36:34
+Type: Email
+Result: Suspicious
+Content: New device signed in to
+
+
+dilharawijesinghe86@g
+----------------------------------------
+Time: 2025-12-26 11:36:39
+Type: Email
+Result: Suspicious
+Content: Please take a second to make sure we have your cor
+----------------------------------------
+Time: 2025-12-26 11:36:45
+Type: Email
+Result: Suspicious
+Content:     gamer tattoos
+    video game art
+    geek st
+----------------------------------------
+Time: 2025-12-26 11:36:51
+Type: Email
+Result: Suspicious
+Content: New device signed in to
+
+
+dilharawijesinghe86@g
+----------------------------------------
+Time: 2025-12-26 11:36:57
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:37:03
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:37:08
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:37:14
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:37:20
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:37:25
+Type: Email
+Result: Suspicious
+Content: It’s Here - Huge 40% Memorial Day Sale
+----------
+----------------------------------------
+Time: 2025-12-26 11:37:31
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:37:37
+Type: Email
+Result: Suspicious
+Content: Truecaller was granted access to your Google accou
+----------------------------------------
+Time: 2025-12-26 11:37:43
+Type: Email
+Result: Suspicious
+Content: It’s Here - Huge 40% Memorial Day Sale
+----------
+----------------------------------------
+Time: 2025-12-26 11:37:48
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:37:54
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:38:00
+Type: Email
+Result: Suspicious
+Content: Tracktion and 2JW Design Join Forces sith Prism So
+----------------------------------------
+Time: 2025-12-26 11:38:05
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:38:11
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:38:17
+Type: Email
+Result: Suspicious
+Content:     video game logic
+    funny comics
+    super 
+----------------------------------------
+Time: 2025-12-26 11:38:22
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:38:28
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:38:34
+Type: Email
+Result: Suspicious
+Content: Introducing RetroMod Digital 1
+------------------
+----------------------------------------
+Time: 2025-12-26 11:38:40
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:38:45
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:38:51
+Type: Email
+Result: Suspicious
+Content:     Alan walker: https://post.pinterest.com/f/a/a2
+----------------------------------------
+Time: 2025-12-26 11:38:56
+Type: Email
+Result: Suspicious
+Content: Alan walker: https://post.pinterest.com/f/a/tWyW0t
+----------------------------------------
+Time: 2025-12-26 11:39:02
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:39:08
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:39:13
+Type: Email
+Result: Suspicious
+Content:     alan walker
+    screen wallpaper
+    smoke b
+----------------------------------------
+Time: 2025-12-26 11:39:19
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:39:26
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:39:31
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:39:37
+Type: Email
+Result: Suspicious
+Content: Meet Your New Beat Creation Tool!
+---------------
+----------------------------------------
+Time: 2025-12-26 11:39:42
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:39:48
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:39:54
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:39:59
+Type: Email
+Result: Suspicious
+Content: Upgrade Your T7 Free to W10
+---------------------
+----------------------------------------
+Time: 2025-12-26 11:40:05
+Type: Email
+Result: Suspicious
+Content:     video game memes
+    ciel phantomhive
+    al
+----------------------------------------
+Time: 2025-12-26 11:40:10
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:40:16
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:40:21
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:40:28
+Type: Email
+Result: Suspicious
+Content: Dive Deep Into Waveform's Legendary Sonic Playgrou
+----------------------------------------
+Time: 2025-12-26 11:40:33
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:40:39
+Type: Email
+Result: Suspicious
+Content: Early Access Sale
+-------------------------------
+----------------------------------------
+Time: 2025-12-26 11:40:45
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:40:50
+Type: Email
+Result: Suspicious
+Content: Explosive 55% SALE On All Software!
+-------------
+----------------------------------------
+Time: 2025-12-26 11:40:57
+Type: Email
+Result: Suspicious
+Content: Explosive 55% SALE On All Software!
+-------------
+----------------------------------------
+Time: 2025-12-26 11:41:02
+Type: Email
+Result: Suspicious
+Content: LKR 304.72  46%OFF | IF ME Vintage Leaf Feather Mu
+----------------------------------------
+Time: 2025-12-26 11:41:08
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:41:14
+Type: Email
+Result: Suspicious
+Content: Meet Your New Beat Creation Tool!
+---------------
+----------------------------------------
+Time: 2025-12-26 11:41:20
+Type: Email
+Result: Suspicious
+Content:     smoke wallpaper
+    david guetta
+    dj musi
+----------------------------------------
+Time: 2025-12-26 11:41:26
+Type: Email
+Result: Suspicious
+Content: Welcome to MEGA
+
+Hi pasindu sandeepa, thanks for
+----------------------------------------
+Time: 2025-12-26 11:41:32
+Type: Email
+Result: Suspicious
+Content: dilharawijesinghe86@gmail.com
+
+Great, thanks for
+----------------------------------------
+Time: 2025-12-26 11:41:38
+Type: Email
+Result: Suspicious
+Content:     Android Games
+    Wallpaper Downloads
+    Xb
+----------------------------------------
+Time: 2025-12-26 11:41:44
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:41:50
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:41:55
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:42:01
+Type: Email
+Result: Suspicious
+Content:     Gaming Pc
+    Hd Wallpapers For Mobile
+    A
+----------------------------------------
+Time: 2025-12-26 11:42:06
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:42:12
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:42:18
+Type: Email
+Result: Suspicious
+Content: We found some boards we think might be right up yo
+----------------------------------------
+Time: 2025-12-26 11:42:23
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:42:29
+Type: Email
+Result: Suspicious
+Content: Artist Community Spotlight
+----------------------
+----------------------------------------
+Time: 2025-12-26 11:42:34
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:42:40
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:42:46
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:42:51
+Type: Email
+Result: Suspicious
+Content:     Ouija Board
+    Classroom Design
+    Project
+----------------------------------------
+Time: 2025-12-26 11:42:57
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:43:02
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:43:08
+Type: Email
+Result: Suspicious
+Content:     480x800 Wallpaper
+    Android Phones
+    Gam
+----------------------------------------
+Time: 2025-12-26 11:43:14
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:43:19
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:43:25
+Type: Email
+Result: Suspicious
+Content:     Wallpapers For Mobile Phones
+    Games For Pc
+----------------------------------------
+Time: 2025-12-26 11:43:31
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:43:36
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:43:42
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:43:48
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:43:53
+Type: Email
+Result: Suspicious
+Content: To view this content, open the following URL in yo
+----------------------------------------
+Time: 2025-12-26 11:43:59
+Type: Email
+Result: Suspicious
+Content:     War Tattoo
+    Mobile Wallpapers Hd
+    Smok
+----------------------------------------
+
+Total scans: 91
