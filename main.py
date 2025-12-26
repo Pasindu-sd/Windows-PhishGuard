@@ -171,17 +171,12 @@ class SecurityApp:
         try:    
             image = PIL.Image.new('RGB', (64, 64), color='green')
             
-            menu = (
-                item('open up', self.restore_from_tray),
-                item('Look', self.show_status),
-                item('get out', self.quit_application)
-            )
+            menu = (item('open up', self.restore_from_tray),item('Look', self.show_status),item('get out', self.quit_application))
             
             self.tray_icon = pystray.Icon("phish_guard", image, "Windows PhishGuard", menu)
             
         except Exception as e:
             print(f"System tray creation error: {e}")
-    
     
     
     def minimize_to_tray(self):
