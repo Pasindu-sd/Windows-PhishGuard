@@ -7,11 +7,11 @@ import pystray
 from pystray import MenuItem as item
 import PIL.Image
 import threading
-from threading import Event
 import os
-import sys
 import requests 
-import json     
+import json
+import imaplib
+import email
 import time     
 from datetime import datetime
 import client_email_config
@@ -38,6 +38,15 @@ class SecurityApp:
         self.last_update_check = None
         self.update_available = False
         
+        self.email_text = None
+        self.email_result = None
+        self.url_entry = None
+        self.url_result = None
+        self.status_label = None
+        self.update_status_label = None
+        self.history_text = None
+        self.history_stats = None
+        
         self.create_tabs()
         self.create_system_tray()
         
@@ -63,7 +72,7 @@ class SecurityApp:
             
             self.last_update_check = datetime.now()
         
-        except requests.RequestException:
+        except (requests.RequestException, OSError) as _:
             print("Unable to check for updates due to lack of internet connection.")
             
         self.window.after(24 * 60 * 60 * 1000, self.check_for_updates)
@@ -83,7 +92,7 @@ class SecurityApp:
     def show_notification(self, title, message, duration=5):
         try:
             notification.notify(title=title, message=message, app_name="Windows PhishGuard", timeout=duration)
-        except Exception as e:
+        except (OSError, RuntimeError) as e:
             print(f"Notification error: {e}")
             self.window.after(0, lambda: messagebox.showinfo(title, message))
     
@@ -93,7 +102,7 @@ class SecurityApp:
             messagebox.showinfo("Update", "Downloading update ...")
             update_url = "https://github.com/Pasindu-sd/PhishGuard/releases/latest/download/update.zip"
             
-            response = requests.get(update_url, stream=True)
+            response = requests.get(update_url, stream=True, timeout=30)
             
             if response.status_code == 200:
                 with open("update.zip", "wb") as f:
@@ -102,10 +111,10 @@ class SecurityApp:
                 
                 messagebox.showinfo("Success", "Update downloaded succesfully!\nPlease restart the application.")
             else:
-                messagebox.showerror("Error", f"Update download failed!")
+                messagebox.showerror("Error", "Update download failed!")
         
-        except Exception as e:
-            messagebox.showerror("Error", f"Update failed {str(e)}")
+        except (OSError, requests.RequestException):
+            messagebox.showerror("Error", "Update download failed!")
     
     
     def update_phishing_rules(self):
@@ -124,7 +133,7 @@ class SecurityApp:
                 
                 print("Phishing rules successfully updated")
                 
-        except Exception as e:
+        except (json.JSONDecodeError, requests.RequestException) as e:
             print(f"Rules update failed: {e}")
     
     def show_protection_message(self):
@@ -135,20 +144,20 @@ class SecurityApp:
     def load_history(self):
         try:
             if os.path.exists(self.history_file):
-                with open(self.history_file, 'r') as f:
+                with open(self.history_file, 'r', encoding='utf-8') as f:
                     self.scan_history = json.load(f)
             else:
                 self.scan_history = []
-        except Exception as e:
+        except (FileNotFoundError, json.JSONDecodeError) as e:
             print(f"History load error: {e}")
             self.scan_history = []
     
     
     def save_history(self):
         try:
-            with open(self.history_file, 'w') as f:
+            with open(self.history_file, 'w', encoding='utf-8') as f:
                 json.dump(self.scan_history[-100:], f, indent=2)
-        except Exception as e:
+        except (OSError, IOError) as e:
             print(f"History save error: {e}")
 
     
@@ -175,7 +184,7 @@ class SecurityApp:
             
             self.tray_icon = pystray.Icon("phish_guard", image, "Windows PhishGuard", menu)
             
-        except Exception as e:
+        except (OSError, AttributeError) as e:
             print(f"System tray creation error: {e}")
     
     
@@ -193,7 +202,7 @@ class SecurityApp:
     
     
     
-    def restore_from_tray(self, icon=None, item=None):
+    def restore_from_tray(self, _icon=None, _tray_item=None):
         
         if self.is_minimized_to_tray:
             self.window.after(0, self.show_window)
@@ -213,13 +222,13 @@ class SecurityApp:
     
     
     
-    def show_status(self, icon=None, item=None):
+    def show_status(self, _icon=None, _tray_item=None):
         
         messagebox.showinfo("Status", "Windows PhishGuard is active!\nStay safe!")
     
     
     
-    def quit_application(self, icon=None, item=None):
+    def quit_application(self, _icon=None, _tray_item=None):
         
         if self.tray_icon:
             self.tray_icon.stop()
@@ -511,7 +520,7 @@ class SecurityApp:
                 f.write(f"\nTotal scans: {len(self.scan_history)}\n")
             self.show_notification("History Exported", f"Saved to {filename}")
             messagebox.showinfo("Export Successful", f"History exported to:\n{filename}")
-        except Exception as e:
+        except (OSError, IOError) as e:
             self.show_notification("Export Failed", "Could not export history")
             messagebox.showerror("Export Error", f"Failed to export: {str(e)}")
     
@@ -653,8 +662,6 @@ class SecurityApp:
     
     
     def monitor_emails(self):
-        import imaplib, email
-
         config = client_email_config.get_config()
         EMAIL = config['email']
         PASSWORD = config['password']
@@ -666,14 +673,14 @@ class SecurityApp:
             imap.select("inbox")
 
             while not self.email_monitor_stop_event.is_set():
-                status, messages = imap.search(None, 'UNSEEN')
+                _, messages = imap.search(None, 'UNSEEN')
 
                 if messages[0]:
                     for num in messages[0].split():
                         if self.email_monitor_stop_event.is_set():
                             break
 
-                        status, msg_data = imap.fetch(num, "(RFC822)")
+                        _, msg_data = imap.fetch(num, "(RFC822)")
                         msg = email.message_from_bytes(msg_data[0][1])
 
                         subject = msg["subject"] or "No Subject"
@@ -703,13 +710,13 @@ class SecurityApp:
                     break
 
                
-        except Exception as e:
+        except (imaplib.IMAP4.error, ConnectionError) as e:
             print(f"Email monitoring error: {e}")
 
         finally:
             try:
                 imap.logout()
-            except:
+            except (ConnectionError, OSError):
                 pass
             
             self.email_monitor_thread = None
