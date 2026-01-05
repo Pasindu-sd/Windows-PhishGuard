@@ -16,7 +16,7 @@ def check_email():
 @app.route("/check_url", methods=["POST"])
 def check_url():
     url = request.json.get("url", "")
-    result = url_detector.check_url(url)
+    result = url_detector.detect_url(url)
     return jsonify({"result": result})
 
 if __name__ == "__main__":
