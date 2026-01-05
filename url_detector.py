@@ -1,3 +1,4 @@
+import pickle
 import re
 import socket
 import ssl
@@ -5,6 +6,7 @@ import datetime
 import requests
 import argparse
 from datetime import datetime, timezone
+from AI_Detector.features import extract_features
 
 def check_url(url):
     
