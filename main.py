@@ -598,33 +598,28 @@ class SecurityApp:
     
     def check_url(self):
         url = self.url_entry.get().strip()
-
+        
         if not url:
             messagebox.showwarning("Warning", "Please enter the URL")
             return
-
+        
         if not url.startswith(("http://", "https://")):
             messagebox.showerror("Invalid URL", "Please enter a valid URL")
             return
-
-        result = url_detector.check_url(url)
-
-        if "safe URL" in result:
+        
+        result = url_detector.detect_url(url)
+        
+        if result == "SAFE":
             display_result = "A secure URL"
             color = "green"
             result_type = "Secure"
             self.show_notification("URL Scan Complete", f"{url[:30]}... is safe!")
-        elif "suspicious" in result:
-            display_result = "A suspicious URL"
-            color = "orange"
-            result_type = "Suspicious"
-            self.show_notification("Suspicious URL Found!", f"{url[:30]}... might be phishing!")
-        else:
+        elif result == "PHISHING":
             display_result = "Dangerous URL!"
             color = "red"
             result_type = "Dangerous"
             self.show_notification("DANGEROUS URL DETECTED!", f"{url[:30]}... is dangerous!")
-
+        
         self.add_to_history("URL", url, result_type)
         self.url_result.config(text=display_result, fg=color)
 
