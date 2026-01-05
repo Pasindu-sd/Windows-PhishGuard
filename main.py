@@ -15,6 +15,12 @@ import email
 import time     
 from datetime import datetime
 import client_email_config
+import pickle
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from AI_Detector.features import extract_features
 
 
 class SecurityApp:
