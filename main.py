@@ -180,7 +180,12 @@ class SecurityApp:
         try:    
             image = PIL.Image.new('RGB', (64, 64), color='green')
             
-            menu = (item('open up', self.restore_from_tray),item('Look', self.show_status),item('get out', self.quit_application))
+            # Use a pystray.Menu to avoid menu type issues
+            menu = pystray.Menu(
+                item('open up', self.restore_from_tray),
+                item('Look', self.show_status),
+                item('get out', self.quit_application)
+            )
             
             self.tray_icon = pystray.Icon("phish_guard", image, "Windows PhishGuard", menu)
             
@@ -608,18 +613,26 @@ class SecurityApp:
             return
         
         result = url_detector.detect_url(url)
-        
+
+        # Defaults to ensure variables are always defined
+        display_result = "A suspicious URL"
+        color = "orange"
+        result_type = "Suspicious"
+
         if result == "SAFE":
             display_result = "A secure URL"
             color = "green"
             result_type = "Secure"
             self.show_notification("URL Scan Complete", f"{url[:30]}... is safe!")
-        elif result == "PHISHING":
+        elif result in ("PHISHING", "DANGEROUS"):
             display_result = "Dangerous URL!"
             color = "red"
             result_type = "Dangerous"
             self.show_notification("DANGEROUS URL DETECTED!", f"{url[:30]}... is dangerous!")
-        
+        elif result in ("SUSPICIOUS", "UNKNOWN", "WARN"):
+            # keep defaults, but notify user
+            self.show_notification("Suspicious URL", f"{url[:30]}... looks suspicious!")
+
         self.add_to_history("URL", url, result_type)
         self.url_result.config(text=display_result, fg=color)
 
@@ -662,6 +675,7 @@ class SecurityApp:
         PASSWORD = config['password']
         IMAP_SERVER = config['imap_server']
 
+        imap = None  # ensure defined for cleanup
         try:
             imap = imaplib.IMAP4_SSL(IMAP_SERVER)
             imap.login(EMAIL, PASSWORD)
@@ -678,39 +692,49 @@ class SecurityApp:
                         _, msg_data = imap.fetch(num, "(RFC822)")
                         msg = email.message_from_bytes(msg_data[0][1])
 
-                        subject = msg["subject"] or "No Subject"
+                        subject = msg.get("subject") or "No Subject"
 
                         body = ""
                         if msg.is_multipart():
                             for part in msg.walk():
                                 if part.get_content_type() == "text/plain":
-                                    body = part.get_payload(decode=True).decode(errors='ignore')
+                                    try:
+                                        body = part.get_payload(decode=True).decode(errors='ignore')
+                                    except Exception:
+                                        body = ""
                                     break
                         else:
-                            body = msg.get_payload(decode=True).decode(errors='ignore')
+                            try:
+                                body = msg.get_payload(decode=True).decode(errors='ignore')
+                            except Exception:
+                                body = ""
 
                         result = email_detector.check_phishing(f"{subject}\n{body}")
 
                         if "suspicious" in result or "dangerous" in result:
-                            notification.notify(title="PhishGuard Alert!",message=f"Suspicious email detected: {subject[:50]}",app_name="Windows PhishGuard",timeout=5)
+                            notification.notify(
+                                title="PhishGuard Alert!",
+                                message=f"Suspicious email detected: {subject[:50]}",
+                                app_name="Windows PhishGuard",
+                                timeout=5
+                            )
                             if "suspicious" in result:
                                 self.add_to_history("Email", body[:100], "Suspicious")
                             elif "dangerous" in result:
                                 self.add_to_history("Email", body[:100], "Dangerous")
-
 
                         imap.store(num, '+FLAGS', '\\Seen')
 
                 if self.email_monitor_stop_event.wait(30):
                     break
 
-               
         except (imaplib.IMAP4.error, ConnectionError) as e:
             print(f"Email monitoring error: {e}")
 
         finally:
             try:
-                imap.logout()
+                if imap is not None:
+                    imap.logout()
             except (ConnectionError, OSError):
                 pass
             

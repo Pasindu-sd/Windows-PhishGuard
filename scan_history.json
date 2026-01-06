@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "timestamp": "2026-01-06 21:07:11",
+    "type": "URL",
+    "content": "https://www.youtube.com/watch?v=_jzTjWE8380&list=RD5QYvQPKhdLE&index=4",
+    "result": "Secure"
+  },
+  {
+    "timestamp": "2026-01-06 21:07:12",
+    "type": "URL",
+    "content": "https://www.youtube.com/watch?v=_jzTjWE8380&list=RD5QYvQPKhdLE&index=4",
+    "result": "Secure"
+  },
+  {
+    "timestamp": "2026-01-06 21:07:30",
+    "type": "URL",
+    "content": "https://www.youtube.com/watch?v=_jzTjWE8380&list=RD5QYvQPKhdLE&index=4",
+    "result": "Secure"
+  },
+  {
+    "timestamp": "2026-01-06 21:08:25",
+    "type": "URL",
+    "content": "https://app.hackthebox.com/machines/WhiteRabbit?tab=play_machine",
+    "result": "Secure"
+  }
+]

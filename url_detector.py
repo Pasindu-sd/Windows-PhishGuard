@@ -4,9 +4,9 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from .AI-Detector.features import extract_features
+from AIDetector.features import extract_features
 
-MODEL_PATH = os.path.join("AI_Detector", "model.pkl")
+MODEL_PATH = os.path.join("AIDetector", "model.pkl")
 
 with open(MODEL_PATH, "rb") as f:
     model = pickle.load(f)
