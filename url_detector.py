@@ -4,7 +4,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from AI_Detector.features import extract_features
+from .AI-Detector.features import extract_features
 
 MODEL_PATH = os.path.join("AI_Detector", "model.pkl")
 
