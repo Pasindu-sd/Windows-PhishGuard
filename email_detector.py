@@ -1,4 +1,5 @@
 import re
+from fuzzywuzzy import fuzz
 
 def check_phishing(email_content):
     suspicious_keywords = ['urgent', 'verify your account', 'password', 'bank', 'paypal', 'click here', 'limited time', 'winner', 'prize', 'account suspended']
