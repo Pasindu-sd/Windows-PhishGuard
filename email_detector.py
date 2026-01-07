@@ -9,7 +9,7 @@ def check_phishing(email_content):
     score = 0
     
     for keyword in suspicious_keywords:
-        if keyword.lower() in email_content.lower():
+        if fuzz.partial_ratio(keyword.lower(), email_content.lower()) > 80:
             score += 1
     
     if suspicious_links:
