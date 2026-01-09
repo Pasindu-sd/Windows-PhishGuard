@@ -10,3 +10,4 @@ python-Levenshtein
 scikit-learn
 pandas
 numpy
+joblib
