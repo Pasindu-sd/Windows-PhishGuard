@@ -4,3 +4,9 @@ requests
 plyer
 pystray
 Pillow
+xgboost
+fuzzywuzzy
+python-Levenshtein
+scikit-learn
+pandas
+numpy
