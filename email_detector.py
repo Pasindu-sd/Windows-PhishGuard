@@ -64,7 +64,7 @@ def check_email(subject, message):
 
         return problem
 
-    except Exception as e:
+    except (AttributeError, TypeError, ValueError) as e:
         print(f"\nError occurred while checking email: {e}")
         return []
 
@@ -78,5 +78,5 @@ if __name__ == "__main__":
 
     except KeyboardInterrupt:
         print("\nProgram stopped by user.")
-    except Exception as e:
+    except (EOFError, RuntimeError) as e:
         print(f"Unexpected error: {e}")
