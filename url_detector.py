@@ -1,4 +1,4 @@
-import pickle
+import joblib
 import os
 import sys
 
@@ -8,8 +8,7 @@ from AIDetector.features import extract_features
 
 MODEL_PATH = os.path.join("AIDetector", "model.pkl")
 
-with open(MODEL_PATH, "rb") as f:
-    model = pickle.load(f)
+model = joblib.load(MODEL_PATH)
 
 def ml_predict_url(url):
     features = extract_features(url)

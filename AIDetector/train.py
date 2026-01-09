@@ -7,7 +7,7 @@ import os
 
 # Load dataset (CORRECT WAY)
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-csv_path = os.path.join(BASE_DIR, "urls_dataset.csv")
+csv_path = os.path.join(BASE_DIR, "urls.csv")
 
 data = pd.read_csv(csv_path)
 
