@@ -119,6 +119,21 @@ class SecurityApp:
     
     def update_phishing_rules(self):
         try:
+            # First try to load local rules
+            if os.path.exists('phishing_rules.json'):
+                with open('phishing_rules.json', 'r', encoding='utf-8') as f:
+                    new_rules = json.load(f)
+                    
+                    if 'email_keywords' in new_rules:
+                        email_detector.suspicious_keywords = new_rules['email_keywords']
+                     
+                    if 'url_patterns' in new_rules:
+                        url_detector.suspicious_patterns = new_rules['url_patterns']
+                    
+                    print("Local phishing rules loaded successfully")
+                    return
+            
+            # Fallback to online update if local file not found
             rules_url = "https://raw.githubusercontent.com/Pasindu-sd/Windows-PhishGuard/main/phishing_rules.json"
             response = requests.get(rules_url, timeout=10)
 
@@ -131,9 +146,9 @@ class SecurityApp:
                 if 'url_patterns' in new_rules:
                     url_detector.suspicious_patterns = new_rules['url_patterns']
                 
-                print("Phishing rules successfully updated")
+                print("Phishing rules successfully updated from online")
                 
-        except (json.JSONDecodeError, requests.RequestException) as e:
+        except (json.JSONDecodeError, requests.RequestException, OSError) as e:
             print(f"Rules update failed: {e}")
     
     def show_protection_message(self):
@@ -700,13 +715,13 @@ class SecurityApp:
                                 if part.get_content_type() == "text/plain":
                                     try:
                                         body = part.get_payload(decode=True).decode(errors='ignore')
-                                    except Exception:
+                                    except (AttributeError, UnicodeDecodeError, TypeError):
                                         body = ""
                                     break
                         else:
                             try:
                                 body = msg.get_payload(decode=True).decode(errors='ignore')
-                            except Exception:
+                            except (AttributeError, UnicodeDecodeError, TypeError):
                                 body = ""
 
                         result = email_detector.check_phishing(f"{subject}\n{body}")
