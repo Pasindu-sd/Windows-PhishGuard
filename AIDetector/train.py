@@ -1,25 +1,41 @@
 import pandas as pd
-import pickle
-from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from features import extract_features
+import joblib
 
-# Example dataset (replace later)
-data = {
-    "url_length": [10, 55, 72, 20, 90],
-    "has_https": [1, 0, 0, 1, 0],
-    "has_login": [0, 1, 1, 0, 1],
-    "label": [0, 1, 1, 0, 1]
-}
+# Load dataset
+data = pd.read_csv("urls.csv")
 
-df = pd.DataFrame(data)
+# Extract features from URLs
+X = data["url"].apply(extract_features).tolist()
 
-X = df.drop("label", axis=1)
-y = df["label"]
+# Convert labels to numbers
+y = (
+    data["label"]
+    .str.strip()
+    .str.lower()
+    .map({"legitimate": 0, "phishing": 1})
+)
 
-model = LogisticRegression()
-model.fit(X, y)
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
 
-with open("url_model.pkl", "wb") as f:
-    pickle.dump(model, f)
+# Train model (XGBoost replacement)
+model = RandomForestClassifier(
+    n_estimators=100,
+    random_state=42
+)
 
-print("Model trained & saved (Python 3.14 compatible)")
+model.fit(X_train, y_train)
+
+# Evaluate model
+accuracy = model.score(X_test, y_test)
+print(f"Test Accuracy: {accuracy * 100:.2f}%")
+
+# Save model
+joblib.dump(model, "model.pkl")
+
+print("✅ AI is trained and saved (Python 3.14 compatible)")
