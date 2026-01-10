@@ -100,7 +100,7 @@ class SecurityApp:
     def download_update(self):
         try:
             messagebox.showinfo("Update", "Downloading update ...")
-            update_url = "https://github.com/Pasindu-sd/PhishGuard/releases/latest/download/update.zip"
+            update_url = "https://github.com/Pasindu-sd/Windows-PhishGuard/releases/latest/update.zip"
             
             response = requests.get(update_url, stream=True, timeout=30)
             
