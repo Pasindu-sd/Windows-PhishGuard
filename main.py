@@ -119,7 +119,6 @@ class SecurityApp:
     
     def update_phishing_rules(self):
         try:
-            # First try to load local rules
             if os.path.exists('phishing_rules.json'):
                 with open('phishing_rules.json', 'r', encoding='utf-8') as f:
                     new_rules = json.load(f)
@@ -133,7 +132,6 @@ class SecurityApp:
                     print("Local phishing rules loaded successfully")
                     return
             
-            # Fallback to online update if local file not found
             rules_url = "https://raw.githubusercontent.com/Pasindu-sd/Windows-PhishGuard/main/phishing_rules.json"
             response = requests.get(rules_url, timeout=10)
 
@@ -195,7 +193,6 @@ class SecurityApp:
         try:    
             image = PIL.Image.new('RGB', (64, 64), color='green')
             
-            # Use a pystray.Menu to avoid menu type issues
             menu = pystray.Menu(
                 item('open up', self.restore_from_tray),
                 item('Look', self.show_status),
@@ -629,7 +626,6 @@ class SecurityApp:
         
         result = url_detector.detect_url(url)
 
-        # Defaults to ensure variables are always defined
         display_result = "A suspicious URL"
         color = "orange"
         result_type = "Suspicious"
@@ -645,7 +641,6 @@ class SecurityApp:
             result_type = "Dangerous"
             self.show_notification("DANGEROUS URL DETECTED!", f"{url[:30]}... is dangerous!")
         elif result in ("SUSPICIOUS", "UNKNOWN", "WARN"):
-            # keep defaults, but notify user
             self.show_notification("Suspicious URL", f"{url[:30]}... looks suspicious!")
 
         self.add_to_history("URL", url, result_type)
@@ -690,7 +685,7 @@ class SecurityApp:
         PASSWORD = config['password']
         IMAP_SERVER = config['imap_server']
 
-        imap = None  # ensure defined for cleanup
+        imap = None
         try:
             imap = imaplib.IMAP4_SSL(IMAP_SERVER)
             imap.login(EMAIL, PASSWORD)
