@@ -22,7 +22,7 @@ class SecurityApp:
         self.window = tk.Tk()
         self.window.title("Windows PhishGuard")
         self.window.geometry("700x600")
-        self.window.configure(bg='#f0f0f0')
+        self.window.configure(bg="#4627f5")
         self.window.minsize(500, 400)
         
         self.history_file = "scan_history.json"
@@ -58,7 +58,7 @@ class SecurityApp:
     
     def check_for_updates(self):
         try:
-            response = requests.get("https://api.github.com/repos/Pasindu-sd/PhishGuard/releases/latest", timeout=10)
+            response = requests.get("https://github.com/Pasindu-sd/Windows-PhishGuard/releases/latest", timeout=10)
             
             if response.status_code == 200:
                 latest_version = response.json().get('tag_name', '1.0.0')
