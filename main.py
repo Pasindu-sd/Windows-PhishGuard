@@ -16,25 +16,18 @@ from datetime import datetime
 import client_email_config
 import psutil
 
-# ============================================
-# Constants - Centralized (No Duplication)
-# ============================================
-# URLs
 GITHUB_REPO = "Pasindu-sd/Windows-PhishGuard"
 RELEASES_URL = f"https://github.com/{GITHUB_REPO}/releases/latest"
 UPDATE_ZIP_URL = f"https://github.com/{GITHUB_REPO}/releases/latest/update.zip"
 RULES_URL = f"https://raw.githubusercontent.com/{GITHUB_REPO}/main/phishing_rules.json"
 
-# Version
 CURRENT_VERSION = "1.0.0"
 
-# Settings
-UPDATE_CHECK_INTERVAL = 24 * 60 * 60 * 1000  # 24 hours in milliseconds
-EMAIL_MONITOR_CHECK_INTERVAL = 30  # seconds
+UPDATE_CHECK_INTERVAL = 24 * 60 * 60 * 1000
+EMAIL_MONITOR_CHECK_INTERVAL = 30
 HISTORY_MAX_ENTRIES = 100
 PROCESS_SCAN_TIMEOUT = 5
 
-# Process threat levels
 DANGEROUS_PROCESSES = ["mimikatz", "netcat", "nc.exe"]
 SUSPICIOUS_PROCESSES = ["powershell.exe", "cmd.exe", "mshta.exe", "wscript.exe"]
 SYSTEM32_SAFE_PATH = "system32"
@@ -76,8 +69,6 @@ class SecurityApp:
         self.window.protocol('WM_DELETE_WINDOW', self.minimize_to_tray)
         self.window.after(2000, self.show_protection_message)
         self.window.after(5000, self.check_for_updates)
-        
-    
     
     def check_for_updates(self):
         """Check for updates from GitHub releases."""
@@ -97,9 +88,8 @@ class SecurityApp:
         
         except (requests.RequestException, OSError) as e:
             print("Unable to check for updates due to lack of internet connection.")
-            
+        
         self.window.after(UPDATE_CHECK_INTERVAL, self.check_for_updates)
-    
     
     def show_update_notification(self, new_version):
         if not self.is_minimized_to_tray:
@@ -119,12 +109,10 @@ class SecurityApp:
             print(f"Notification error: {e}")
             self.window.after(0, lambda: messagebox.showinfo(title, message))
     
-    
     def download_update(self):
         """Download latest update from GitHub releases."""
         try:
             messagebox.showinfo("Update", "Downloading update ...")
-            
             response = requests.get(UPDATE_ZIP_URL, stream=True, timeout=30)
             
             if response.status_code == 200:
@@ -143,7 +131,6 @@ class SecurityApp:
     def update_phishing_rules(self):
         """Update phishing detection rules from local file or GitHub."""
         try:
-            # Try loading from local file first
             if os.path.exists('phishing_rules.json'):
                 with open('phishing_rules.json', 'r', encoding='utf-8') as f:
                     new_rules = json.load(f)
@@ -156,8 +143,6 @@ class SecurityApp:
                     
                     print("Local phishing rules loaded successfully")
                     return
-            
-            # Fallback to online rules
             response = requests.get(RULES_URL, timeout=10)
 
             if response.status_code == 200:
@@ -176,9 +161,7 @@ class SecurityApp:
     
     def show_protection_message(self):
         messagebox.showinfo("Protection Active", "Your computer is now protected!")
-     
-     
-     
+    
     def load_history(self):
         try:
             if os.path.exists(self.history_file):
@@ -210,11 +193,8 @@ class SecurityApp:
         
         self.scan_history.append(record)
         self.save_history()
-        
-        # Limit history to max entries
         if len(self.scan_history) > HISTORY_MAX_ENTRIES:
             self.scan_history = self.scan_history[-HISTORY_MAX_ENTRIES:]
-    
     
     def create_system_tray(self):
         try:    
@@ -231,55 +211,35 @@ class SecurityApp:
         except (OSError, AttributeError) as e:
             print(f"System tray creation error: {e}")
     
-    
     def minimize_to_tray(self):
-        
         if self.tray_icon:
-            self.window.withdraw()  
+            self.window.withdraw()
             self.is_minimized_to_tray = True
-            
-            
             tray_thread = threading.Thread(target=self.tray_icon.run, daemon=True)
             tray_thread.start()
         else:
             self.window.destroy()
     
-    
-    
     def restore_from_tray(self, _icon=None, _tray_item=None):
-        
         if self.is_minimized_to_tray:
             self.window.after(0, self.show_window)
     
-    
-    
     def show_window(self):
-        
         self.window.deiconify()
         self.window.attributes('-topmost', True)
         self.window.attributes('-topmost', False)
         self.is_minimized_to_tray = False
-        
-        
         if self.tray_icon and self.tray_icon.visible:
             self.tray_icon.stop()
     
-    
-    
     def show_status(self, _icon=None, _tray_item=None):
-        
         messagebox.showinfo("Status", "Windows PhishGuard is active!\nStay safe!")
     
-    
-    
     def quit_application(self, _icon=None, _tray_item=None):
-        
         if self.tray_icon:
             self.tray_icon.stop()
         self.window.destroy()
         os._exit(0)
-    
-    
     
     def create_tabs(self):
         style = ttk.Style()
@@ -315,9 +275,7 @@ class SecurityApp:
         notebook.add(tab5, text="Settings")
         notebook.pack(expand=True, fill='both')
     
-    
     def create_email_tab(self, parent):
-        
         title_label = tk.Label(parent, text="Check the email content", font=("Arial", 14, "bold"), fg="blue", bg='#f0f0f0')
         title_label.pack(pady=15)
         
@@ -338,8 +296,6 @@ class SecurityApp:
         
         self.email_result = tk.Label(parent, text="", font=("Arial", 12, "bold"), bg='#f0f0f0', wraplength=500)
         self.email_result.pack(pady=10)
-    
-    
     
     def create_url_tab(self, parent):
         title_label = tk.Label(parent, text="Check the URL", font=("Arial", 14, "bold"), fg="blue", bg='#f0f0f0')
@@ -366,8 +322,6 @@ class SecurityApp:
         
         self.url_result = tk.Label(parent, text="", font=("Arial", 12, "bold"), bg='#f0f0f0', wraplength=500)
         self.url_result.pack(pady=10)
-    
-    
     
     def create_status_tab(self, parent):
         title_label = tk.Label(parent, text="System Status", 
@@ -408,7 +362,6 @@ class SecurityApp:
         tray_frame = tk.Frame(parent, bg='#f0f0f0')
         tray_frame.pack(pady=20)
     
-    
     def create_settings_tab(self, parent):
         title_label = tk.Label(parent, text="Settings", font=("Arial", 14, "bold"), fg="blue", bg='#f0f0f0')
         title_label.pack(pady=15)
@@ -448,9 +401,6 @@ class SecurityApp:
 
         stop_email_btn = tk.Button(parent, text="Stop Auto Email Check", command=self.stop_email_monitor, bg="red", fg="white", font=("Arial", 12), padx=15, pady=5)
         stop_email_btn.pack(pady=5)
-
-    
-    
     
     def create_history_tab(self, parent):
         title_label = tk.Label(parent, text="Scan History", font=("Arial", 14, "bold"), fg="purple", bg='#f0f0f0')
@@ -482,8 +432,6 @@ class SecurityApp:
         self.history_stats.pack(pady=5)
         
         self.refresh_history()
-    
-    
     
     def refresh_history(self):
         self.history_text.delete(1.0, tk.END)
@@ -587,23 +535,16 @@ class SecurityApp:
     def scan_running_processes(self):
         """Scan running processes for malicious threats."""
         found = []
-
         for proc in psutil.process_iter(['pid', 'name', 'exe']):
             try:
                 name = proc.info['name'].lower()
                 path = (proc.info['exe'] or "").lower()
-
                 severity = None
-
-                # Check for dangerous processes
                 if any(d in name for d in DANGEROUS_PROCESSES):
                     severity = "Dangerous"
-                
-                # Check for suspicious processes (but allow in system32)
                 elif any(s in name for s in SUSPICIOUS_PROCESSES):
                     if SYSTEM32_SAFE_PATH not in path:
                         severity = "Suspicious"
-
                 if severity:
                     found.append((proc.pid, proc.info['name'], path, severity))
 
@@ -612,18 +553,13 @@ class SecurityApp:
 
         return found
     
-    
     def clear_email(self):
         self.email_text.delete("1.0", tk.END)
         self.email_result.config(text="")
     
-    
-    
     def clear_url(self):
         self.url_entry.delete(0, tk.END)
         self.url_result.config(text="")
-    
-    
     
     def check_email(self):
         email_content = self.email_text.get("1.0", tk.END).strip()
@@ -652,8 +588,6 @@ class SecurityApp:
 
         self.add_to_history("Email", email_content[:50], result_type)
         self.email_result.config(text=display_result, fg=color)
-
-
     
     def start_email_monitor(self):
         if self.email_monitor_thread and self.email_monitor_thread.is_alive():
