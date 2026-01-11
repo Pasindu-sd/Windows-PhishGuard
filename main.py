@@ -12,10 +12,32 @@ import requests
 import json
 import imaplib
 import email
-import time     
 from datetime import datetime
 import client_email_config
 import psutil
+
+# ============================================
+# Constants - Centralized (No Duplication)
+# ============================================
+# URLs
+GITHUB_REPO = "Pasindu-sd/Windows-PhishGuard"
+RELEASES_URL = f"https://github.com/{GITHUB_REPO}/releases/latest"
+UPDATE_ZIP_URL = f"https://github.com/{GITHUB_REPO}/releases/latest/update.zip"
+RULES_URL = f"https://raw.githubusercontent.com/{GITHUB_REPO}/main/phishing_rules.json"
+
+# Version
+CURRENT_VERSION = "1.0.0"
+
+# Settings
+UPDATE_CHECK_INTERVAL = 24 * 60 * 60 * 1000  # 24 hours in milliseconds
+EMAIL_MONITOR_CHECK_INTERVAL = 30  # seconds
+HISTORY_MAX_ENTRIES = 100
+PROCESS_SCAN_TIMEOUT = 5
+
+# Process threat levels
+DANGEROUS_PROCESSES = ["mimikatz", "netcat", "nc.exe"]
+SUSPICIOUS_PROCESSES = ["powershell.exe", "cmd.exe", "mshta.exe", "wscript.exe"]
+SYSTEM32_SAFE_PATH = "system32"
 
 
 class SecurityApp:
@@ -58,25 +80,25 @@ class SecurityApp:
     
     
     def check_for_updates(self):
+        """Check for updates from GitHub releases."""
         try:
-            response = requests.get("https://github.com/Pasindu-sd/Windows-PhishGuard/releases/latest", timeout=10)
+            response = requests.get(RELEASES_URL, timeout=10)
             
             if response.status_code == 200:
-                latest_version = response.json().get('tag_name', '1.0.0')
-                current_version = "1.0.0"
+                latest_version = response.json().get('tag_name', CURRENT_VERSION)
                 
-                if latest_version != current_version:
+                if latest_version != CURRENT_VERSION:
                     self.update_available = True
                     self.show_update_notification(latest_version)
                 else:
-                    print("Tool are up-to-date")
+                    print("Tool is up-to-date")
             
             self.last_update_check = datetime.now()
         
-        except (requests.RequestException, OSError) as _:
+        except (requests.RequestException, OSError) as e:
             print("Unable to check for updates due to lack of internet connection.")
             
-        self.window.after(24 * 60 * 60 * 1000, self.check_for_updates)
+        self.window.after(UPDATE_CHECK_INTERVAL, self.check_for_updates)
     
     
     def show_update_notification(self, new_version):
@@ -99,18 +121,18 @@ class SecurityApp:
     
     
     def download_update(self):
+        """Download latest update from GitHub releases."""
         try:
             messagebox.showinfo("Update", "Downloading update ...")
-            update_url = "https://github.com/Pasindu-sd/Windows-PhishGuard/releases/latest/update.zip"
             
-            response = requests.get(update_url, stream=True, timeout=30)
+            response = requests.get(UPDATE_ZIP_URL, stream=True, timeout=30)
             
             if response.status_code == 200:
                 with open("update.zip", "wb") as f:
                     for chunk in response.iter_content(chunk_size=8192):
                         f.write(chunk)
                 
-                messagebox.showinfo("Success", "Update downloaded succesfully!\nPlease restart the application.")
+                messagebox.showinfo("Success", "Update downloaded successfully!\nPlease restart the application.")
             else:
                 messagebox.showerror("Error", "Update download failed!")
         
@@ -119,7 +141,9 @@ class SecurityApp:
     
     
     def update_phishing_rules(self):
+        """Update phishing detection rules from local file or GitHub."""
         try:
+            # Try loading from local file first
             if os.path.exists('phishing_rules.json'):
                 with open('phishing_rules.json', 'r', encoding='utf-8') as f:
                     new_rules = json.load(f)
@@ -133,8 +157,8 @@ class SecurityApp:
                     print("Local phishing rules loaded successfully")
                     return
             
-            rules_url = "https://raw.githubusercontent.com/Pasindu-sd/Windows-PhishGuard/main/phishing_rules.json"
-            response = requests.get(rules_url, timeout=10)
+            # Fallback to online rules
+            response = requests.get(RULES_URL, timeout=10)
 
             if response.status_code == 200:
                 new_rules = response.json()
@@ -145,7 +169,7 @@ class SecurityApp:
                 if 'url_patterns' in new_rules:
                     url_detector.suspicious_patterns = new_rules['url_patterns']
                 
-                print("Phishing rules successfully updated from online")
+                print("Phishing rules successfully updated from GitHub")
                 
         except (json.JSONDecodeError, requests.RequestException, OSError) as e:
             print(f"Rules update failed: {e}")
@@ -176,6 +200,7 @@ class SecurityApp:
 
     
     def add_to_history(self, scan_type, content, result):
+        """Add scan result to history."""
         record = {
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "type": scan_type,
@@ -186,8 +211,9 @@ class SecurityApp:
         self.scan_history.append(record)
         self.save_history()
         
-        if len(self.scan_history) > 100:
-            self.scan_history = self.scan_history[-100:]
+        # Limit history to max entries
+        if len(self.scan_history) > HISTORY_MAX_ENTRIES:
+            self.scan_history = self.scan_history[-HISTORY_MAX_ENTRIES:]
     
     
     def create_system_tray(self):
@@ -559,10 +585,7 @@ class SecurityApp:
     
     
     def scan_running_processes(self):
-        
-        DANGEROUS = ["mimikatz", "netcat", "nc.exe"]
-        SUSPICIOUS = ["powershell.exe", "cmd.exe", "mshta.exe", "wscript.exe"]
-
+        """Scan running processes for malicious threats."""
         found = []
 
         for proc in psutil.process_iter(['pid', 'name', 'exe']):
@@ -572,11 +595,13 @@ class SecurityApp:
 
                 severity = None
 
-                if any(d in name for d in DANGEROUS):
+                # Check for dangerous processes
+                if any(d in name for d in DANGEROUS_PROCESSES):
                     severity = "Dangerous"
-
-                elif any(s in name for s in SUSPICIOUS):
-                    if "system32" not in path:
+                
+                # Check for suspicious processes (but allow in system32)
+                elif any(s in name for s in SUSPICIOUS_PROCESSES):
+                    if SYSTEM32_SAFE_PATH not in path:
                         severity = "Suspicious"
 
                 if severity:
@@ -772,7 +797,7 @@ class SecurityApp:
 
                         imap.store(num, '+FLAGS', '\\Seen')
 
-                if self.email_monitor_stop_event.wait(30):
+                if self.email_monitor_stop_event.wait(EMAIL_MONITOR_CHECK_INTERVAL):
                     break
 
         except (imaplib.IMAP4.error, ConnectionError) as e:
