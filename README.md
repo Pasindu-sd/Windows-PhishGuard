@@ -1,5 +1,8 @@
 # Windows-PhishGuard
 
+⚠️ License: Windows-PhishGuard is proprietary. You may view the code, but copying, redistribution, or modification is strictly prohibited.
+
+
 that help to detect email phishing and url phishing
 
 ### Structure:
