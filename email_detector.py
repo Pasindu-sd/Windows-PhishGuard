@@ -7,7 +7,7 @@ import os
 SCORE_KEYWORD_MATCH = 1
 SCORE_THRESHOLD_SUSPICIOUS = 2
 FUZZY_MATCH_THRESHOLD = 80
-UPDATE_CHECK_INTERVAL_MS = 24 * 60 * 60 * 1000  # 24 hours
+UPDATE_CHECK_INTERVAL_MS = 24 * 60 * 60 * 1000
 MODEL_PATH = "path_to_your_model_file"
 EXPECTED_HASH = "expected_model_file_hash"
 
@@ -36,7 +36,6 @@ def load_model():
     if not os.path.exists(MODEL_PATH):
         raise FileNotFoundError("Model not found")
     
-    # Verify model integrity
     with open(MODEL_PATH, 'rb') as f:
         model_hash = hashlib.sha256(f.read()).hexdigest()
         if model_hash != EXPECTED_HASH:
