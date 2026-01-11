@@ -15,6 +15,9 @@ import email
 from datetime import datetime
 import client_email_config
 import psutil
+import clipboard_monitor
+import browser_monitor
+from urllib.parse import urlparse
 
 GITHUB_REPO = "Pasindu-sd/Windows-PhishGuard"
 RELEASES_URL = f"https://github.com/{GITHUB_REPO}/releases/latest"
@@ -49,6 +52,11 @@ class SecurityApp:
         self.email_monitor_stop_event = threading.Event()
         self.email_monitor_running = False
         
+        self.clipboard_monitor = None
+        self.browser_monitor = None
+        self.real_time_protection_active = False
+        self.rt_status_label = None
+        
         self.tray_icon = None
         self.is_minimized_to_tray = False
         self.last_update_check = None
@@ -65,6 +73,7 @@ class SecurityApp:
         
         self.create_tabs()
         self.create_system_tray()
+        self.setup_real_time_monitors()
         
         self.window.protocol('WM_DELETE_WINDOW', self.minimize_to_tray)
         self.window.after(2000, self.show_protection_message)
@@ -90,6 +99,169 @@ class SecurityApp:
             print("Unable to check for updates due to lack of internet connection.")
         
         self.window.after(UPDATE_CHECK_INTERVAL, self.check_for_updates)
+    
+    def setup_real_time_monitors(self):
+        """Setup real-time clipboard and browser monitors."""
+        try:
+            self.clipboard_monitor = clipboard_monitor.ClipboardMonitor(
+                callback_function=self.handle_clipboard_url
+            )
+            
+            self.browser_monitor = browser_monitor.BrowserMonitor(
+                callback_function=self.handle_browser_activity
+            )
+            
+            print("Real-time monitors initialized successfully!")
+            
+        except Exception as e:
+            print(f"Failed to initialize real-time monitors: {e}")
+    
+    def handle_clipboard_url(self, url):
+        """Handle URL detected in clipboard."""
+        try:
+            print(f"Clipboard URL detected: {url}")
+            
+            result = url_detector.detect_url(url)
+            
+            if result == "PHISHING" or result == "DANGEROUS":
+                self.show_notification(
+                    "Dangerous URL in Clipboard!",
+                    f"Phishing URL detected\n{url[:50]}..."
+                )
+                
+                response = messagebox.askyesno(
+                    "Dangerous URL Detected!",
+                    f"A dangerous URL was found in your clipboard:\n\n"
+                    f"{url[:100]}...\n\n"
+                    f"Do you want to clear the clipboard?"
+                )
+                
+                if response:
+                    self.clipboard_monitor.clear_clipboard()
+                
+                self.add_to_history("Clipboard URL", url, "Dangerous")
+            
+            elif result == "SUSPICIOUS":
+                self.show_notification(
+                    "Suspicious URL in Clipboard",
+                    f"Suspicious URL copied\n{url[:40]}..."
+                )
+                self.add_to_history("Clipboard URL", url, "Suspicious")
+            
+        except Exception as e:
+            print(f"Error handling clipboard URL: {e}")
+    
+    def handle_browser_activity(self, data):
+        """Handle suspicious browser activity."""
+        try:
+            url = data.get('url', '')
+            browser = data.get('browser', 'Unknown')
+            reason = data.get('reason', 'Suspicious activity detected')
+            
+            print(f"Browser Alert: {browser} - {reason}")
+            
+            self.show_notification(
+                "Suspicious Browser Activity",
+                f"Suspicious URL in {browser}\n{url[:60]}..."
+            )
+            
+            self.add_to_history(f"Browser ({browser})", url, "Suspicious")
+            
+            response = messagebox.askyesno(
+                "Suspicious Browser Activity Detected!",
+                f"Browser: {browser}\n"
+                f"URL: {url[:80]}...\n\n"
+                f"Reason: {reason}\n\n"
+                f"Do you want to block this website?"
+            )
+            
+            if response:
+                self.block_website(url)
+                
+        except Exception as e:
+            print(f"Error handling browser activity: {e}")
+    
+    def block_website(self, url):
+        """Block website by adding to hosts file."""
+        try:
+            hosts_path = r"C:\Windows\System32\drivers\etc\hosts"
+            
+            parsed_url = urlparse(url)
+            domain = parsed_url.netloc
+            
+            if domain:
+                with open(hosts_path, 'a') as f:
+                    f.write(f"\n127.0.0.1 {domain}")
+                    f.write(f"\n127.0.0.1 www.{domain}")
+                
+                self.show_notification(
+                    "Website Blocked",
+                    f"{domain} has been blocked!"
+                )
+                print(f"Blocked website: {domain}")
+            
+        except PermissionError:
+            messagebox.showerror(
+                "Permission Denied",
+                "Run PhishGuard as Administrator to block websites."
+            )
+        except Exception as e:
+            print(f"Failed to block website: {e}")
+    
+    def start_real_time_protection(self):
+        """Start all real-time protection features."""
+        try:
+            if self.clipboard_monitor:
+                self.clipboard_monitor.start_monitoring()
+            
+            if self.browser_monitor:
+                self.browser_monitor.start_monitoring(interval=15)
+            
+            self.real_time_protection_active = True
+            
+            if self.rt_status_label:
+                self.rt_status_label.config(
+                    text="Real-time Protection: ACTIVE",
+                    fg="green"
+                )
+            
+            self.show_notification(
+                "Real-time Protection Started",
+                "Clipboard and browser monitoring is now active!"
+            )
+            
+            print("Real-time protection started!")
+            
+        except Exception as e:
+            print(f"Failed to start real-time protection: {e}")
+            messagebox.showerror("Error", f"Failed to start protection: {e}")
+    
+    def stop_real_time_protection(self):
+        """Stop all real-time protection features."""
+        try:
+            if self.clipboard_monitor:
+                self.clipboard_monitor.stop_monitoring()
+            
+            if self.browser_monitor:
+                self.browser_monitor.stop_monitoring()
+            
+            self.real_time_protection_active = False
+            
+            if self.rt_status_label:
+                self.rt_status_label.config(
+                    text="Real-time Protection: INACTIVE",
+                    fg="red"
+                )
+            
+            self.show_notification(
+                "Real-time Protection Stopped",
+                "Monitoring has been stopped."
+            )
+            
+            print("Real-time protection stopped!")
+            
+        except Exception as e:
+            print(f"Error stopping real-time protection: {e}")
     
     def show_update_notification(self, new_version):
         if not self.is_minimized_to_tray:
@@ -387,20 +559,29 @@ class SecurityApp:
         quick_scan_btn = tk.Button(parent, text="Quick Scan", command=self.quick_scan, bg="blue", fg="white", font=("Arial", 12),padx=10, pady=10)
         quick_scan_btn.pack(padx=20)
         
-        btn_frame = tk.Frame(parent, bg='#f0f0f0')
-        btn_frame.pack(pady=10)
-        
-        start_btn = tk.Button(btn_frame, text="Start Protection", command=self.start_protection,bg="green", fg="white", font=("Arial", 10),padx=15, pady=5)
-        start_btn.pack(side=tk.LEFT, padx=5, fill='x', expand=True)
-        
-        stop_btn = tk.Button(btn_frame, text="Stop Protection",command=self.stop_protection,bg="red", fg="white", font=("Arial", 10),padx=15, pady=5)
-        stop_btn.pack(side=tk.LEFT, padx=5, fill='x', expand=True)
-        
         start_email_btn = tk.Button(parent, text="Start Auto Email Check", command=self.start_email_monitor, bg="green", fg="white", font=("Arial", 12), padx=15, pady=5)
         start_email_btn.pack(pady=5)
 
         stop_email_btn = tk.Button(parent, text="Stop Auto Email Check", command=self.stop_email_monitor, bg="red", fg="white", font=("Arial", 12), padx=15, pady=5)
         stop_email_btn.pack(pady=5)
+
+        real_time_frame = tk.Frame(parent, bg='#f0f0f0')
+        real_time_frame.pack(pady=15)
+        
+        rt_title_label = tk.Label(real_time_frame, text="Real-time Protection", font=("Arial", 12, "bold"), fg="darkblue", bg='#f0f0f0')
+        rt_title_label.pack(pady=5)
+        
+        rt_btn_frame = tk.Frame(real_time_frame, bg='#f0f0f0')
+        rt_btn_frame.pack(pady=10)
+        
+        start_rt_btn = tk.Button(rt_btn_frame,text="Start Real-time Protection",command=self.start_real_time_protection,bg="green", fg="white",font=("Arial", 11, "bold"),padx=20, pady=8)
+        start_rt_btn.pack(side=tk.LEFT, padx=5)
+        
+        stop_rt_btn = tk.Button(rt_btn_frame,text="Stop Real-time Protection",command=self.stop_real_time_protection,bg="red", fg="white",font=("Arial", 11, "bold"),padx=20, pady=8)
+        stop_rt_btn.pack(side=tk.LEFT, padx=5)
+        
+        self.rt_status_label = tk.Label(real_time_frame,text="Real-time Protection: INACTIVE",font=("Arial", 10),fg="red",bg='#f0f0f0')
+        self.rt_status_label.pack(pady=5)
     
     def create_history_tab(self, parent):
         title_label = tk.Label(parent, text="Scan History", font=("Arial", 14, "bold"), fg="purple", bg='#f0f0f0')
@@ -653,19 +834,7 @@ class SecurityApp:
         else:
             self.update_status_label.config(text="UPDATES: Up to date", fg="green")
             messagebox.showinfo("Update", "Your tool is up to date!")
-     
-        
-    def start_protection(self):
-        self.status_label.config(text="PROTECTION: ACTIVE", fg="green")
-        self.show_notification("Protection Started", "Windows PhishGuard is now active!")
-        messagebox.showinfo("Protection", "Protection started!")
-
-
-    def stop_protection(self):
-        self.status_label.config(text="PROTECTION: STOPPED", fg="red")
-        self.show_notification("Protection Stopped", "Security protection has been stopped!")
-        messagebox.showwarning("Protection", "Protection stopped!")
-
+    
     def run(self):
         print("Windows PhishGuard started!")
         print("App minimized to system tray. Click the tray icon to restore.")

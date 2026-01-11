@@ -12,3 +12,5 @@ pandas
 numpy
 joblib
 psutil
+pyperclip
+watchdog
