@@ -11,7 +11,6 @@ csv_path = os.path.join(BASE_DIR, "urls.csv")
 data = pd.read_csv(csv_path)
 
 X = data["url"].apply(extract_features).tolist()
-s
 y = (
     data["label"]
     .str.strip()
