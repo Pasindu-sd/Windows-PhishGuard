@@ -1,9 +1,6 @@
 import re
 from fuzzywuzzy import fuzz
 
-# ============================================
-# Constants - Centralized (No Duplication)
-# ============================================
 URL_PATTERN = r'https?://[^\s]+'
 SUSPICIOUS_KEYWORDS = [
     'urgent', 'verify your account', 'password', 'bank', 'paypal',
@@ -17,13 +14,9 @@ SCORE_KEYWORD = 1
 SCORE_LINK = 1
 SCORE_THRESHOLD = 2
 
-# Global variable for dynamic rule updates (used by main.py)
 suspicious_keywords = SUSPICIOUS_KEYWORDS
 
 
-# ============================================
-# Helper Functions (Reusable Logic)
-# ============================================
 def _extract_urls(text):
     """Extract URLs from text.
     
@@ -84,9 +77,6 @@ def _check_prize_scam(content):
     return 'won' in content_lower and 'prize' in content_lower
 
 
-# ============================================
-# Main Detection Function
-# ============================================
 def check_phishing(email_content):
     """Detect phishing in email content.
     
@@ -108,26 +98,20 @@ def check_phishing(email_content):
     if not email_content or not isinstance(email_content, str):
         return "safe email"
     
-    # Calculate risk score from multiple checks
     score = 0
     
-    # Check keywords (fuzzy matching)
     score += _check_keywords(email_content)
     
-    # Check for URLs
     urls = _extract_urls(email_content)
     if urls:
         score += len(urls) * SCORE_LINK
     
-    # Check suspicious domains
     if _check_suspicious_domains(email_content):
         score += SCORE_KEYWORD
     
-    # Check for prize scams
     if _check_prize_scam(email_content):
         score += SCORE_KEYWORD
     
-    # Return risk assessment
     if score == 0:
         return "safe email"
     elif score <= SCORE_THRESHOLD:
@@ -141,7 +125,6 @@ if __name__ == "__main__":
         email_subject = input("Enter email subject: ").strip()
         email_message = input("Enter email message: ").strip()
         
-        # Combine subject and message for analysis
         full_content = f"{email_subject}\n{email_message}"
         result = check_phishing(full_content)
         
