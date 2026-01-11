@@ -547,14 +547,15 @@ class SecurityApp:
     def quick_scan(self):
         self.show_notification("Quick Scan Started", "Scanning for threats...")
         
-        suspicious_processes = self.scan_running_processes()
-        if suspicious_processes:
-            threat_list = "\n".join([f"PID: {pid}, Name: {name}" for pid, name, _ in suspicious_processes])
-            self.show_notification("Threats Found!", f"Suspicious processes:\n{threat_list}")
-            messagebox.showwarning("Quick Scan", f"Quick scan Completed!\nSuspicious processes found:\n{threat_list}")
+        results = self.scan_running_processes()
+        if results:
+            msg = ""
+            for pid, name, path, severity in results:
+                msg += f"PID: {pid}\nName: {name}\nLevel: {severity}\n\n"
+
+            messagebox.showwarning("Threats Found", msg)
         else:
-            self.show_notification("Quick Scan Complete", "No threats found!")
-            messagebox.showinfo("Quick Scan", "Quick scan Started!\nNo threats found.")
+            messagebox.showinfo("Quick Scan", "No threats found. System looks clean.")
     
     
     def scan_running_processes(self):
