@@ -1,0 +1,642 @@
+PhishGuard Scan History Report
+==================================================
+Generated on: 2026-01-11 14:39:10
+==================================================
+
+Time: 2026-01-11 14:37:10
+Type: Email
+Result: Dangerous
+Content: Hi Pasindu,
+
+Hi Pasindu,
+
+On 15 January at 22:56, someone tried to log in to your account from a
+----------------------------------------
+Time: 2026-01-11 14:37:11
+Type: Email
+Result: Dangerous
+Content: New Year, New Tools
+----------------------------------------
+It's never been easier to lock oursel
+----------------------------------------
+Time: 2026-01-11 14:37:11
+Type: Email
+Result: Suspicious
+Content: 
+----------------------------------------
+Time: 2026-01-11 14:37:12
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+Three Life Lessons From a Dying Man (https://medium.com/@theaaronnichols/three
+----------------------------------------
+Time: 2026-01-11 14:37:13
+Type: Email
+Result: Dangerous
+Content:     Apple Wallpaper
+    Screen Savers
+    Iphone Backgrounds
+
+
+Pinterest
+
+651 Brannan Street,
+----------------------------------------
+Time: 2026-01-11 14:37:14
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+5 Unhealthy Foods That Are Marketed as Healthy, Ranked (https://medium.com/@le
+----------------------------------------
+Time: 2026-01-11 14:37:15
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+11 Life Lessons From History's Most Underrated Genius (https://medium.com/@jim
+----------------------------------------
+Time: 2026-01-11 14:37:16
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+The 5 Habits That Will Help You Burn Fat Efficiently (https://medium.com/@alys
+----------------------------------------
+Time: 2026-01-11 14:37:18
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+CI/CD by Example in Python (https://medium.com/@edkruegerdata/ci-cd-by-example
+----------------------------------------
+Time: 2026-01-11 14:37:19
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+Why Biden Doesn't Drink Alcohol (https://medium.com/@benyaclark/why-biden-does
+----------------------------------------
+Time: 2026-01-11 14:37:21
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+5 Things We Can't Forget About Our Post-Trump Reality (https://medium.com/@K_d
+----------------------------------------
+Time: 2026-01-11 14:37:22
+Type: Email
+Result: Dangerous
+Content: To view this content, open the following URL in your browser: https://post.pinterest.com/f/a/6wQIo6r
+----------------------------------------
+Time: 2026-01-11 14:37:23
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+How the World's 8th Richest Man Lost 99.6% of His Fortune (https://medium.com/
+----------------------------------------
+Time: 2026-01-11 14:37:25
+Type: Email
+Result: Dangerous
+Content: 
+
+======================================================================
+PayPal
+================
+----------------------------------------
+Time: 2026-01-11 14:37:25
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+Creating beautiful maps with Python (https://medium.com/@carloslannister/creat
+----------------------------------------
+Time: 2026-01-11 14:37:27
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+Trump's "Office of the Former President" is the First Step Towards Secession… 
+----------------------------------------
+Time: 2026-01-11 14:37:28
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+'QAnon' Rep. May Have Awakened Her Biggest Foe (https://medium.com/@eaafolabi/
+----------------------------------------
+Time: 2026-01-11 14:37:29
+Type: Email
+Result: Dangerous
+Content: <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta name="viewport" cont
+----------------------------------------
+Time: 2026-01-11 14:37:30
+Type: Email
+Result: Dangerous
+Content: 
+https://click.e.zoom.us/?qs=39051fdf1ad8bbe6066e39ebf35c4a87702a787704e692b5c1e6f97d79ec615851cdbb
+----------------------------------------
+Time: 2026-01-11 14:37:31
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+How To Find Stocks That Go Up 1,000% Before Everyone Else (https://medium.com/
+----------------------------------------
+Time: 2026-01-11 14:37:32
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+What's on My Mac: 5 Apps I Couldn't Live Without (https://medium.com/@markelli
+----------------------------------------
+Time: 2026-01-11 14:37:33
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+7 signs you're rich, even if it doesn't feel like it (https://medium.com/@busi
+----------------------------------------
+Time: 2026-01-11 14:37:34
+Type: Email
+Result: Dangerous
+Content: To view this content, open the following URL in your browser: https://post.pinterest.com/f/a/MuQZvka
+----------------------------------------
+Time: 2026-01-11 14:37:35
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+I tried planking for 5 minutes every day for a month - here's what happened (h
+----------------------------------------
+Time: 2026-01-11 14:37:36
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+I've Eaten at Almost Every 3-Michelin-Star Restaurant in the World. Here's Wha
+----------------------------------------
+Time: 2026-01-11 14:37:37
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+6 Signs It's Not True Love, It's "Breadcrumbing" - and What Helps (https://med
+----------------------------------------
+Time: 2026-01-11 14:37:39
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+Scientists May Have Detected a Signal That Could Change Astronomy Forever (htt
+----------------------------------------
+Time: 2026-01-11 14:37:40
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+8 Node.js Projects To Keep An Eye On (https://medium.com/@mohit19/8-node-js-pr
+----------------------------------------
+Time: 2026-01-11 14:37:41
+Type: Email
+Result: Dangerous
+Content: 30% coupon for the ON1 Professional Plugin Bundle - "PLUGIN30" 
+
+https://www.on1.com/products/plug
+----------------------------------------
+Time: 2026-01-11 14:37:42
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+Marilyn Manson Told Us Who He Was (https://medium.com/@sady_doyle/marilyn-mans
+----------------------------------------
+Time: 2026-01-11 14:37:43
+Type: Email
+Result: Dangerous
+Content: Waveform Free 2021​ Is Here!
+----------------------------------------
+Waveform Free 2021​ brings n
+----------------------------------------
+Time: 2026-01-11 14:37:44
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+Bringing The Sims 4 to Life One Brush Stroke at a Time (https://medium.com/@bm
+----------------------------------------
+Time: 2026-01-11 14:37:45
+Type: Email
+Result: Dangerous
+Content: To view this content, open the following URL in your browser: https://post.pinterest.com/f/a/BlUCtyF
+----------------------------------------
+Time: 2026-01-11 14:37:45
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+The Node.js Developer Roadmap for 2021 (https://medium.com/@mohit19/node-js-de
+----------------------------------------
+Time: 2026-01-11 14:37:46
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+What Happens After Christian Prophets Admit They Were Wrong About Trump? (http
+----------------------------------------
+Time: 2026-01-11 14:37:48
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+The Text That Made Me Fall In Love (https://medium.com/@isvari/the-text-that-m
+----------------------------------------
+Time: 2026-01-11 14:37:48
+Type: Email
+Result: Dangerous
+Content: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtm
+----------------------------------------
+Time: 2026-01-11 14:37:49
+Type: Email
+Result: Dangerous
+Content: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtm
+----------------------------------------
+Time: 2026-01-11 14:37:50
+Type: Email
+Result: Dangerous
+Content: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtm
+----------------------------------------
+Time: 2026-01-11 14:37:51
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+This Is What I Mean When I Say I've Let Myself Go (https://medium.com/@Shesrea
+----------------------------------------
+Time: 2026-01-11 14:37:52
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+America's infrastructure is falling apart. Australia has the solution. (https:
+----------------------------------------
+Time: 2026-01-11 14:37:54
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+A Divorce Lawyer Just Gave Incredibly Powerful Marriage Advice and It's Only 4
+----------------------------------------
+Time: 2026-01-11 14:37:55
+Type: Email
+Result: Dangerous
+Content: Waveform Pro 11.5 Now Available!
+----------------------------------------
+Designed for the needs o
+----------------------------------------
+Time: 2026-01-11 14:37:56
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+4 Important People That Have Been "Deleted" From History (https://medium.com/@
+----------------------------------------
+Time: 2026-01-11 14:37:57
+Type: Email
+Result: Dangerous
+Content: To view this content, open the following URL in your browser: https://post.pinterest.com/f/a/Uidvtvb
+----------------------------------------
+Time: 2026-01-11 14:37:58
+Type: Email
+Result: Dangerous
+Content: ========================================
+View Notifications
+https://www.facebook.com/n/?notificati
+----------------------------------------
+Time: 2026-01-11 14:37:59
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+11 Genius Cooking Hacks I Wish I Had Known Earlier in Life (https://medium.com
+----------------------------------------
+Time: 2026-01-11 14:38:00
+Type: Email
+Result: Dangerous
+Content: ON1 News - February 2021
+
+New Creative Styles Vol 2 Course
+https://www.on1.com/store/creative-sty
+----------------------------------------
+Time: 2026-01-11 14:38:01
+Type: Email
+Result: Dangerous
+Content: 
+https://click.e.zoom.us/?qs=d22d52c0f61373546cd0417148d42da993e04e883a84e5b83cfa5c1d1328900f1cb74b
+----------------------------------------
+Time: 2026-01-11 14:38:02
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+7 things people who are good with money never buy (https://medium.com/@busines
+----------------------------------------
+Time: 2026-01-11 14:38:02
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+12 Tiny Changes To Help You Get Your Life Together (https://medium.com/@kirsti
+----------------------------------------
+Time: 2026-01-11 14:38:04
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+Help! I Caught The Ick & I'm Suddenly Repulsed By My Partner (https://medium.c
+----------------------------------------
+Time: 2026-01-11 14:38:05
+Type: Email
+Result: Dangerous
+Content: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtm
+----------------------------------------
+Time: 2026-01-11 14:38:05
+Type: Email
+Result: Dangerous
+Content: ========================================
+View Notifications
+https://www.facebook.com/n/?notificati
+----------------------------------------
+Time: 2026-01-11 14:38:06
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+21 Tiny Habits to Improve Your Life in 2021 Without Much Effort (https://mediu
+----------------------------------------
+Time: 2026-01-11 14:38:07
+Type: Email
+Result: Dangerous
+Content: <html lang="en">
+
+<head>
+<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-s
+----------------------------------------
+Time: 2026-01-11 14:38:07
+Type: Email
+Result: Dangerous
+Content: <html lang="en"> <head> <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-sc
+----------------------------------------
+Time: 2026-01-11 14:38:08
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+5 Best macOS Apps for a Productive Life (https://medium.com/@abhinavchandoli/5
+----------------------------------------
+Time: 2026-01-11 14:38:09
+Type: Email
+Result: Dangerous
+Content: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtm
+----------------------------------------
+Time: 2026-01-11 14:38:10
+Type: Email
+Result: Dangerous
+Content: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtm
+----------------------------------------
+Time: 2026-01-11 14:38:10
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+3 Habits of Incredibly Healthy People (https://medium.com/@alyssamat/3-habits-
+----------------------------------------
+Time: 2026-01-11 14:38:11
+Type: Email
+Result: Dangerous
+Content: To view this content, open the following URL in your browser: https://post.pinterest.com/f/a/yoNFnug
+----------------------------------------
+Time: 2026-01-11 14:38:12
+Type: Email
+Result: Dangerous
+Content: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtm
+----------------------------------------
+Time: 2026-01-11 14:38:13
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+The US Air Force Quietly Admits the F-35 Is a Failure (https://medium.com/@ext
+----------------------------------------
+Time: 2026-01-11 14:38:13
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+9 Painful Signs That Your Partner Is No Longer In Love With You (https://mediu
+----------------------------------------
+Time: 2026-01-11 14:38:15
+Type: Email
+Result: Dangerous
+Content: <html lang="en"> <head> <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-sc
+----------------------------------------
+Time: 2026-01-11 14:38:16
+Type: Email
+Result: Dangerous
+Content: Thanks for being an ON1 email subscriber! 
+
+Want to get more creative with your photos? Download t
+----------------------------------------
+Time: 2026-01-11 14:38:17
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+5 Signs The Person You Thought Was The One Isn't (https://medium.com/@dsabatin
+----------------------------------------
+Time: 2026-01-11 14:38:19
+Type: Email
+Result: Dangerous
+Content: 
+https://click.e.zoom.us/?qs=b747ac3f9e1dc66d2b34217e41c3a2e9595ff8497fe336322e2f647ed2ce9b9ffe5d91
+----------------------------------------
+Time: 2026-01-11 14:38:20
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+Generating Passive Income Is Hard, Here Is a Better Option (https://medium.com
+----------------------------------------
+Time: 2026-01-11 14:38:22
+Type: Email
+Result: Dangerous
+Content: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtm
+----------------------------------------
+Time: 2026-01-11 14:38:22
+Type: Email
+Result: Dangerous
+Content: <html lang="en">  <head>    <meta    name="viewport"    content="width=device-width,minimum-scale=1,
+----------------------------------------
+Time: 2026-01-11 14:38:23
+Type: Email
+Result: Dangerous
+Content: <html lang="en">  <head>    <meta    name="viewport"    content="width=device-width,minimum-scale=1,
+----------------------------------------
+Time: 2026-01-11 14:38:24
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+12 Things I Stole From People More Successful Than Me (https://medium.com/@vin
+----------------------------------------
+Time: 2026-01-11 14:38:25
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+Three Things in Life That Aren't Worth The Effort (https://medium.com/@seanjke
+----------------------------------------
+Time: 2026-01-11 14:38:26
+Type: Email
+Result: Dangerous
+Content: <html lang="en"> <head> <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-sc
+----------------------------------------
+Time: 2026-01-11 14:38:28
+Type: Email
+Result: Dangerous
+Content: SAVE 50% - Collective Synth!
+----------------------------------------
+In a world full of VI's fill
+----------------------------------------
+Time: 2026-01-11 14:38:28
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+Owning a Decrepit Shack in The Middle of Nowhere Is The New American Millennia
+----------------------------------------
+Time: 2026-01-11 14:38:29
+Type: Email
+Result: Dangerous
+Content: To view this content, open the following URL in your browser: https://post.pinterest.com/f/a/mFjy86E
+----------------------------------------
+Time: 2026-01-11 14:38:30
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+Why Is The Age of Consent in Japan Only 13-Year-Old? (https://medium.com/@mcca
+----------------------------------------
+Time: 2026-01-11 14:38:31
+Type: Email
+Result: Dangerous
+Content: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtm
+----------------------------------------
+Time: 2026-01-11 14:38:33
+Type: Email
+Result: Dangerous
+Content: <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head> <meta name="viewport" content="widt
+----------------------------------------
+Time: 2026-01-11 14:38:34
+Type: Email
+Result: Dangerous
+Content: <html lang="en"> <head> <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-sc
+----------------------------------------
+Time: 2026-01-11 14:38:35
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+Five Signs of a Highly Intelligent Person (https://medium.com/@seanjkernan/fiv
+----------------------------------------
+Time: 2026-01-11 14:38:36
+Type: Email
+Result: Dangerous
+Content: Matt K. draws attention to this majestic eagle using AI Masking and Local Adjustments in ON1 Effects
+----------------------------------------
+Time: 2026-01-11 14:38:37
+Type: Email
+Result: Dangerous
+Content: ========================================
+View Notifications
+https://www.facebook.com/n/?notificati
+----------------------------------------
+Time: 2026-01-11 14:38:38
+Type: Email
+Result: Dangerous
+Content: <html lang="en"> <head> <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-sc
+----------------------------------------
+Time: 2026-01-11 14:38:40
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+A Mental Trick to Make Any Task Less Intimidating (https://medium.com/@laurava
+----------------------------------------
+Time: 2026-01-11 14:38:41
+Type: Email
+Result: Dangerous
+Content: 
+https://click.e.zoom.us/?qs=c9cc2bfbc0c68c8ef43f0108d8ec0b5827d346daf5df123ecc987ec742e73e4af53f6c
+----------------------------------------
+Time: 2026-01-11 14:38:42
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+7 Behaviors Women Mistakenly Believe Attract Desirable Men (https://medium.com
+----------------------------------------
+Time: 2026-01-11 14:38:44
+Type: Email
+Result: Dangerous
+Content: <html lang="en">  <head>    <meta    name="viewport"    content="width=device-width,minimum-scale=1,
+----------------------------------------
+Time: 2026-01-11 14:38:45
+Type: Email
+Result: Dangerous
+Content: <html lang="en">  <head>    <meta    name="viewport"    content="width=device-width,minimum-scale=1,
+----------------------------------------
+Time: 2026-01-11 14:38:46
+Type: Email
+Result: Dangerous
+Content: <html lang="en"> <head> <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-sc
+----------------------------------------
+Time: 2026-01-11 14:38:47
+Type: Email
+Result: Dangerous
+Content: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtm
+----------------------------------------
+Time: 2026-01-11 14:38:48
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+How Much Money Is 'Enough'? This Simple Thought Experiment Gives You an Exact…
+----------------------------------------
+Time: 2026-01-11 14:38:50
+Type: Email
+Result: Dangerous
+Content: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtm
+----------------------------------------
+Time: 2026-01-11 14:38:51
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+The Fate Of Elon Musk's Assistant Is A Cautionary Tale For Negotiating Salary 
+----------------------------------------
+Time: 2026-01-11 14:38:53
+Type: Email
+Result: Dangerous
+Content: Today's highlights
+
+The Trump Tsunami Is On Its Way (https://medium.com/@carenawhite/the-trump-tsu
+----------------------------------------
+
+Total scans: 98
