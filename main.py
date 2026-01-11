@@ -15,6 +15,7 @@ import email
 import time     
 from datetime import datetime
 import client_email_config
+import psutil
 
 
 class SecurityApp:
@@ -545,10 +546,41 @@ class SecurityApp:
     
     def quick_scan(self):
         self.show_notification("Quick Scan Started", "Scanning for threats...")
-        time.sleep(1)
-        self.show_notification("Quick Scan Complete", "No threats found!")
-        messagebox.showinfo("Quick Scan", "Quick scan Started!\nNo threats found.")
+        
+        suspicious_processes = self.scan_running_processes()
+        if suspicious_processes:
+            threat_list = "\n".join([f"PID: {pid}, Name: {name}" for pid, name, _ in suspicious_processes])
+            self.show_notification("Threats Found!", f"Suspicious processes:\n{threat_list}")
+            messagebox.showwarning("Quick Scan", f"Quick scan Completed!\nSuspicious processes found:\n{threat_list}")
+        else:
+            self.show_notification("Quick Scan Complete", "No threats found!")
+            messagebox.showinfo("Quick Scan", "Quick scan Started!\nNo threats found.")
     
+    
+    def scan_running_processes(self):
+        
+        SUSPICIOUS_PROCESSES = [
+            "powershell.exe",
+            "cmd.exe",
+            "mimikatz",
+            "nc.exe",
+            "netcat",
+            "mshta.exe",
+            "wscript.exe"
+        ]
+        
+        found = []
+        
+        for proc in psutil.process_iter(['pid', 'name', 'exe']):
+            try:
+                process_name = proc.info['name'].lower()
+                for suspicious in SUSPICIOUS_PROCESSES:
+                    if suspicious in process_name:
+                        found.append((proc.info['pid'], proc.info['name'], proc.info['exe']))
+            except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+                continue
+                
+        return found
     
     
     def clear_email(self):
