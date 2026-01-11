@@ -1,10 +1,15 @@
 import re
+import hashlib
 from fuzzywuzzy import fuzz
+import joblib
+import os
 
 SCORE_KEYWORD_MATCH = 1
 SCORE_THRESHOLD_SUSPICIOUS = 2
 FUZZY_MATCH_THRESHOLD = 80
 UPDATE_CHECK_INTERVAL_MS = 24 * 60 * 60 * 1000  # 24 hours
+MODEL_PATH = "path_to_your_model_file"
+EXPECTED_HASH = "expected_model_file_hash"
 
 def check_phishing(email_content):
     suspicious_keywords = ['urgent', 'verify your account', 'password', 'bank', 'paypal', 'click here', 'limited time', 'winner', 'prize', 'account suspended']
@@ -26,6 +31,18 @@ def check_phishing(email_content):
         return "A suspicious email"
     else:
         return "A dangerous email!"
+
+def load_model():
+    if not os.path.exists(MODEL_PATH):
+        raise FileNotFoundError("Model not found")
+    
+    # Verify model integrity
+    with open(MODEL_PATH, 'rb') as f:
+        model_hash = hashlib.sha256(f.read()).hexdigest()
+        if model_hash != EXPECTED_HASH:
+            raise ValueError("Model integrity check failed")
+    
+    return joblib.load(MODEL_PATH)
 
 if __name__ == "__main__":
     try:
