@@ -559,27 +559,31 @@ class SecurityApp:
     
     def scan_running_processes(self):
         
-        SUSPICIOUS_PROCESSES = [
-            "powershell.exe",
-            "cmd.exe",
-            "mimikatz",
-            "nc.exe",
-            "netcat",
-            "mshta.exe",
-            "wscript.exe"
-        ]
-        
+        DANGEROUS = ["mimikatz", "netcat", "nc.exe"]
+        SUSPICIOUS = ["powershell.exe", "cmd.exe", "mshta.exe", "wscript.exe"]
+
         found = []
-        
+
         for proc in psutil.process_iter(['pid', 'name', 'exe']):
             try:
-                process_name = proc.info['name'].lower()
-                for suspicious in SUSPICIOUS_PROCESSES:
-                    if suspicious in process_name:
-                        found.append((proc.info['pid'], proc.info['name'], proc.info['exe']))
-            except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+                name = proc.info['name'].lower()
+                path = (proc.info['exe'] or "").lower()
+
+                severity = None
+
+                if any(d in name for d in DANGEROUS):
+                    severity = "Dangerous"
+
+                elif any(s in name for s in SUSPICIOUS):
+                    if "system32" not in path:
+                        severity = "Suspicious"
+
+                if severity:
+                    found.append((proc.pid, proc.info['name'], path, severity))
+
+            except:
                 continue
-                
+
         return found
     
     
