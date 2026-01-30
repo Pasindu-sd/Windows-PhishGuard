@@ -647,14 +647,21 @@ class SecurityApp:
     
     
     def save_email_config(self):
+        email_v = self.cfg_email.get().strip()
+        pass_v = self.cfg_pass.get().strip()
+
+        if not email_v or not pass_v:
+            messagebox.showerror("Error", "Email සහ Password දෙකම required!")
+            return
+
         data = {
-            "email": self.cfg_email.get(),
-            "password": self.cfg_pass.get(),
-            "imap_server": self.cfg_imap.get()
+            "email": email_v,
+            "password": pass_v,
+            "imap_server": self.cfg_imap.get().strip() or "imap.gmail.com"
         }
 
-        with open("email_config.json", "w") as f:
-            json.dump(data, f)
+        with open("email_config.json", "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2)
 
         messagebox.showinfo("Saved", "Email configuration saved successfully!")
     
