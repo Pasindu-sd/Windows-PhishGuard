@@ -614,6 +614,34 @@ class SecurityApp:
         
         self.refresh_history()
     
+    
+    def create_email_config_tab(self, parent):
+        tk.Label(parent, text="Email Configuration", font=("Arial", 14, "bold"),
+                fg="blue", bg="#f0f0f0").pack(pady=10)
+
+        tk.Label(parent, text="Gmail Address:", bg="#f0f0f0").pack()
+        self.cfg_email = tk.Entry(parent, width=40)
+        self.cfg_email.pack(pady=3)
+
+        tk.Label(parent, text="Gmail App Password:", bg="#f0f0f0").pack()
+        self.cfg_pass = tk.Entry(parent, width=40, show="*")
+        self.cfg_pass.pack(pady=3)
+
+        tk.Label(parent, text="IMAP Server:", bg="#f0f0f0").pack()
+        self.cfg_imap = tk.Entry(parent, width=40)
+        self.cfg_imap.insert(0, "imap.gmail.com")
+        self.cfg_imap.pack(pady=3)
+
+        tk.Button(
+            parent,
+            text="Save Settings",
+            bg="green",
+            fg="white",
+            command=self.save_email_config
+        ).pack(pady=10)
+
+    
+    
     def refresh_history(self):
         self.history_text.delete(1.0, tk.END)
         
