@@ -642,6 +642,19 @@ class SecurityApp:
 
     
     
+    def save_email_config(self):
+        data = {
+            "email": self.cfg_email.get(),
+            "password": self.cfg_pass.get(),
+            "imap_server": self.cfg_imap.get()
+        }
+
+        with open("email_config.json", "w") as f:
+            json.dump(data, f)
+
+        messagebox.showinfo("Saved", "Email configuration saved successfully!")
+    
+    
     def refresh_history(self):
         self.history_text.delete(1.0, tk.END)
         
