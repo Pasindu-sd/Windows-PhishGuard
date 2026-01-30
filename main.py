@@ -759,7 +759,6 @@ class SecurityApp:
     
     
     def scan_running_processes(self):
-        """Scan running processes for malicious threats."""
         found = []
         for proc in psutil.process_iter(['pid', 'name', 'exe']):
             try:
