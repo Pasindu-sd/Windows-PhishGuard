@@ -439,12 +439,16 @@ class SecurityApp:
         tab5.pack(fill='both', expand=True)
         self.create_settings_tab(tab5)
         
+        tab6 = ttk.Frame(notebook, padding="10")
+        tab6.pack(fill='both', expand=True)
+        self.create_email_config_tab(tab6)
         
         notebook.add(tab1, text="Email check")
         notebook.add(tab2, text="URL checking")
         notebook.add(tab3, text="Status")
         notebook.add(tab4, text="Scan History")
         notebook.add(tab5, text="Settings")
+        notebook.add(tab6, text="Email Configuration")
         notebook.pack(expand=True, fill='both')
     
     def create_email_tab(self, parent):
