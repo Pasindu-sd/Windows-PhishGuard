@@ -16,7 +16,7 @@ SOFT_KEYWORDS = [
 
 URGENT_WORDS = ['urgent', 'immediately', 'alert', 'verify now']
 
-SUSPICIOUS_DOMAINS = ['.tk', '.ml']
+SUSPICIOUS_DOMAINS = ['.tk', '.ml', '.ga', '.cf', '.xyz', '.top']
 
 SAFE_DOMAINS = [
     "google.com", "github.com", "microsoft.com",
