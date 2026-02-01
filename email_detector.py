@@ -24,7 +24,8 @@ SAFE_DOMAINS = [
 FUZZY_MATCH_THRESHOLD = 80
 SCORE_KEYWORD = 1
 SCORE_LINK = 1
-SCORE_THRESHOLD = 2
+SCORE_THRESHOLD_LOW = 1
+SCORE_THRESHOLD_MEDIUM = 3
 
 
 def _is_safe_domain(url):
@@ -64,21 +65,17 @@ def _check_prize_scam(content):
 
 
 def check_phishing(email_content):
+    """Returns one of: 'safe email', 'suspicious email', 'dangerous email'"""
     if not email_content or not isinstance(email_content, str):
-        return {
-            "risk": "low",
-            "score": 0,
-            "reason": "No content"
-        }
+        return "safe email"
 
     score = 0
-
     score += _check_keywords(email_content)
 
     urls = _extract_urls(email_content)
     for url in urls:
         if _is_safe_domain(url):
-            score -= 1 
+            score -= 1
         else:
             score += SCORE_LINK
 
@@ -88,21 +85,12 @@ def check_phishing(email_content):
     if _check_prize_scam(email_content):
         score += SCORE_KEYWORD
 
-    if score <= 1:
-        risk = "low"
-        reason = "Mostly safe content"
-    elif score <= 3:
-        risk = "medium"
-        reason = "Some suspicious content detected"
+    if score <= SCORE_THRESHOLD_LOW:
+        return "safe email"
+    elif score <= SCORE_THRESHOLD_MEDIUM:
+        return "suspicious email"
     else:
-        risk = "high"
-        reason = "Multiple phishing indicators detected"
-
-    return {
-        "risk": risk,
-        "score": score,
-        "reason": reason
-    }
+        return "dangerous email"
 
 
 if __name__ == "__main__":
@@ -111,5 +99,4 @@ if __name__ == "__main__":
 
     full_content = f"{email_subject}\n{email_message}"
     result = check_phishing(full_content)
-    print("\nAnalysis Result:")
-    print(result)
+    print("\nAnalysis Result:", result)
