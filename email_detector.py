@@ -13,7 +13,13 @@ SOFT_KEYWORDS = [
     "bank", "paypal", "password", "login"
 ]
 URGENT_WORDS = ['urgent', 'immediately', 'alert', 'verify now']
+
 SUSPICIOUS_DOMAINS = ['.tk', '.ml']
+
+SAFE_DOMAINS = [
+    "google.com", "github.com", "microsoft.com",
+    "amazon.com", "paypal.com"
+]
 
 FUZZY_MATCH_THRESHOLD = 80
 SCORE_KEYWORD = 1
@@ -21,6 +27,9 @@ SCORE_LINK = 1
 SCORE_THRESHOLD = 2
 
 suspicious_keywords = SUSPICIOUS_KEYWORDS
+
+def _is_safe_domain(url):
+    return any(d in url for d in SAFE_DOMAINS)
 
 
 def _extract_urls(text):
