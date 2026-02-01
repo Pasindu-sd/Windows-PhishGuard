@@ -80,7 +80,6 @@ class SecurityApp:
         self.window.after(5000, self.check_for_updates)
     
     def check_for_updates(self):
-        """Check for updates from GitHub releases."""
         try:
             response = requests.get(RELEASES_URL, timeout=10)
             
@@ -101,7 +100,6 @@ class SecurityApp:
         self.window.after(UPDATE_CHECK_INTERVAL, self.check_for_updates)
     
     def setup_real_time_monitors(self):
-        """Setup real-time clipboard and browser monitors."""
         try:
             self.clipboard_monitor = clipboard_monitor.ClipboardMonitor(
                 callback_function=self.handle_clipboard_url
@@ -117,7 +115,6 @@ class SecurityApp:
             print(f"Failed to initialize real-time monitors: {e}")
     
     def handle_clipboard_url(self, url):
-        """Handle URL detected in clipboard."""
         try:
             print(f"Clipboard URL detected: {url}")
             
@@ -152,7 +149,6 @@ class SecurityApp:
             print(f"Error handling clipboard URL: {e}")
     
     def handle_browser_activity(self, data):
-        """Handle suspicious browser activity."""
         try:
             url = data.get('url', '')
             browser = data.get('browser', 'Unknown')
@@ -182,7 +178,6 @@ class SecurityApp:
             print(f"Error handling browser activity: {e}")
     
     def block_website(self, url):
-        """Block website by adding to hosts file."""
         try:
             hosts_path = r"C:\Windows\System32\drivers\etc\hosts"
             
@@ -209,7 +204,6 @@ class SecurityApp:
             print(f"Failed to block website: {e}")
     
     def start_real_time_protection(self):
-        """Start all real-time protection features."""
         try:
             if self.clipboard_monitor:
                 self.clipboard_monitor.start_monitoring()
@@ -237,7 +231,6 @@ class SecurityApp:
             messagebox.showerror("Error", f"Failed to start protection: {e}")
     
     def stop_real_time_protection(self):
-        """Stop all real-time protection features."""
         try:
             if self.clipboard_monitor:
                 self.clipboard_monitor.stop_monitoring()
@@ -282,7 +275,6 @@ class SecurityApp:
             self.window.after(0, lambda: messagebox.showinfo(title, message))
     
     def download_update(self):
-        """Download latest update from GitHub releases."""
         try:
             messagebox.showinfo("Update", "Downloading update ...")
             response = requests.get(UPDATE_ZIP_URL, stream=True, timeout=30)
@@ -301,7 +293,6 @@ class SecurityApp:
     
     
     def update_phishing_rules(self):
-        """Update phishing detection rules from local file or GitHub."""
         try:
             if os.path.exists('phishing_rules.json'):
                 with open('phishing_rules.json', 'r', encoding='utf-8') as f:
@@ -355,7 +346,6 @@ class SecurityApp:
 
     
     def add_to_history(self, scan_type, content, result):
-        """Add scan result to history."""
         record = {
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "type": scan_type,
@@ -651,7 +641,7 @@ class SecurityApp:
         pass_v = self.cfg_pass.get().strip()
 
         if not email_v or not pass_v:
-            messagebox.showerror("Error", "Email සහ Password දෙකම required!")
+            messagebox.showerror("Error", "Email and Password both are required!")
             return
 
         data = {
