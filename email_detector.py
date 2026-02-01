@@ -2,9 +2,15 @@ import re
 from fuzzywuzzy import fuzz
 
 URL_PATTERN = r'https?://[^\s]+'
-SUSPICIOUS_KEYWORDS = [
-    'urgent', 'verify your account', 'password', 'bank', 'paypal',
-    'click here', 'limited time', 'winner', 'prize', 'account suspended'
+STRONG_KEYWORDS = [
+    "verify your account",
+    "account suspended",
+    "click here immediately",
+    "confirm your password"
+]
+
+SOFT_KEYWORDS = [
+    "bank", "paypal", "password", "login"
 ]
 URGENT_WORDS = ['urgent', 'immediately', 'alert', 'verify now']
 SUSPICIOUS_DOMAINS = ['.tk', '.ml']
