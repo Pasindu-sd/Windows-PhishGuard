@@ -31,14 +31,28 @@ def _extract_urls(text):
 
 
 def _check_keywords(content):
+    content = content.lower()
     score = 0
-    content_lower = content.lower()
-    
-    for keyword in suspicious_keywords:
-        if fuzz.partial_ratio(keyword, content_lower) > FUZZY_MATCH_THRESHOLD:
-            score += SCORE_KEYWORD
-    
+
+    for word in STRONG_KEYWORDS:
+        if word in content:
+            score += 3
+
+    soft_hits = sum(1 for w in SOFT_KEYWORDS if w in content)
+
+    if soft_hits >= 2:
+        score += 2
+
     return score
+
+
+def _check_urgency_with_url(content):
+    content = content.lower()
+    urls = _extract_urls(content)
+
+    if urls and any(w in content for w in URGENT_WORDS):
+        return 2
+    return 0
 
 
 def _check_suspicious_domains(text):
