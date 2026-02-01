@@ -42,12 +42,10 @@ def _check_keywords(content):
     content = content.lower()
     score = 0
 
-    # Strong keywords
     for word in STRONG_KEYWORDS:
         if fuzz.partial_ratio(word, content) > FUZZY_MATCH_THRESHOLD:
             score += 3
 
-    # Soft keywords
     soft_hits = sum(1 for w in SOFT_KEYWORDS if w in content)
     if soft_hits >= 2:
         score += 2
@@ -75,26 +73,21 @@ def check_phishing(email_content):
 
     score = 0
 
-    # Keywords
     score += _check_keywords(email_content)
 
-    # URLs
     urls = _extract_urls(email_content)
     for url in urls:
         if _is_safe_domain(url):
-            score -= 1  # Safe link reduces score
+            score -= 1 
         else:
-            score += SCORE_LINK  # Suspicious link adds score
+            score += SCORE_LINK
 
-    # Suspicious domains in text
     if _check_suspicious_domains(email_content):
         score += SCORE_KEYWORD
 
-    # Prize scam
     if _check_prize_scam(email_content):
         score += SCORE_KEYWORD
 
-    # Assign risk level
     if score <= 1:
         risk = "low"
         reason = "Mostly safe content"
