@@ -115,10 +115,4 @@ Once installed and running, Windows PhishGuard will sit quietly in your system t
 
 ## Project Structure
 
-```
-  phishguard/
-    ├─ detectors/
-    │  ├─ __init__.py
-    │  ├─ email_detector.py    
-    │  └─ url_detector.py      
-    ├─ services/
+
