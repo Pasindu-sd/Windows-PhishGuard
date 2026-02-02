@@ -122,8 +122,3 @@ Once installed and running, Windows PhishGuard will sit quietly in your system t
     │  ├─ email_detector.py    
     │  └─ url_detector.py      
     ├─ services/
-    │  ├─ clipboard_watcher.py
-    │  └─ outlook_reader.py   # optional
-    ├─ storage/
-   
-
