@@ -125,11 +125,5 @@ Once installed and running, Windows PhishGuard will sit quietly in your system t
     │  ├─ clipboard_watcher.py
     │  └─ outlook_reader.py   # optional
     ├─ storage/
-    │  └─ db.py               # SQLite helper
-    ├─ gui.py
-    ├─ main.py                # CLI & glue
-    ├─ requirements.txt
-    └─ README.md
-```
-
+   
 
