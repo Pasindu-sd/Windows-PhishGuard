@@ -80,6 +80,8 @@ If you want to build the application yourself:
     ```bash
     git clone https://github.com/Pasindu-sd/Windows-PhishGuard.git
     cd Windows-PhishGuard
+    pip install -r requirements.txt
+    python main.py
     ```
 
 2.  **Open the Solution:**
