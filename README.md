@@ -108,3 +108,9 @@ Once installed and running, Windows PhishGuard will sit quietly in your system t
     - **Exit** the application.
 
 ---
+
+## Disclaimer
+
+- Only use onztest or personal environments.
+- Do not use for unauthorized access or illegal activities.
+- This tool is under development, features may change.
