@@ -37,7 +37,12 @@ A **powerful Windows security application** designed to proactively detect and a
     └── url_detector.py
 ```
 
-A powerful and intuitive Windows application designed to proactively detect and alert users about potential phishing websites, helping to safeguard your personal information and credentials from online threats.
+## Overview
+
+**Windows PhishGuard** acts as the first line of defense against phishing attacks. It analyzes websites in real-time, checks URLs against known phishing databases, and uses heuristic analysis to identify suspicious patterns. Users are warned before entering sensitive data.  
+
+Phishing is one of the most common cyber threats, and this tool adds an extra layer of protection for everyday Windows users.
+
 
 
 ---
