@@ -1,5 +1,9 @@
 # Windows-PhishGuard
 
+![Python Version](https://img.shields.io/badge/Python-3.11+-blue)
+![License](https://img.shields.io/badge/License-Proprietary-red)
+![Status](https://img.shields.io/badge/Status-Under%20Development-yellow)
+
 ⚠️ License: Windows-PhishGuard is proprietary. You may view the code, but copying, redistribution, or modification is strictly prohibited.
 
 
