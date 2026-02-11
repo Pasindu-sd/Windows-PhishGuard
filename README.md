@@ -57,17 +57,6 @@ Phishing is one of the most common cyber threats, and this tool adds an extra la
 
 ---
 
-## Features
-
-- Real-time URL Analysis**: Automatically scans URLs you visit in your browser.
-- Instant Alerts**: Displays clear, non-intrusive pop-up warnings for suspected phishing sites.
-- Heuristic Checks**: Goes beyond blocklists to analyze page content, domain age, and SSL certificate status for suspicious characteristics.
-- Community Blocklists**: Integrates with and updates from reputable, crowdsourced phishing and malware domain lists.
-- Low System Impact**: Designed to be lightweight and run efficiently in the background.
-- User-Friendly Interface**: Simple settings panel to configure sensitivity and view detection history.
-
----
-
 ## Getting Started
 
 ### Prerequisites
