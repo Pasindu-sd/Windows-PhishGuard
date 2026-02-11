@@ -12,19 +12,29 @@ A **powerful Windows security application** designed to proactively detect and a
 
 ```
   phishguard/
-    ├─ detectors/
-    │  ├─ __init__.py
-    │  ├─ email_detector.py
-    │  └─ url_detector.py
-    ├─ services/
-    │  ├─ clipboard_watcher.py
-    │  └─ outlook_reader.py   # optional
-    ├─ storage/
-    │  └─ db.py               # SQLite helper
-    ├─ gui.py
-    ├─ main.py                # CLI & glue
-    ├─ requirements.txt
-    └─ README.md
+    AIDetector/
+    ├── __pycache__/
+    │   ├── features.cpython-313.pyc
+    │   └── features.cpython-314.pyc
+    ├── check.py
+    ├── features.py
+    ├── model.pkl
+    ├── train.py
+    ├── urls.csv
+    ├── browser_monitor.py
+    ├── client_email_config.py
+    ├── clipboard_monitor.py
+    ├── email_config.json
+    ├── email_detector.py
+    ├── image.png
+    ├── LICENSE
+    ├── local_api.py
+    ├── main.py
+    ├── phishing_rules.json
+    ├── README.md
+    ├── requirements.txt
+    ├── scan_history.json
+    └── url_detector.py
 ```
 
 A powerful and intuitive Windows application designed to proactively detect and alert users about potential phishing websites, helping to safeguard your personal information and credentials from online threats.
