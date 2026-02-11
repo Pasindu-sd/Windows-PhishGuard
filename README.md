@@ -6,8 +6,7 @@
 
 ⚠️ **License:** Windows-PhishGuard is proprietary. You may view the code, but copying, redistribution, or modification is strictly prohibited.
 
-
-that help to detect email phishing and url phishing
+A **powerful Windows security application** designed to proactively detect and alert users about potential phishing websites, helping safeguard personal information and credentials from online threats.
 
 ### Structure:
 
