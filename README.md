@@ -44,20 +44,16 @@ A **powerful Windows security application** designed to proactively detect and a
 Phishing is one of the most common cyber threats, and this tool adds an extra layer of protection for everyday Windows users.
 
 
-
----
-```
-                                   [o]     Under Development Project      [o]
-```
 ---
 
----
+## Features
 
-## Overview
-
-**Windows PhishGuard** is a desktop security tool that acts as your first line of defense against phishing attacks. By analyzing websites in real-time, it checks URLs against known phishing databases and uses heuristic analysis to identify suspicious patterns, warning you before you enter any sensitive data.
-
-Phishing is one of the most common cyber threats, and this tool aims to provide an additional layer of security for everyday Windows users.
+- **Real-time URL Analysis**: Automatically scans URLs visited in the browser.  
+- **Instant Alerts**: Displays non-intrusive pop-up warnings for suspected phishing sites.  
+- **Heuristic Checks**: Analyzes page content, domain age, and SSL certificates to detect suspicious patterns.  
+- **Community Blocklists**: Integrates with crowdsourced phishing and malware domain lists.  
+- **Low System Impact**: Lightweight and efficient in the background.  
+- **User-Friendly Interface**: Simple settings panel to configure sensitivity and view detection history.
 
 ---
 
