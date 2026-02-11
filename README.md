@@ -4,7 +4,7 @@
 ![License](https://img.shields.io/badge/License-Proprietary-red)
 ![Status](https://img.shields.io/badge/Status-Under%20Development-yellow)
 
-⚠️ License: Windows-PhishGuard is proprietary. You may view the code, but copying, redistribution, or modification is strictly prohibited.
+⚠️ **License:** Windows-PhishGuard is proprietary. You may view the code, but copying, redistribution, or modification is strictly prohibited.
 
 
 that help to detect email phishing and url phishing
