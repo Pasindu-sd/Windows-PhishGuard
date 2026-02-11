@@ -8,7 +8,7 @@
 
 A **powerful Windows security application** designed to proactively detect and alert users about potential phishing websites, helping safeguard personal information and credentials from online threats.
 
-### Structure:
+### Project Structure:
 
 ```
   phishguard/
