@@ -910,7 +910,17 @@ class SecurityApp:
             connection_attempts = 0
             max_attempts = 3
             
-            
+            while connection-attempts < max_attempts:
+                try:
+                    connection_attempts += 1
+                    print(f"Email monitor: Connection to {IMAP_SERVER} (attempt {connection_attempts})")
+                    
+                    imap = imaplib.IMAP4_SSL(IMAP_SERVER, timeout=30)
+                    imap.login(EMAIL, PASSWORD)
+                    imap.select("inbox")
+                    
+                    print("Email monitor connected successfully!")
+                    break
                     
 
 if __name__ == "__main__":
