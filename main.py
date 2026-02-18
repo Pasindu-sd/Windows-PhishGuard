@@ -18,6 +18,8 @@ import psutil
 import clipboard_monitor
 import browser_monitor
 from urllib.parse import urlparse
+import socket
+import time
 
 GITHUB_REPO = "Pasindu-sd/Windows-PhishGuard"
 RELEASES_URL = f"https://github.com/{GITHUB_REPO}/releases/latest"
@@ -123,15 +125,9 @@ class SecurityApp:
             if result == "PHISHING" or result == "DANGEROUS":
                 self.show_notification(
                     "Dangerous URL in Clipboard!",
-                    f"Phishing URL detected\n{url[:50]}..."
-                )
+                    f"Phishing URL detected\n{url[:50]}...")
                 
-                response = messagebox.askyesno(
-                    "Dangerous URL Detected!",
-                    f"A dangerous URL was found in your clipboard:\n\n"
-                    f"{url[:100]}...\n\n"
-                    f"Do you want to clear the clipboard?"
-                )
+                response = messagebox.askyesno("Dangerous URL Detected!",f"A dangerous URL was found in your clipboard:\n\n"f"{url[:100]}...\n\n"f"Do you want to clear the clipboard?")
                 
                 if response:
                     self.clipboard_monitor.clear_clipboard()
@@ -141,8 +137,7 @@ class SecurityApp:
             elif result == "SUSPICIOUS":
                 self.show_notification(
                     "Suspicious URL in Clipboard",
-                    f"Suspicious URL copied\n{url[:40]}..."
-                )
+                    f"Suspicious URL copied\n{url[:40]}...")
                 self.add_to_history("Clipboard URL", url, "Suspicious")
             
         except Exception as e:
