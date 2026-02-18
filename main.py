@@ -147,20 +147,11 @@ class SecurityApp:
             
             print(f"Browser Alert: {browser} - {reason}")
             
-            self.show_notification(
-                "Suspicious Browser Activity",
-                f"Suspicious URL in {browser}\n{url[:60]}..."
-            )
+            self.show_notification("Suspicious Browser Activity",f"Suspicious URL in {browser}\n{url[:60]}...")
             
             self.add_to_history(f"Browser ({browser})", url, "Suspicious")
             
-            response = messagebox.askyesno(
-                "Suspicious Browser Activity Detected!",
-                f"Browser: {browser}\n"
-                f"URL: {url[:80]}...\n\n"
-                f"Reason: {reason}\n\n"
-                f"Do you want to block this website?"
-            )
+            response = messagebox.askyesno("Suspicious Browser Activity Detected!",f"Browser: {browser}\n"f"URL: {url[:80]}...\n\n"f"Reason: {reason}\n\n"f"Do you want to block this website?")
             
             if response:
                 self.block_website(url)
