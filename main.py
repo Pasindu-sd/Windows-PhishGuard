@@ -892,7 +892,7 @@ class SecurityApp:
         except Exception as e:
             print(f"Failed to log error: {e}")
 
-   def monitor_emails(self):
+    def monitor_emails(self):
         try:
             try:
                 config = client_email_config.get_config()
