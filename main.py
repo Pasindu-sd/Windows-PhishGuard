@@ -981,7 +981,12 @@ class SecurityApp:
                                     print("Too many consecutive errors. Reconnecting...")
                                     if not self._reconnect_imap(imap, EMAIL, PASSWORD, IMAP_SERVER):
                                         break                                    
-                                    consecutive_errors = 0               
+                                    consecutive_errors = 0
+                    if self.email_monitor_stop_event.wait(EMAIL_MONITOR_CHECK_INTERVAL):
+                        break
+                
+                except Exception as e:
+                               
 
 if __name__ == "__main__":
     app = SecurityApp()
