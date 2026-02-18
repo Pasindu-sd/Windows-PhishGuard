@@ -986,6 +986,29 @@ class SecurityApp:
                         break
                 
                 except Exception as e:
+                    print(f"Email monitor loop error: {e}")
+                self._log_error("Monitor loop", str(e))
+                
+                if (datetime.now() - last_successful_check).seconds > 300:  # 5 minutes
+                    self.show_notification("Monitor Issue","There is a problem with the email monitor. Please restart it.",duration=4)
+                    break
+                    
+                time.sleep(5)
+
+        except Exception as e:
+                self._log_error("Email monitor fatal", str(e))
+                self.show_notification("Monitor Error","A serious error occurred in the email monitor. Please restart.",duration=5)
+                
+        finally:
+            try:
+                if imap:
+                    imap.close()
+                    imap.logout()
+            except:
+                pass
+                
+            self.email_monitor_thread = None
+            print("Email monitoring stopped")
                                
 
 if __name__ == "__main__":
