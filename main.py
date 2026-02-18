@@ -910,7 +910,7 @@ class SecurityApp:
             connection_attempts = 0
             max_attempts = 3
             
-            while connection-attempts < max_attempts:
+            while connection_attempts < max_attempts:
                 try:
                     connection_attempts += 1
                     print(f"Email monitor: Connection to {IMAP_SERVER} (attempt {connection_attempts})")
@@ -921,6 +921,15 @@ class SecurityApp:
                     
                     print("Email monitor connected successfully!")
                     break
+                except socket.gaierror:
+                    if connection_attempts == max_attempts:
+                        self.show_notification("Connection Error", f"IMAP server '{IMAP_SERVER}' Not found. Please check your IMAP server setting.", duration=5)
+                        return
+                    time.sleep(2)
+                    
+                except imaplib.IMAMP4.error as e:
+                    error_str = str(e).lower()
+                    if "authontication failed"
                     
 
 if __name__ == "__main__":
