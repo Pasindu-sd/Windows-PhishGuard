@@ -885,77 +885,33 @@ class SecurityApp:
     
     
     def monitor_emails(self):
-        config = client_email_config.get_config()
-        EMAIL = config['email']
-        PASSWORD = config['password']
-        IMAP_SERVER = config['imap_server']
-
-        imap = None
         try:
-            imap = imaplib.IMAP4_SSL(IMAP_SERVER)
-            imap.login(EMAIL, PASSWORD)
-            imap.select("inbox")
-
-            while not self.email_monitor_stop_event.is_set():
-                _, messages = imap.search(None, 'UNSEEN')
-
-                if messages[0]:
-                    for num in messages[0].split():
-                        if self.email_monitor_stop_event.is_set():
-                            break
-
-                        _, msg_data = imap.fetch(num, "(RFC822)")
-                        msg = email.message_from_bytes(msg_data[0][1])
-
-                        subject = msg.get("subject") or "No Subject"
-
-                        body = ""
-                        if msg.is_multipart():
-                            for part in msg.walk():
-                                if part.get_content_type() == "text/plain":
-                                    try:
-                                        body = part.get_payload(decode=True).decode(errors='ignore')
-                                    except (AttributeError, UnicodeDecodeError, TypeError):
-                                        body = ""
-                                    break
-                        else:
-                            try:
-                                body = msg.get_payload(decode=True).decode(errors='ignore')
-                            except (AttributeError, UnicodeDecodeError, TypeError):
-                                body = ""
-
-                        result = email_detector.check_phishing(f"{subject}\n{body}")
-
-                        if "suspicious" in result or "dangerous" in result:
-                            notification.notify(
-                                title="PhishGuard Alert!",
-                                message=f"Suspicious email detected: {subject[:50]}",
-                                app_name="Windows PhishGuard",
-                                timeout=5
-                            )
-                            if "suspicious" in result:
-                                self.add_to_history("Email", body[:100], "Suspicious")
-                            elif "dangerous" in result:
-                                self.add_to_history("Email", body[:100], "Dangerous")
-
-                        imap.store(num, '+FLAGS', '\\Seen')
-
-                if self.email_monitor_stop_event.wait(EMAIL_MONITOR_CHECK_INTERVAL):
-                    break
-
-        except (imaplib.IMAP4.error, ConnectionError) as e:
-            print(f"Email monitoring error: {e}")
-
-        finally:
             try:
-                if imap is not None:
-                    imap.logout()
-            except (ConnectionError, OSError):
-                pass
+                config = client_email_config.get_config()
+                EMAIL = config['email']
+                PASSWORD = config['password']
+                IMAP_SERVER = config['imap_server']
+                
+                if not EMAIL or not PASSWORD:
+                    self.show_notification("Configuration Error", "The Email setting are not completes, please check the Email config tab", duration=5)
+                    return
+            except FileNotFoundError:
+                self.show_notification("Configuration Missing", "The email configuration file is missing. Please save the settings from the email configuration tab.", duration=5)
+                return
+            except json.JSONDecodeError:
+                self.show_notification("Configuration Error","Email config file is corrupted. Save the setting again", duration=5)
+                return
             
-            self.email_monitor_thread = None
-            print("Email monitoring stopped")
-    
+            if not self._check_internet_connection():
+                self.show_notification("No Internet", "There is no internet connection to check email. Please try again.", duration=5)
+                return
+            
+            imap = None
+            connection_attempts = 0
+            max_attempts = 3
+            
+            
+                    
 
 if __name__ == "__main__":
     app = SecurityApp()
