@@ -945,6 +945,43 @@ class SecurityApp:
                         return
                     time.sleep(2)
                     
+            consecutive_error = 0
+            last_successful_check  = datetime.now()
+            
+            while not self.email_monitor_stop_event.is_set():
+                try:
+                    try:
+                        _, message = imap.search(None, 'UNSEEN')
+                    except imaplib.IMAP4.abort:
+                        print("IMAP connection lost. Attempting to reconnect...")
+                        if not self._reconnect_imap(imap, EMAIL, PASSWORD, IMAP_SERVER):
+                            self.show_notification("connection Lost", "Email monitor connection lost. Please restart.", duration=4)
+                            break
+                        continue
+                    
+                    if messages[0]:
+                        new_emails = messages[0].split()
+                        print(f"Found {len(new_emails)} new email(s)")
+                        
+                        for num in new_emails:
+                            if self.email_monitor_stop_event.is_set():
+                                break
+                            
+                            try:     
+                                self._process_single_email(imap, num)
+                                consecutive_error = 0
+                                last_successful_check = datetime.now()
+                                
+                            except Exception as e:
+                                print(f"Error processing email {num}: {e}")
+                                self._log_error("Email Processing", str(e))
+                                consecutive_error += 1
+                                
+                                if consecutive_errors > 5:
+                                    print("Too many consecutive errors. Reconnecting...")
+                                    if not self._reconnect_imap(imap, EMAIL, PASSWORD, IMAP_SERVER):
+                                        break                                    
+                                    consecutive_errors = 0               
 
 if __name__ == "__main__":
     app = SecurityApp()
