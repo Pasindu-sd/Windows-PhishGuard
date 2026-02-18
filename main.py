@@ -123,9 +123,7 @@ class SecurityApp:
             result = url_detector.detect_url(url)
             
             if result == "PHISHING" or result == "DANGEROUS":
-                self.show_notification(
-                    "Dangerous URL in Clipboard!",
-                    f"Phishing URL detected\n{url[:50]}...")
+                self.show_notification("Dangerous URL in Clipboard!",f"Phishing URL detected\n{url[:50]}...")
                 
                 response = messagebox.askyesno("Dangerous URL Detected!",f"A dangerous URL was found in your clipboard:\n\n"f"{url[:100]}...\n\n"f"Do you want to clear the clipboard?")
                 
@@ -135,9 +133,7 @@ class SecurityApp:
                 self.add_to_history("Clipboard URL", url, "Dangerous")
             
             elif result == "SUSPICIOUS":
-                self.show_notification(
-                    "Suspicious URL in Clipboard",
-                    f"Suspicious URL copied\n{url[:40]}...")
+                self.show_notification("Suspicious URL in Clipboard",f"Suspicious URL copied\n{url[:40]}...")
                 self.add_to_history("Clipboard URL", url, "Suspicious")
             
         except Exception as e:
