@@ -884,7 +884,15 @@ class SecurityApp:
 
     
     
-    def monitor_emails(self):
+    def _log_error(self, context, error_message):
+        try:
+            with open("error_log.txt", "a", encoding="utf-8") as f:
+                timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                f.write(f"[{timestamp}] {context}: {error_message}\n")
+        except Exception as e:
+            print(f"Failed to log error: {e}")
+
+   def monitor_emails(self):
         try:
             try:
                 config = client_email_config.get_config()
@@ -893,19 +901,21 @@ class SecurityApp:
                 IMAP_SERVER = config['imap_server']
                 
                 if not EMAIL or not PASSWORD:
-                    self.show_notification("Configuration Error", "The Email setting are not completes, please check the Email config tab", duration=5)
+                    self.show_notification("Configuration Error", "Email settings incomplete", 5)
                     return
+                    
             except FileNotFoundError:
-                self.show_notification("Configuration Missing", "The email configuration file is missing. Please save the settings from the email configuration tab.", duration=5)
+                self.show_notification("Config Missing", "Please save email settings first", 5)
                 return
             except json.JSONDecodeError:
-                self.show_notification("Configuration Error","Email config file is corrupted. Save the setting again", duration=5)
+                self.show_notification("Config Error", "Email config corrupted", 5)
                 return
-            
-            if not self._check_internet_connection():
-                self.show_notification("No Internet", "There is no internet connection to check email. Please try again.", duration=5)
+                
+            if not self._check_internet():
+                self.show_notification("No Internet", "Check your connection", 4)
+                self.window.after(60000, self.start_email_monitor)
                 return
-            
+
             imap = None
             connection_attempts = 0
             max_attempts = 3
@@ -913,103 +923,135 @@ class SecurityApp:
             while connection_attempts < max_attempts:
                 try:
                     connection_attempts += 1
-                    print(f"Email monitor: Connection to {IMAP_SERVER} (attempt {connection_attempts})")
-                    
                     imap = imaplib.IMAP4_SSL(IMAP_SERVER, timeout=30)
                     imap.login(EMAIL, PASSWORD)
                     imap.select("inbox")
-                    
-                    print("Email monitor connected successfully!")
                     break
+                    
                 except socket.gaierror:
                     if connection_attempts == max_attempts:
-                        self.show_notification("Connection Error", f"IMAP server '{IMAP_SERVER}' Not found. Please check your IMAP server setting.", duration=5)
+                        self.show_notification("Connection Error", f"Cannot find server {IMAP_SERVER}", 5)
                         return
                     time.sleep(2)
                     
-                except imaplib.IMAMP4.error as e:
-                    error_str = str(e).lower()
-                    if "authentication failed" in error_str:
-                        self.show_notification("Login Failed", "Email Or Password is incorrect. Please check your email configuration.", duration=5)
-                    elif "connection refused" in error_str:
-                        self.show_notification("Connection Error", "Unable to connect to the server. Check the internet.", duration=5)
-                    else:
-                        self.show_notification("IMAP Error", "There is a problem with the email server. Try again later.", duration=5)
-                        self._log_error("IMAP connection", str(e))
-                        return
-                
-                except Exception as e:
-                    self._log_error("Unexpected connection error", str(e))
+                except (ConnectionRefusedError, ConnectionResetError):
                     if connection_attempts == max_attempts:
-                        self.show_notification("Connection Failed", "Could not connect to the email server. Please try again later.", duration=5)
+                        self.show_notification("Connection Refused", "Server rejected connection", 5)
                         return
                     time.sleep(2)
                     
-            consecutive_error = 0
-            last_successful_check  = datetime.now()
+                except imaplib.IMAP4.error as e:
+                    if "authentication failed" in str(e).lower():
+                        self.show_notification("Login Failed", "Wrong email or password", 5)
+                    else:
+                        self.show_notification("IMAP Error", "Email server error", 5)
+                    return
+                    
+                except Exception as e:
+                    if connection_attempts == max_attempts:
+                        self.show_notification("Connection Failed", "Cannot connect to server", 4)
+                        return
+                    time.sleep(2)
+
+            consecutive_errors = 0
+            last_successful = datetime.now()
             
             while not self.email_monitor_stop_event.is_set():
                 try:
                     try:
-                        _, message = imap.search(None, 'UNSEEN')
+                        _, messages = imap.search(None, 'UNSEEN')
                     except imaplib.IMAP4.abort:
-                        print("IMAP connection lost. Attempting to reconnect...")
                         if not self._reconnect_imap(imap, EMAIL, PASSWORD, IMAP_SERVER):
-                            self.show_notification("connection Lost", "Email monitor connection lost. Please restart.", duration=4)
                             break
                         continue
                     
                     if messages[0]:
-                        new_emails = messages[0].split()
-                        print(f"Found {len(new_emails)} new email(s)")
-                        
-                        for num in new_emails:
+                        for num in messages[0].split():
                             if self.email_monitor_stop_event.is_set():
                                 break
                             
-                            try:     
-                                self._process_single_email(imap, num)
-                                consecutive_error = 0
-                                last_successful_check = datetime.now()
+                            try:
+                                _, msg_data = imap.fetch(num, "(RFC822)")
+                                msg = email.message_from_bytes(msg_data[0][1])
+
+                                subject = msg.get("subject", "No Subject")
+                                
+                                body = ""
+                                if msg.is_multipart():
+                                    for part in msg.walk():
+                                        if part.get_content_type() == "text/plain":
+                                            try:
+                                                body = part.get_payload(decode=True).decode(errors='ignore')
+                                            except:
+                                                body = ""
+                                            break
+                                else:
+                                    try:
+                                        body = msg.get_payload(decode=True).decode(errors='ignore')
+                                    except:
+                                        body = ""
+
+                                result = email_detector.check_phishing(f"{subject}\n{body}")
+
+                                if "suspicious" in result or "dangerous" in result:
+                                    self.show_notification("PhishGuard Alert", f"Suspicious email: {subject[:50]}", 5)
+                                    if "dangerous" in result:
+                                        self.add_to_history("Email", subject[:100], "Dangerous")
+                                    else:
+                                        self.add_to_history("Email", subject[:100], "Suspicious")
+
+                                imap.store(num, '+FLAGS', '\\Seen')
+                                consecutive_errors = 0
+                                last_successful = datetime.now()
                                 
                             except Exception as e:
-                                print(f"Error processing email {num}: {e}")
-                                self._log_error("Email Processing", str(e))
-                                consecutive_error += 1
-                                
+                                consecutive_errors += 1
                                 if consecutive_errors > 5:
-                                    print("Too many consecutive errors. Reconnecting...")
                                     if not self._reconnect_imap(imap, EMAIL, PASSWORD, IMAP_SERVER):
-                                        break                                    
+                                        break
                                     consecutive_errors = 0
+                    
                     if self.email_monitor_stop_event.wait(EMAIL_MONITOR_CHECK_INTERVAL):
                         break
-                
+                        
                 except Exception as e:
-                    print(f"Email monitor loop error: {e}")
-                self._log_error("Monitor loop", str(e))
-                
-                if (datetime.now() - last_successful_check).seconds > 300:  # 5 minutes
-                    self.show_notification("Monitor Issue","There is a problem with the email monitor. Please restart it.",duration=4)
-                    break
-                    
-                time.sleep(5)
+                    if (datetime.now() - last_successful).seconds > 300:
+                        break
+                    time.sleep(5)
 
         except Exception as e:
-                self._log_error("Email monitor fatal", str(e))
-                self.show_notification("Monitor Error","A serious error occurred in the email monitor. Please restart.",duration=5)
-                
+            self.show_notification("Monitor Error", "Email monitor failed", 5)
+            
         finally:
             try:
                 if imap:
-                    imap.close()
                     imap.logout()
             except:
                 pass
-                
+            
             self.email_monitor_thread = None
-            print("Email monitoring stopped")
-                               
+
+    def _check_internet(self):
+        try:
+            requests.get("https://www.google.com", timeout=5)
+            return True
+        except:
+            return False
+
+    def _reconnect_imap(self, imap, email, password, server):
+        try:
+            try:
+                imap.logout()
+            except:
+                pass
+                
+            new_imap = imaplib.IMAP4_SSL(server, timeout=30)
+            new_imap.login(email, password)
+            new_imap.select("inbox")
+            imap = new_imap
+            return True
+        except:
+            return False                     
 
 if __name__ == "__main__":
     app = SecurityApp()
