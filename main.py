@@ -929,7 +929,21 @@ class SecurityApp:
                     
                 except imaplib.IMAMP4.error as e:
                     error_str = str(e).lower()
-                    if "authontication failed"
+                    if "authentication failed" in error_str:
+                        self.show_notification("Login Failed", "Email Or Password is incorrect. Please check your email configuration.", duration=5)
+                    elif "connection refused" in error_str:
+                        self.show_notification("Connection Error", "Unable to connect to the server. Check the internet.", duration=5)
+                    else:
+                        self.show_notification("IMAP Error", "There is a problem with the email server. Try again later.", duration=5)
+                        self._log_error("IMAP connection", str(e))
+                        return
+                
+                except Exception as e:
+                    self._log_error("Unexpected connection error", str(e))
+                    if connection_attempts == max_attempts:
+                        self.show_notification("Connection Failed", "Could not connect to the email server. Please try again later.", duration=5)
+                        return
+                    time.sleep(2)
                     
 
 if __name__ == "__main__":
