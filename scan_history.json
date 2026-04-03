@@ -1,8 +1,212 @@
 [
   {
-    "timestamp": "2026-04-04 01:09:59",
-    "type": "Clipboard URL",
-    "content": "http://malware-test.com/",
+    "timestamp": "2026-04-04 01:40:11",
+    "type": "Email",
+    "content": "Discover the colors that are dominating 2021",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:13",
+    "type": "Email",
+    "content": "Backtest First. Then Automate.",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:14",
+    "type": "Email",
+    "content": "=?utf-8?q?You_are_invited_to_Binance_P2P_Live_AMA_on_Reddit!?=",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:14",
+    "type": "Email",
+    "content": "Mining Cryptocurrencies On Game Consoles",
+    "result": "Suspicious"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:15",
+    "type": "Email",
+    "content": "=?utf-8?Q?Succeed_at_crypto_with_this_one_tip!=F0=9F=9A=80?=",
+    "result": "Suspicious"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:16",
+    "type": "Email",
+    "content": "Swiss stock exchange approved to launch digital bourse | UCoin &\r\n India Coin airdrops | IOST Trader",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:20",
+    "type": "Email",
+    "content": "[Binance] =?utf-8?b?VVNE4pOILU0=?= Futures Margin Call (Isolated\r\n Mode)",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:21",
+    "type": "Email",
+    "content": "[Binance] =?utf-8?b?VVNE4pOILU0=?= Futures Liquidation Call\r\n 2021-09-16 20:52:44(UTC)",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:22",
+    "type": "Email",
+    "content": "=?utf-8?q?Binance_Futures_Second_Anniversary_Specials_Report?=",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:23",
+    "type": "Email",
+    "content": "Vitalik Buterin makes =?utf-8?b?VGltZeKAmXM=?= 100 Most Influential\r\n People List | Deswap, Crypto B",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:23",
+    "type": "Email",
+    "content": "=?utf-8?q?=5BBinance=5D_Withdrawal_Successful_-_2021-09-17_12=3A59=3A05_?=\r\n =?utf-8?b?KFVUQyk=?=",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:25",
+    "type": "Email",
+    "content": "=?utf-8?Q?Bitcoin_Golden_Cross:_Is_It_Bullish=3F=F0=9F=A4=94?=",
+    "result": "Suspicious"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:26",
+    "type": "Email",
+    "content": "=?utf-8?q?Binance_Futures_turns_2!_=24222=2C222_USDT_=26_222_NFTs_to_Be_W?=\r\n =?utf-8?q?on!?=",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:28",
+    "type": "Email",
+    "content": "[Binance] =?utf-8?b?VVNE4pOILU0=?= Futures Margin Call (Isolated\r\n Mode)",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:29",
+    "type": "Email",
+    "content": "[Binance] =?utf-8?b?VVNE4pOILU0=?= Futures Liquidation Call\r\n 2021-09-18 17:03:50(UTC)",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:31",
+    "type": "Email",
+    "content": "Crack the coding with these super helpful tutorials",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:32",
+    "type": "Email",
+    "content": "=?utf-8?q?=5BBinance=5D_Login_Attempted_from_New_IP_address__175=2E157=2E?=\r\n =?utf-8?q?197=2E2_-_20",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:33",
+    "type": "Email",
+    "content": "OMNI - Saturday Night Live Show",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:34",
+    "type": "Email",
+    "content": "=?UTF-8?Q?=F0=9F=93=96=20Your=20weekly=20report?=",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:35",
+    "type": "Email",
+    "content": "[Binance] =?utf-8?b?VVNE4pOILU0=?= Futures Margin Call (Isolated\r\n Mode)",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:36",
+    "type": "Email",
+    "content": "[Binance] =?utf-8?b?VVNE4pOILU0=?= Futures Liquidation Call\r\n 2021-09-20 03:02:04(UTC)",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:36",
+    "type": "Email",
+    "content": "Tech blog: FREE student activity sheets; AI-identified creative trends; best photographers to follow",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:38",
+    "type": "Email",
+    "content": "Do you have 90 seconds?",
+    "result": "Suspicious"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:39",
+    "type": "Email",
+    "content": "=?utf-8?q?=5BBinance_Futures=5D_Futures_Weekly_Wrap_=28Sept_13th-20th=29_?=\r\n =?utf-8?q?2021-09-20_0",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:40",
+    "type": "Email",
+    "content": "OMNI - Replay Saturday Night Show",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:41",
+    "type": "Email",
+    "content": "Download your free image of the week.",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:42",
+    "type": "Email",
+    "content": "=?UTF-8?Q?We_just_made_signing=C2=A0up_and=C2=A0buyin?=\r\n =?UTF-8?Q?g=C2=A0crypto_on_AAX,_easier_tha",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:43",
+    "type": "Email",
+    "content": "Markets Go Up. And Down.",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:47",
+    "type": "Email",
+    "content": "Sale of NFT Tokens",
+    "result": "Suspicious"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:49",
+    "type": "Email",
+    "content": "Claim your US$5 reward today",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:51",
+    "type": "Email",
+    "content": "=?utf-8?Q?What=E2=80=99s_the_difference_between_trading_and_inv?=\r\n =?utf-8?Q?esting_in_crypto=3F=F0",
+    "result": "Suspicious"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:52",
+    "type": "Email",
+    "content": "=?utf-8?q?Last_Chance_For_=24222=2C222_USDT!_Offer_Ends_Tomorrow!_2021-09?=\r\n =?utf-8?b?LTIzIDAyOjA2",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:53",
+    "type": "Email",
+    "content": "How to buy OMNI coins",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:55",
+    "type": "Email",
+    "content": "=?utf-8?q?Save_More=2C_Earn_More!_Trading_Fee_Discount_for_USD=E2=93=88-M?=\r\n =?utf-8?q?_BUSD_Tradin",
+    "result": "Dangerous"
+  },
+  {
+    "timestamp": "2026-04-04 01:40:57",
+    "type": "Email",
+    "content": "1 Million OMNI Coins Giveaway!",
     "result": "Dangerous"
   }
 ]
