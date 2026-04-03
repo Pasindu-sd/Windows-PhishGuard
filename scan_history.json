@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "timestamp": "2026-04-04 01:09:59",
+    "type": "Clipboard URL",
+    "content": "http://malware-test.com/",
+    "result": "Dangerous"
+  }
+]
