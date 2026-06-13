@@ -1,7 +1,9 @@
 import joblib
 import os
 import sys
-import re
+import time
+
+import requests
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
@@ -11,6 +13,8 @@ from AIDetector.features import extract_features
 # Constants
 # ============================================
 MODEL_PATH = os.path.join("AIDetector", "model.pkl")
+GOOGLE_SAFE_BROWSING_URL = "https://safebrowsing.googleapis.com/v4/threatMatches:find"
+SAFE_BROWSING_CACHE_TTL_SECONDS = 300
 
 # Rule-based detection patterns
 PHISHING_INDICATORS = {
@@ -22,6 +26,7 @@ SAFE_PROTOCOLS = ['https://']
 
 # Global variable for dynamic rule updates (used by main.py)
 suspicious_patterns = list(PHISHING_INDICATORS.keys())
+safe_browsing_cache = {}
 
 
 # ============================================
@@ -37,7 +42,127 @@ def _check_phishing_indicators(url):
         bool: True if phishing indicators found
     """
     url_lower = url.lower()
-    return any(indicator in url_lower for indicator in PHISHING_INDICATORS.keys())
+    return any(indicator in url_lower for indicator in suspicious_patterns)
+
+
+def _normalize_url(url):
+    """Normalize URL for scanning.
+
+    Args:
+        url (str): Raw URL input
+
+    Returns:
+        str: URL with protocol for API checks
+    """
+    normalized = (url or "").strip()
+    if normalized and not normalized.startswith(("http://", "https://")):
+        return f"https://{normalized}"
+    return normalized
+
+
+def _get_safe_browsing_api_key():
+    """Read Google Safe Browsing API key from environment variables."""
+    return (
+        os.environ.get("GOOGLE_SAFE_BROWSING_API_KEY")
+        or os.environ.get("SAFE_BROWSING_API_KEY")
+        or ""
+    ).strip()
+
+
+def _get_cached_safe_browsing_result(url):
+    """Return cached Safe Browsing result if still valid."""
+    record = safe_browsing_cache.get(url)
+    if not record:
+        return None
+
+    if time.time() - record["ts"] > SAFE_BROWSING_CACHE_TTL_SECONDS:
+        safe_browsing_cache.pop(url, None)
+        return None
+
+    return record["result"]
+
+
+def _set_cached_safe_browsing_result(url, result):
+    """Store Safe Browsing result in a short-lived cache."""
+    safe_browsing_cache[url] = {
+        "ts": time.time(),
+        "result": result,
+    }
+
+
+def _check_google_safe_browsing(url):
+    """Check URL reputation using Google Safe Browsing API.
+
+    Returns a dictionary with status flags. If API key is unavailable
+    or the request fails, malicious will remain False and source will
+    indicate why.
+    """
+    normalized_url = _normalize_url(url)
+    api_key = _get_safe_browsing_api_key()
+
+    default_result = {
+        "malicious": False,
+        "threat_types": [],
+        "source": "safe_browsing_unavailable",
+    }
+
+    if not normalized_url:
+        return default_result
+
+    cached = _get_cached_safe_browsing_result(normalized_url)
+    if cached is not None:
+        return cached
+
+    if not api_key:
+        _set_cached_safe_browsing_result(normalized_url, default_result)
+        return default_result
+
+    payload = {
+        "client": {
+            "clientId": "windows-phishguard",
+            "clientVersion": "1.1.0",
+        },
+        "threatInfo": {
+            "threatTypes": [
+                "MALWARE",
+                "SOCIAL_ENGINEERING",
+                "UNWANTED_SOFTWARE",
+                "POTENTIALLY_HARMFUL_APPLICATION",
+            ],
+            "platformTypes": ["ANY_PLATFORM"],
+            "threatEntryTypes": ["URL"],
+            "threatEntries": [{"url": normalized_url}],
+        },
+    }
+
+    try:
+        response = requests.post(
+            f"{GOOGLE_SAFE_BROWSING_URL}?key={api_key}",
+            json=payload,
+            timeout=5,
+        )
+        response.raise_for_status()
+        data = response.json() if response.content else {}
+
+        matches = data.get("matches", [])
+        result = {
+            "malicious": bool(matches),
+            "threat_types": sorted(
+                {item.get("threatType", "UNKNOWN") for item in matches}
+            ),
+            "source": "google_safe_browsing",
+        }
+        _set_cached_safe_browsing_result(normalized_url, result)
+        return result
+
+    except requests.RequestException as error:
+        fallback = {
+            "malicious": False,
+            "threat_types": [],
+            "source": f"safe_browsing_error: {error}",
+        }
+        _set_cached_safe_browsing_result(normalized_url, fallback)
+        return fallback
 
 
 def _load_ml_model():
@@ -93,6 +218,13 @@ def detect_url(url):
             - "SAFE": URL appears legitimate
             - "PHISHING": URL detected as phishing
     """
+    # Google Safe Browsing check first for real-time reputation verdict.
+    safe_browsing_result = _check_google_safe_browsing(url)
+    if safe_browsing_result["malicious"]:
+        threat_types = ", ".join(safe_browsing_result["threat_types"]) or "UNKNOWN"
+        print(f"[Google Safe Browsing] Threat detected: {threat_types}")
+        return "PHISHING"
+
     # Rule-based check
     result_rule = "PHISHING" if _check_phishing_indicators(url) else "SAFE"
     
@@ -107,6 +239,7 @@ def detect_url(url):
     # Log results for debugging
     print(f"[Rule-Based] Result: {result_rule}")
     print(f"[ML-Based] Result: {result_ml['label']} ({result_ml['score']*100:.1f}%)")
+    print(f"[Safe Browsing] Source: {safe_browsing_result['source']}")
     
     # Final verdict: If either detects phishing, mark as phishing
     if result_rule == "PHISHING" or result_ml["label"] == "PHISHING":

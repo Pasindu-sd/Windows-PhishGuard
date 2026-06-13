@@ -144,12 +144,18 @@ class SecurityApp:
             url = data.get('url', '')
             browser = data.get('browser', 'Unknown')
             reason = data.get('reason', 'Suspicious activity detected')
+            scan_result = data.get('scan_result', 'SUSPICIOUS')
             
             print(f"Browser Alert: {browser} - {reason}")
             
-            self.show_notification("Suspicious Browser Activity",f"Suspicious URL in {browser}\n{url[:60]}...")
-            
-            self.add_to_history(f"Browser ({browser})", url, "Suspicious")
+            if scan_result in ("PHISHING", "DANGEROUS"):
+                self.show_notification("Dangerous Browser URL", f"Dangerous URL in {browser}\n{url[:60]}...")
+                history_result = "Dangerous"
+            else:
+                self.show_notification("Suspicious Browser Activity", f"Suspicious URL in {browser}\n{url[:60]}...")
+                history_result = "Suspicious"
+
+            self.add_to_history(f"Browser ({browser})", url, history_result)
             
             response = messagebox.askyesno("Suspicious Browser Activity Detected!",f"Browser: {browser}\n"f"URL: {url[:80]}...\n\n"f"Reason: {reason}\n\n"f"Do you want to block this website?")
             
@@ -772,7 +778,8 @@ class SecurityApp:
             messagebox.showwarning("Warning", "Please enter email content")
             return
 
-        result = email_detector.check_phishing(email_content)
+        # Pass same text as headers fallback to detect pasted raw header blocks.
+        result = email_detector.check_phishing(email_content, headers=email_content)
 
         if "safe email" in result:
             display_result = "A secure email"
@@ -973,7 +980,18 @@ class SecurityApp:
                                     except:
                                         body = ""
 
-                                result = email_detector.check_phishing(f"{subject}\n{body}")
+                                headers = {
+                                    "From": msg.get("From", ""),
+                                    "Reply-To": msg.get("Reply-To", ""),
+                                    "Return-Path": msg.get("Return-Path", ""),
+                                    "Authentication-Results": msg.get("Authentication-Results", ""),
+                                    "Received": msg.get("Received", ""),
+                                }
+
+                                result = email_detector.check_phishing(
+                                    f"{subject}\n{body}",
+                                    headers=headers,
+                                )
 
                                 if "suspicious" in result or "dangerous" in result:
                                     self.show_notification("PhishGuard Alert", f"Suspicious email: {subject[:50]}", 5)

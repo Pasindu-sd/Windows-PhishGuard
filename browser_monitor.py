@@ -2,8 +2,9 @@ import psutil
 import time
 import threading
 import re
-import os
 from datetime import datetime
+
+import url_detector
 
 class BrowserMonitor:
     def __init__(self, callback_function=None):
@@ -127,7 +128,13 @@ class BrowserMonitor:
                         
                         checked_urls.add(url_hash)
                         
+                        detector_result = url_detector.detect_url(url)
                         is_suspicious, reason = self.check_url_suspicious(url)
+
+                        # Promote ML/Google-Safe-Browsing phishing verdicts to suspicious alerts.
+                        if detector_result in ("PHISHING", "DANGEROUS"):
+                            is_suspicious = True
+                            reason = f"Reputation engine flagged as {detector_result}"
                         
                         if is_suspicious:
                             print(f"SUSPICIOUS URL in {browser}:")
@@ -139,6 +146,7 @@ class BrowserMonitor:
                                     'url': url,
                                     'browser': browser,
                                     'reason': reason,
+                                    'scan_result': detector_result,
                                     'timestamp': current_time
                                 })
                         else:
